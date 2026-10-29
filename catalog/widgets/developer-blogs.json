@@ -2,6 +2,7 @@
   "plugin": "glyx.rss",
   "title": "Developer blogs",
   "variant": "headlines",
+  "height": 420,
   "config": {
     "feeds": [
       "https://github.blog/feed/",

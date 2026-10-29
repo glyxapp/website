@@ -55,9 +55,31 @@ function yamlView(text) {
   return pre;
 }
 
+/** The screenshot from tools/capture-previews.mjs; click to see it full size. */
+function shot(item) {
+  if (!item.preview) return null;
+  const src = new URL(item.preview).pathname;
+  const img = h("img", { src, alt: `Preview of ${item.name}`, loading: "lazy" });
+  img.onerror = () => box.remove();
+  const box = h("button", { class: "shot", title: "Enlarge", onclick: () => zoom(src, img.alt) }, img);
+  return box;
+}
+
+function zoom(src, alt) {
+  const close = () => {
+    box.remove();
+    removeEventListener("keydown", onKey);
+  };
+  const onKey = (e) => e.key === "Escape" && close();
+  const box = h("div", { class: "zoom", role: "dialog", "aria-label": alt, onclick: close }, h("img", { src, alt }));
+  addEventListener("keydown", onKey);
+  document.body.append(box);
+}
+
 function templateCard(t) {
   const preview = h("button", { class: "btn quiet", "aria-expanded": "false" }, "Preview");
   const card = h("article", { class: "card" },
+    shot(t),
     h("h3", {}, t.name),
     h("p", {}, t.description),
     h("div", { class: "meta" }, `${t.pages.length} page${t.pages.length > 1 ? "s" : ""} · ${t.count} widgets`),
@@ -80,6 +102,7 @@ function templateCard(t) {
 
 function widgetCard(w) {
   return h("article", { class: "card" },
+    shot(w),
     h("h3", {}, w.name, h("small", {}, w.pluginName)),
     h("p", {}, w.description),
     h("div", { class: "tags" }, w.builtin ? h("span", { class: "tag" }, "Built in") : h("span", { class: "tag src" }, `Needs ${w.pluginName}`),
@@ -90,6 +113,7 @@ function widgetCard(w) {
 function sourceCard(s) {
   const kb = Math.max(1, Math.round(s.size / 1024));
   return h("article", { class: "card" },
+    shot(s),
     h("h3", {}, s.name, h("small", {}, `${s.version} · ${s.id}`)),
     h("p", {}, s.description),
     h("div", { class: "meta" }, `By ${s.author} · ${kb} KB`),

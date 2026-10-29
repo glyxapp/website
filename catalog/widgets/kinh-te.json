@@ -2,6 +2,7 @@
   "plugin": "glyx.rss",
   "title": "Kinh tế & chứng khoán",
   "variant": "headlines",
+  "height": 420,
   "config": {
     "feeds": [
       "https://cafef.vn/thi-truong-chung-khoan.rss",

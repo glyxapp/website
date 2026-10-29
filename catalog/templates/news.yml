@@ -28,6 +28,7 @@ pages:
           - plugin: glyx.rss
             title: World
             variant: headlines
+            height: 360
             config:
               feeds: [https://feeds.bbci.co.uk/news/world/rss.xml, https://www.theverge.com/rss/index.xml]
           - plugin: glyx.markets

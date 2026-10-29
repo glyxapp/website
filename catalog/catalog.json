@@ -24,7 +24,8 @@
         "To-do"
       ],
       "count": 8,
-      "link": "glyx://import?url=https://glyx.org/catalog/templates/developer.yml"
+      "link": "glyx://import?url=https://glyx.org/catalog/templates/developer.yml",
+      "preview": "https://glyx.org/catalog/previews/template-developer.jpg"
     },
     {
       "id": "news",
@@ -46,7 +47,8 @@
         "Weather"
       ],
       "count": 6,
-      "link": "glyx://import?url=https://glyx.org/catalog/templates/news.yml"
+      "link": "glyx://import?url=https://glyx.org/catalog/templates/news.yml",
+      "preview": "https://glyx.org/catalog/previews/template-news.jpg"
     },
     {
       "id": "markets",
@@ -66,7 +68,8 @@
         "RSS"
       ],
       "count": 5,
-      "link": "glyx://import?url=https://glyx.org/catalog/templates/markets.yml"
+      "link": "glyx://import?url=https://glyx.org/catalog/templates/markets.yml",
+      "preview": "https://glyx.org/catalog/previews/template-markets.jpg"
     },
     {
       "id": "minimal",
@@ -85,7 +88,8 @@
         "Weather"
       ],
       "count": 3,
-      "link": "glyx://import?url=https://glyx.org/catalog/templates/minimal.yml"
+      "link": "glyx://import?url=https://glyx.org/catalog/templates/minimal.yml",
+      "preview": "https://glyx.org/catalog/previews/template-minimal.jpg"
     }
   ],
   "widgets": [
@@ -101,7 +105,8 @@
       "plugin": "glyx.rss",
       "pluginName": "RSS",
       "builtin": true,
-      "link": "glyx://add?url=https://glyx.org/catalog/widgets/tech-news.json"
+      "link": "glyx://add?url=https://glyx.org/catalog/widgets/tech-news.json",
+      "preview": "https://glyx.org/catalog/previews/widget-tech-news.jpg"
     },
     {
       "id": "tin-viet-nam",
@@ -115,7 +120,8 @@
       "plugin": "glyx.rss",
       "pluginName": "RSS",
       "builtin": true,
-      "link": "glyx://add?url=https://glyx.org/catalog/widgets/tin-viet-nam.json"
+      "link": "glyx://add?url=https://glyx.org/catalog/widgets/tin-viet-nam.json",
+      "preview": "https://glyx.org/catalog/previews/widget-tin-viet-nam.jpg"
     },
     {
       "id": "kinh-te",
@@ -129,7 +135,8 @@
       "plugin": "glyx.rss",
       "pluginName": "RSS",
       "builtin": true,
-      "link": "glyx://add?url=https://glyx.org/catalog/widgets/kinh-te.json"
+      "link": "glyx://add?url=https://glyx.org/catalog/widgets/kinh-te.json",
+      "preview": "https://glyx.org/catalog/previews/widget-kinh-te.jpg"
     },
     {
       "id": "developer-blogs",
@@ -142,7 +149,8 @@
       "plugin": "glyx.rss",
       "pluginName": "RSS",
       "builtin": true,
-      "link": "glyx://add?url=https://glyx.org/catalog/widgets/developer-blogs.json"
+      "link": "glyx://add?url=https://glyx.org/catalog/widgets/developer-blogs.json",
+      "preview": "https://glyx.org/catalog/previews/widget-developer-blogs.jpg"
     },
     {
       "id": "show-hn",
@@ -155,7 +163,8 @@
       "plugin": "glyx.hackernews",
       "pluginName": "Hacker News",
       "builtin": true,
-      "link": "glyx://add?url=https://glyx.org/catalog/widgets/show-hn.json"
+      "link": "glyx://add?url=https://glyx.org/catalog/widgets/show-hn.json",
+      "preview": "https://glyx.org/catalog/previews/widget-show-hn.jpg"
     },
     {
       "id": "ai-tool-releases",
@@ -169,7 +178,8 @@
       "plugin": "glyx.releases",
       "pluginName": "Releases",
       "builtin": true,
-      "link": "glyx://add?url=https://glyx.org/catalog/widgets/ai-tool-releases.json"
+      "link": "glyx://add?url=https://glyx.org/catalog/widgets/ai-tool-releases.json",
+      "preview": "https://glyx.org/catalog/previews/widget-ai-tool-releases.jpg"
     },
     {
       "id": "world-clock",
@@ -182,7 +192,8 @@
       "plugin": "glyx.clock",
       "pluginName": "Clock",
       "builtin": true,
-      "link": "glyx://add?url=https://glyx.org/catalog/widgets/world-clock.json"
+      "link": "glyx://add?url=https://glyx.org/catalog/widgets/world-clock.json",
+      "preview": "https://glyx.org/catalog/previews/widget-world-clock.jpg"
     },
     {
       "id": "weather-hcmc",
@@ -196,7 +207,8 @@
       "plugin": "glyx.weather",
       "pluginName": "Weather",
       "builtin": true,
-      "link": "glyx://add?url=https://glyx.org/catalog/widgets/weather-hcmc.json"
+      "link": "glyx://add?url=https://glyx.org/catalog/widgets/weather-hcmc.json",
+      "preview": "https://glyx.org/catalog/previews/widget-weather-hcmc.jpg"
     },
     {
       "id": "crypto",
@@ -209,7 +221,8 @@
       "plugin": "glyx.markets",
       "pluginName": "Markets",
       "builtin": true,
-      "link": "glyx://add?url=https://glyx.org/catalog/widgets/crypto.json"
+      "link": "glyx://add?url=https://glyx.org/catalog/widgets/crypto.json",
+      "preview": "https://glyx.org/catalog/previews/widget-crypto.jpg"
     },
     {
       "id": "ty-gia-vang",
@@ -223,7 +236,8 @@
       "plugin": "glyx.markets",
       "pluginName": "Markets",
       "builtin": true,
-      "link": "glyx://add?url=https://glyx.org/catalog/widgets/ty-gia-vang.json"
+      "link": "glyx://add?url=https://glyx.org/catalog/widgets/ty-gia-vang.json",
+      "preview": "https://glyx.org/catalog/previews/widget-ty-gia-vang.jpg"
     },
     {
       "id": "vn-holidays",
@@ -237,7 +251,8 @@
       "plugin": "glyx.calendar",
       "pluginName": "Calendar",
       "builtin": true,
-      "link": "glyx://add?url=https://glyx.org/catalog/widgets/vn-holidays.json"
+      "link": "glyx://add?url=https://glyx.org/catalog/widgets/vn-holidays.json",
+      "preview": "https://glyx.org/catalog/previews/widget-vn-holidays.jpg"
     },
     {
       "id": "pomodoro-deep-work",
@@ -250,7 +265,8 @@
       "plugin": "cleon.pomodoro",
       "pluginName": "Pomodoro",
       "builtin": false,
-      "link": "glyx://add?url=https://glyx.org/catalog/widgets/pomodoro-deep-work.json"
+      "link": "glyx://add?url=https://glyx.org/catalog/widgets/pomodoro-deep-work.json",
+      "preview": "https://glyx.org/catalog/previews/widget-pomodoro-deep-work.jpg"
     }
   ],
   "sources": [
@@ -267,7 +283,8 @@
       "file": "/catalog/sources/cleon.pomodoro.zip",
       "size": 2347,
       "code": "https://github.com/glyxapp/website/tree/main/sources/cleon.pomodoro",
-      "link": "glyx://install?url=https://glyx.org/catalog/sources/cleon.pomodoro.zip"
+      "link": "glyx://install?url=https://glyx.org/catalog/sources/cleon.pomodoro.zip",
+      "preview": "https://glyx.org/catalog/previews/source-cleon.pomodoro.jpg"
     }
   ]
 }

@@ -20,6 +20,7 @@ pages:
           - plugin: glyx.rss
             title: Developer blogs
             variant: headlines
+            height: 360
             config:
               limit: 15
               feeds: [https://github.blog/feed/, https://hnrss.org/show, https://blog.rust-lang.org/feed.xml]

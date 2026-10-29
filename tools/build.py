@@ -42,6 +42,12 @@ def pack(folder: Path) -> bytes:
     return buf.getvalue()
 
 
+def preview(name: str) -> dict:
+    """`catalog/previews/<name>.jpg`, captured by tools/capture-previews.mjs, when there is one."""
+    path = f"catalog/previews/{name}.jpg"
+    return {"preview": f"{SITE}/{path}"} if (ROOT / path).is_file() else {}
+
+
 def permissions(p: dict) -> list:
     """The same words Glyx shows in its install dialog (src-tauri/src/import.rs)."""
     out = []
@@ -83,7 +89,7 @@ def main():
             **meta, "name": m["name"], "version": m["version"], "description": m.get("description", ""),
             "permissions": permissions(m.get("permissions", {})), "file": f"/{path}", "size": len(data),
             "code": f"{REPO}/sources/{m['id']}",
-            "link": f"glyx://install?url={SITE}/{path}",
+            "link": f"glyx://install?url={SITE}/{path}", **preview(f"source-{m['id']}"),
         })
 
     for meta in src["templates"]:
@@ -96,7 +102,7 @@ def main():
         out["templates"].append({
             **meta, "file": f"/{path}", "pages": [p["name"] for p in cfg["pages"]],
             "widgets": sorted({names[w["plugin"]] for w in widgets}), "count": len(widgets),
-            "link": f"glyx://import?url={SITE}/{path}",
+            "link": f"glyx://import?url={SITE}/{path}", **preview(f"template-{meta['id']}"),
         })
 
     for meta in src["widgets"]:
@@ -106,7 +112,7 @@ def main():
             fail(f"{path}: unknown widget source {w.get('plugin')}")
         out["widgets"].append({
             **meta, "file": f"/{path}", "plugin": w["plugin"], "pluginName": names[w["plugin"]],
-            "builtin": w["plugin"] in BUILTIN, "link": f"glyx://add?url={SITE}/{path}",
+            "builtin": w["plugin"] in BUILTIN, "link": f"glyx://add?url={SITE}/{path}", **preview(f"widget-{meta['id']}"),
         })
 
     files["catalog/catalog.json"] = (json.dumps(out, ensure_ascii=False, indent=2) + "\n").encode()
