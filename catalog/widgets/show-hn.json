@@ -1,0 +1,8 @@
+{
+  "plugin": "glyx.hackernews",
+  "title": "Show HN",
+  "config": {
+    "feed": "show",
+    "showTabs": false
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "plugin": "glyx.rss",
+  "title": "Kinh tế & chứng khoán",
+  "variant": "headlines",
+  "config": {
+    "feeds": [
+      "https://cafef.vn/thi-truong-chung-khoan.rss",
+      "https://vneconomy.vn/chung-khoan.rss",
+      "https://vietstock.vn/830/chung-khoan/co-phieu.rss",
+      "https://vnexpress.net/rss/kinh-doanh.rss",
+      "https://cafebiz.vn/rss/home.rss"
+    ],
+    "limit": 15
+  }
+}

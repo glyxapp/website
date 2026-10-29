@@ -1,0 +1,36 @@
+# Glyx template "Developer desk" from glyx.org/templates
+theme: { preset: dark, accent: "#7aa2f7" }
+label:
+  tray: glyx.ai-usage
+  pills: [glyx.ai-usage#claude, glyx.system#cpu]
+pages:
+  - name: Code
+    columns:
+      - size: small
+        widgets:
+          - plugin: glyx.clock
+            variant: compact
+            config: { zones: [{ label: UTC, tz: Etc/UTC }] }
+          - plugin: glyx.ai-usage
+          - plugin: glyx.system
+      - size: full
+        widgets:
+          - plugin: glyx.hackernews
+            config: { limit: 12 }
+          - plugin: glyx.rss
+            title: Developer blogs
+            variant: headlines
+            config:
+              limit: 15
+              feeds: [https://github.blog/feed/, https://hnrss.org/show, https://blog.rust-lang.org/feed.xml]
+      - size: small
+        widgets:
+          - plugin: glyx.releases
+            config: { repos: [tauri-apps/tauri, microsoft/vscode, nodejs/node, anthropics/claude-code] }
+          - plugin: glyx.monitor
+            title: Services
+            config:
+              targets:
+                - { name: GitHub, url: "https://github.com" }
+                - { name: npm, url: "https://registry.npmjs.org" }
+          - plugin: glyx.todo

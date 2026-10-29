@@ -1,0 +1,49 @@
+{
+  "templates": [
+    {
+      "id": "developer",
+      "name": "Developer desk",
+      "description": "Hacker News, release notes of your tools, AI quota, service checks and a to-do list on one page.",
+      "tags": ["dev", "ai"]
+    },
+    {
+      "id": "news",
+      "name": "Morning news",
+      "description": "Vietnamese and world headlines next to the weather, this week and the dollar and gold rates.",
+      "tags": ["news", "vietnam"]
+    },
+    {
+      "id": "markets",
+      "name": "Market watch",
+      "description": "Indices with monthly charts, crypto, market news and the clocks of the big exchanges.",
+      "tags": ["finance"]
+    },
+    {
+      "id": "minimal",
+      "name": "Minimal desk",
+      "description": "An analog clock, the weather and a to-do list pinned to the desktop. Nothing else.",
+      "tags": ["minimal"]
+    }
+  ],
+  "widgets": [
+    { "id": "tech-news", "name": "Tech news", "description": "Hacker News front page and The Verge in one list.", "tags": ["news", "dev"] },
+    { "id": "tin-viet-nam", "name": "Tin Việt Nam", "description": "VnExpress, Tuổi Trẻ, Thanh Niên and Dân Trí as a grid of cards.", "tags": ["news", "vietnam"] },
+    { "id": "kinh-te", "name": "Kinh tế & chứng khoán", "description": "Stock market news from CafeF, VnEconomy and Vietstock.", "tags": ["finance", "vietnam"] },
+    { "id": "developer-blogs", "name": "Developer blogs", "description": "The GitHub blog, Show HN and Viblo as compact headlines.", "tags": ["dev"] },
+    { "id": "show-hn", "name": "Show HN", "description": "What people are building, straight from Hacker News.", "tags": ["dev"] },
+    { "id": "ai-tool-releases", "name": "AI tool releases", "description": "New versions of Claude Code, Ollama and llama.cpp, marked until you open them.", "tags": ["ai", "dev"] },
+    { "id": "world-clock", "name": "World clock", "description": "Tokyo, London and New York with their offset from you.", "tags": ["time"] },
+    { "id": "weather-hcmc", "name": "Weather in Saigon", "description": "Now, the next 12 hours and 7 days for Ho Chi Minh City.", "tags": ["weather", "vietnam"] },
+    { "id": "crypto", "name": "Crypto", "description": "Bitcoin, Ethereum and Solana with a price chart.", "tags": ["finance"] },
+    { "id": "ty-gia-vang", "name": "Tỷ giá & vàng", "description": "USD/VND, EUR/VND and gold.", "tags": ["finance", "vietnam"] },
+    { "id": "vn-holidays", "name": "Ngày lễ Việt Nam", "description": "A calendar counting down to the public holidays.", "tags": ["time", "vietnam"] },
+    { "id": "pomodoro-deep-work", "name": "Deep work timer", "description": "50 minutes of focus, 10 of rest. Needs the Pomodoro source.", "tags": ["focus"] }
+  ],
+  "sources": [
+    {
+      "id": "cleon.pomodoro",
+      "author": "Cleon",
+      "tags": ["focus"]
+    }
+  ]
+}

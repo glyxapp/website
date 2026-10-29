@@ -1,0 +1,273 @@
+{
+  "version": 1,
+  "templates": [
+    {
+      "id": "developer",
+      "name": "Developer desk",
+      "description": "Hacker News, release notes of your tools, AI quota, service checks and a to-do list on one page.",
+      "tags": [
+        "dev",
+        "ai"
+      ],
+      "file": "/catalog/templates/developer.yml",
+      "pages": [
+        "Code"
+      ],
+      "widgets": [
+        "AI usage",
+        "Clock",
+        "Hacker News",
+        "Monitor",
+        "RSS",
+        "Releases",
+        "System",
+        "To-do"
+      ],
+      "count": 8,
+      "link": "glyx://import?url=https://glyx.org/catalog/templates/developer.yml"
+    },
+    {
+      "id": "news",
+      "name": "Morning news",
+      "description": "Vietnamese and world headlines next to the weather, this week and the dollar and gold rates.",
+      "tags": [
+        "news",
+        "vietnam"
+      ],
+      "file": "/catalog/templates/news.yml",
+      "pages": [
+        "News"
+      ],
+      "widgets": [
+        "Calendar",
+        "Clock",
+        "Markets",
+        "RSS",
+        "Weather"
+      ],
+      "count": 6,
+      "link": "glyx://import?url=https://glyx.org/catalog/templates/news.yml"
+    },
+    {
+      "id": "markets",
+      "name": "Market watch",
+      "description": "Indices with monthly charts, crypto, market news and the clocks of the big exchanges.",
+      "tags": [
+        "finance"
+      ],
+      "file": "/catalog/templates/markets.yml",
+      "pages": [
+        "Markets"
+      ],
+      "widgets": [
+        "Calendar",
+        "Clock",
+        "Markets",
+        "RSS"
+      ],
+      "count": 5,
+      "link": "glyx://import?url=https://glyx.org/catalog/templates/markets.yml"
+    },
+    {
+      "id": "minimal",
+      "name": "Minimal desk",
+      "description": "An analog clock, the weather and a to-do list pinned to the desktop. Nothing else.",
+      "tags": [
+        "minimal"
+      ],
+      "file": "/catalog/templates/minimal.yml",
+      "pages": [
+        "Desk"
+      ],
+      "widgets": [
+        "Clock",
+        "To-do",
+        "Weather"
+      ],
+      "count": 3,
+      "link": "glyx://import?url=https://glyx.org/catalog/templates/minimal.yml"
+    }
+  ],
+  "widgets": [
+    {
+      "id": "tech-news",
+      "name": "Tech news",
+      "description": "Hacker News front page and The Verge in one list.",
+      "tags": [
+        "news",
+        "dev"
+      ],
+      "file": "/catalog/widgets/tech-news.json",
+      "plugin": "glyx.rss",
+      "pluginName": "RSS",
+      "builtin": true,
+      "link": "glyx://add?url=https://glyx.org/catalog/widgets/tech-news.json"
+    },
+    {
+      "id": "tin-viet-nam",
+      "name": "Tin Việt Nam",
+      "description": "VnExpress, Tuổi Trẻ, Thanh Niên and Dân Trí as a grid of cards.",
+      "tags": [
+        "news",
+        "vietnam"
+      ],
+      "file": "/catalog/widgets/tin-viet-nam.json",
+      "plugin": "glyx.rss",
+      "pluginName": "RSS",
+      "builtin": true,
+      "link": "glyx://add?url=https://glyx.org/catalog/widgets/tin-viet-nam.json"
+    },
+    {
+      "id": "kinh-te",
+      "name": "Kinh tế & chứng khoán",
+      "description": "Stock market news from CafeF, VnEconomy and Vietstock.",
+      "tags": [
+        "finance",
+        "vietnam"
+      ],
+      "file": "/catalog/widgets/kinh-te.json",
+      "plugin": "glyx.rss",
+      "pluginName": "RSS",
+      "builtin": true,
+      "link": "glyx://add?url=https://glyx.org/catalog/widgets/kinh-te.json"
+    },
+    {
+      "id": "developer-blogs",
+      "name": "Developer blogs",
+      "description": "The GitHub blog, Show HN and Viblo as compact headlines.",
+      "tags": [
+        "dev"
+      ],
+      "file": "/catalog/widgets/developer-blogs.json",
+      "plugin": "glyx.rss",
+      "pluginName": "RSS",
+      "builtin": true,
+      "link": "glyx://add?url=https://glyx.org/catalog/widgets/developer-blogs.json"
+    },
+    {
+      "id": "show-hn",
+      "name": "Show HN",
+      "description": "What people are building, straight from Hacker News.",
+      "tags": [
+        "dev"
+      ],
+      "file": "/catalog/widgets/show-hn.json",
+      "plugin": "glyx.hackernews",
+      "pluginName": "Hacker News",
+      "builtin": true,
+      "link": "glyx://add?url=https://glyx.org/catalog/widgets/show-hn.json"
+    },
+    {
+      "id": "ai-tool-releases",
+      "name": "AI tool releases",
+      "description": "New versions of Claude Code, Ollama and llama.cpp, marked until you open them.",
+      "tags": [
+        "ai",
+        "dev"
+      ],
+      "file": "/catalog/widgets/ai-tool-releases.json",
+      "plugin": "glyx.releases",
+      "pluginName": "Releases",
+      "builtin": true,
+      "link": "glyx://add?url=https://glyx.org/catalog/widgets/ai-tool-releases.json"
+    },
+    {
+      "id": "world-clock",
+      "name": "World clock",
+      "description": "Tokyo, London and New York with their offset from you.",
+      "tags": [
+        "time"
+      ],
+      "file": "/catalog/widgets/world-clock.json",
+      "plugin": "glyx.clock",
+      "pluginName": "Clock",
+      "builtin": true,
+      "link": "glyx://add?url=https://glyx.org/catalog/widgets/world-clock.json"
+    },
+    {
+      "id": "weather-hcmc",
+      "name": "Weather in Saigon",
+      "description": "Now, the next 12 hours and 7 days for Ho Chi Minh City.",
+      "tags": [
+        "weather",
+        "vietnam"
+      ],
+      "file": "/catalog/widgets/weather-hcmc.json",
+      "plugin": "glyx.weather",
+      "pluginName": "Weather",
+      "builtin": true,
+      "link": "glyx://add?url=https://glyx.org/catalog/widgets/weather-hcmc.json"
+    },
+    {
+      "id": "crypto",
+      "name": "Crypto",
+      "description": "Bitcoin, Ethereum and Solana with a price chart.",
+      "tags": [
+        "finance"
+      ],
+      "file": "/catalog/widgets/crypto.json",
+      "plugin": "glyx.markets",
+      "pluginName": "Markets",
+      "builtin": true,
+      "link": "glyx://add?url=https://glyx.org/catalog/widgets/crypto.json"
+    },
+    {
+      "id": "ty-gia-vang",
+      "name": "Tỷ giá & vàng",
+      "description": "USD/VND, EUR/VND and gold.",
+      "tags": [
+        "finance",
+        "vietnam"
+      ],
+      "file": "/catalog/widgets/ty-gia-vang.json",
+      "plugin": "glyx.markets",
+      "pluginName": "Markets",
+      "builtin": true,
+      "link": "glyx://add?url=https://glyx.org/catalog/widgets/ty-gia-vang.json"
+    },
+    {
+      "id": "vn-holidays",
+      "name": "Ngày lễ Việt Nam",
+      "description": "A calendar counting down to the public holidays.",
+      "tags": [
+        "time",
+        "vietnam"
+      ],
+      "file": "/catalog/widgets/vn-holidays.json",
+      "plugin": "glyx.calendar",
+      "pluginName": "Calendar",
+      "builtin": true,
+      "link": "glyx://add?url=https://glyx.org/catalog/widgets/vn-holidays.json"
+    },
+    {
+      "id": "pomodoro-deep-work",
+      "name": "Deep work timer",
+      "description": "50 minutes of focus, 10 of rest. Needs the Pomodoro source.",
+      "tags": [
+        "focus"
+      ],
+      "file": "/catalog/widgets/pomodoro-deep-work.json",
+      "plugin": "cleon.pomodoro",
+      "pluginName": "Pomodoro",
+      "builtin": false,
+      "link": "glyx://add?url=https://glyx.org/catalog/widgets/pomodoro-deep-work.json"
+    }
+  ],
+  "sources": [
+    {
+      "id": "cleon.pomodoro",
+      "author": "Cleon",
+      "tags": [
+        "focus"
+      ],
+      "name": "Pomodoro",
+      "version": "1.0.0",
+      "description": "A focus timer: work, short breaks and a long break every few rounds",
+      "permissions": [],
+      "file": "/catalog/sources/cleon.pomodoro.zip",
+      "size": 2347,
+      "code": "https://github.com/glyxapp/website/tree/main/sources/cleon.pomodoro",
+      "link": "glyx://install?url=https://glyx.org/catalog/sources/cleon.pomodoro.zip"
+    }
+  ]
+}

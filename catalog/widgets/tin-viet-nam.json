@@ -1,0 +1,13 @@
+{
+  "plugin": "glyx.rss",
+  "title": "Tin Việt Nam",
+  "variant": "grid",
+  "config": {
+    "feeds": [
+      "https://vnexpress.net/rss/tin-moi-nhat.rss",
+      "https://tuoitre.vn/rss/tin-moi-nhat.rss",
+      "https://thanhnien.vn/rss/home.rss",
+      "https://dantri.com.vn/rss/home.rss"
+    ]
+  }
+}

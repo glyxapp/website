@@ -1,0 +1,15 @@
+# Glyx template "Minimal desk" from glyx.org/templates
+theme: { preset: system }
+window: { mode: widget }
+pages:
+  - name: Desk
+    columns:
+      - size: small
+        widgets:
+          - plugin: glyx.clock
+            variant: analog
+            config: { zones: [] }
+          - plugin: glyx.weather
+            variant: compact
+            config: { location: Hanoi }
+          - plugin: glyx.todo

@@ -1,0 +1,33 @@
+# Glyx template "Market watch" from glyx.org/templates
+theme: { preset: dark, accent: "#9ece6a" }
+label:
+  pills: [glyx.markets]
+pages:
+  - name: Markets
+    columns:
+      - size: large
+        widgets:
+          - plugin: glyx.markets
+            title: Indices
+            variant: cards
+            config:
+              range: 1mo
+              symbols: [{ symbol: ^GSPC, name: S&P 500 }, { symbol: ^IXIC, name: Nasdaq }, { symbol: ^N225, name: Nikkei 225 }]
+          - plugin: glyx.markets
+            title: Crypto
+            config:
+              symbols: [{ symbol: BTC-USD, name: Bitcoin }, { symbol: ETH-USD, name: Ethereum }, { symbol: SOL-USD, name: Solana }]
+      - size: full
+        widgets:
+          - plugin: glyx.rss
+            title: Markets news
+            config:
+              limit: 14
+              feeds: [https://cafef.vn/thi-truong-chung-khoan.rss, https://vneconomy.vn/chung-khoan.rss, https://feeds.bbci.co.uk/news/business/rss.xml]
+      - size: small
+        widgets:
+          - plugin: glyx.clock
+            title: Exchanges
+            config:
+              zones: [{ label: New York, tz: America/New_York }, { label: London, tz: Europe/London }, { label: Tokyo, tz: Asia/Tokyo }]
+          - plugin: glyx.calendar

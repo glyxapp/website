@@ -1,0 +1,11 @@
+{
+  "plugin": "glyx.releases",
+  "title": "AI tool releases",
+  "config": {
+    "repos": [
+      "anthropics/claude-code",
+      "ollama/ollama",
+      "ggml-org/llama.cpp"
+    ]
+  }
+}

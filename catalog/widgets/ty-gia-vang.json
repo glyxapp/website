@@ -1,0 +1,20 @@
+{
+  "plugin": "glyx.markets",
+  "title": "Tỷ giá & vàng",
+  "config": {
+    "symbols": [
+      {
+        "symbol": "USDVND=X",
+        "name": "USD/VND"
+      },
+      {
+        "symbol": "EURVND=X",
+        "name": "EUR/VND"
+      },
+      {
+        "symbol": "GC=F",
+        "name": "Gold"
+      }
+    ]
+  }
+}

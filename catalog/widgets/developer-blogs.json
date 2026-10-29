@@ -1,0 +1,13 @@
+{
+  "plugin": "glyx.rss",
+  "title": "Developer blogs",
+  "variant": "headlines",
+  "config": {
+    "feeds": [
+      "https://github.blog/feed/",
+      "https://hnrss.org/show",
+      "https://viblo.asia/rss"
+    ],
+    "limit": 15
+  }
+}

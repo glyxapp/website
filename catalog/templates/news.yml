@@ -1,0 +1,36 @@
+# Glyx template "Morning news" from glyx.org/templates
+theme: { preset: system, accent: "#e0af68" }
+label:
+  tray: glyx.weather
+pages:
+  - name: News
+    columns:
+      - size: small
+        widgets:
+          - plugin: glyx.clock
+          - plugin: glyx.weather
+            config: { location: Hanoi }
+          - plugin: glyx.calendar
+            variant: week
+      - size: full
+        widgets:
+          - plugin: glyx.rss
+            title: Tin mới
+            variant: grid
+            config:
+              limit: 12
+              feeds:
+                - https://vnexpress.net/rss/tin-moi-nhat.rss
+                - https://tuoitre.vn/rss/tin-moi-nhat.rss
+                - https://thanhnien.vn/rss/home.rss
+      - size: medium
+        widgets:
+          - plugin: glyx.rss
+            title: World
+            variant: headlines
+            config:
+              feeds: [https://feeds.bbci.co.uk/news/world/rss.xml, https://www.theverge.com/rss/index.xml]
+          - plugin: glyx.markets
+            title: Tỷ giá & vàng
+            config:
+              symbols: [{ symbol: USDVND=X, name: USD/VND }, { symbol: GC=F, name: Gold }]

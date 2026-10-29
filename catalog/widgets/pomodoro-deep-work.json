@@ -1,0 +1,10 @@
+{
+  "plugin": "cleon.pomodoro",
+  "title": "Deep work",
+  "config": {
+    "work": 50,
+    "shortBreak": 10,
+    "longBreak": 30,
+    "rounds": 3
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "plugin": "glyx.weather",
+  "title": "Weather",
+  "config": {
+    "location": "Ho Chi Minh City"
+  }
+}

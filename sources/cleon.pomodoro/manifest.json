@@ -1,0 +1,49 @@
+{
+  "id": "cleon.pomodoro",
+  "name": "Pomodoro",
+  "version": "1.0.0",
+  "apiVersion": 1,
+  "description": "A focus timer: work, short breaks and a long break every few rounds",
+  "permissions": {},
+  "size": {
+    "defaultHeight": 190
+  },
+  "config": {
+    "work": {
+      "type": "number",
+      "default": 25,
+      "min": 1,
+      "max": 120,
+      "label": "Focus minutes"
+    },
+    "shortBreak": {
+      "type": "number",
+      "default": 5,
+      "min": 1,
+      "max": 60,
+      "label": "Short break minutes"
+    },
+    "longBreak": {
+      "type": "number",
+      "default": 15,
+      "min": 1,
+      "max": 120,
+      "label": "Long break minutes"
+    },
+    "rounds": {
+      "type": "number",
+      "default": 4,
+      "min": 1,
+      "max": 12,
+      "label": "Rounds before a long break"
+    }
+  },
+  "presets": [
+    {
+      "name": "Deep work",
+      "description": "50 minutes on, 10 off",
+      "title": "Deep work",
+      "config": { "work": 50, "shortBreak": 10, "longBreak": 30, "rounds": 3 }
+    }
+  ]
+}

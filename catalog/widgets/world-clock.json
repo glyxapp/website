@@ -1,0 +1,20 @@
+{
+  "plugin": "glyx.clock",
+  "title": "World clock",
+  "config": {
+    "zones": [
+      {
+        "label": "Tokyo",
+        "tz": "Asia/Tokyo"
+      },
+      {
+        "label": "London",
+        "tz": "Europe/London"
+      },
+      {
+        "label": "New York",
+        "tz": "America/New_York"
+      }
+    ]
+  }
+}

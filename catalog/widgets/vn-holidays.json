@@ -1,0 +1,24 @@
+{
+  "plugin": "glyx.calendar",
+  "title": "Ngày lễ",
+  "config": {
+    "events": [
+      {
+        "date": "01-01",
+        "label": "Tết Dương lịch"
+      },
+      {
+        "date": "04-30",
+        "label": "Giải phóng miền Nam"
+      },
+      {
+        "date": "05-01",
+        "label": "Quốc tế Lao động"
+      },
+      {
+        "date": "09-02",
+        "label": "Quốc khánh"
+      }
+    ]
+  }
+}
