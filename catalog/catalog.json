@@ -282,6 +282,7 @@
       "permissions": [],
       "file": "/catalog/sources/cleon.pomodoro.zip",
       "size": 2347,
+      "sha256": "e448bb48ce507dc1e9c67720f966ee58f13dbafa29cd0db8292dbdc7db8892d0",
       "code": "https://github.com/glyxapp/website/tree/main/sources/cleon.pomodoro",
       "link": "glyx://install?url=https://glyx.org/catalog/sources/cleon.pomodoro.zip",
       "preview": "https://glyx.org/catalog/previews/source-cleon.pomodoro.jpg"
