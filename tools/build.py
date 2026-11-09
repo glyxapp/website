@@ -30,12 +30,42 @@ REPO = "https://github.com/glyxapp/website/tree/main"
 TAURI_CLI = "@tauri-apps/cli@2.12.4"
 
 # Widgets that ship with Glyx, so the gallery can name them.
+# `glyx.ai-usage` became `glyx.claude-usage` and `glyx.chatgpt-usage`; Glyx still reads it.
 BUILTIN = {
-    "glyx.ai-usage": "AI usage", "glyx.bookmarks": "Bookmarks", "glyx.calendar": "Calendar",
-    "glyx.clock": "Clock", "glyx.hackernews": "Hacker News", "glyx.markets": "Markets",
-    "glyx.monitor": "Monitor", "glyx.releases": "Releases", "glyx.rss": "RSS",
-    "glyx.system": "System", "glyx.todo": "To-do", "glyx.weather": "Weather",
+    "glyx.ai-usage": "AI usage", "glyx.air": "Air quality", "glyx.battery": "Battery",
+    "glyx.bookmarks": "Bookmarks", "glyx.calendar": "Calendar", "glyx.chatgpt-usage": "ChatGPT usage",
+    "glyx.claude-usage": "Claude usage", "glyx.clock": "Clock", "glyx.github": "GitHub",
+    "glyx.gold": "Gold prices", "glyx.hackernews": "Hacker News", "glyx.keys": "Typing",
+    "glyx.markets": "Markets", "glyx.media": "Now playing", "glyx.monitor": "Monitor",
+    "glyx.network": "Network", "glyx.notes": "Notes", "glyx.rates": "Exchange rates",
+    "glyx.releases": "Releases", "glyx.rss": "RSS", "glyx.system": "System", "glyx.timer": "Timer",
+    "glyx.todo": "To-do", "glyx.tv": "TV", "glyx.vocab": "Vocabulary", "glyx.weather": "Weather",
 }
+# Templates use the page grid (docs/settings.md §3.6 in the Glyx repo): what one screen holds.
+GRID_COLS, SCREEN_ROWS = 24, 16
+
+
+def page_widgets(page: dict) -> list:
+    """A page's widgets: `widgets` on the grid, or the `columns` of templates written before it."""
+    return page.get("widgets", []) + [w for c in page.get("columns", []) for w in c.get("widgets", [])]
+
+
+def check_grid(path: str, page: dict):
+    """A `fit` page is one screen: its placed widgets stay on the grid, overlap nothing, and fill
+    24 x 16 cells, so the template looks the same in Glyx as in its preview."""
+    cells = {}
+    for w in page.get("widgets", []):
+        if not all(k in w for k in ("x", "y", "cols", "rows")):
+            continue
+        if w["x"] < 0 or w["y"] < 0 or w["x"] + w["cols"] > GRID_COLS:
+            fail(f"{path}: {w['plugin']} on page {page['name']} is off the grid")
+        for x in range(w["x"], w["x"] + w["cols"]):
+            for y in range(w["y"], w["y"] + w["rows"]):
+                if (x, y) in cells:
+                    fail(f"{path}: {w['plugin']} overlaps {cells[(x, y)]} on page {page['name']}")
+                cells[(x, y)] = w["plugin"]
+    if page.get("mode") == "fit" and len(cells) != GRID_COLS * SCREEN_ROWS:
+        fail(f"{path}: page {page['name']} is fit but covers {len(cells)} of {GRID_COLS * SCREEN_ROWS} cells")
 
 
 def fail(msg):
@@ -119,7 +149,9 @@ def main():
     for meta in src["templates"]:
         path = f"catalog/templates/{meta['id']}.yml"
         cfg = yaml.safe_load((ROOT / path).read_text(encoding="utf-8"))
-        widgets = [w for p in cfg.get("pages", []) for c in p.get("columns", []) for w in c.get("widgets", [])]
+        widgets = [w for p in cfg.get("pages", []) for w in page_widgets(p)]
+        for p in cfg.get("pages", []):
+            check_grid(path, p)
         unknown = sorted({w["plugin"] for w in widgets} - names.keys())
         if unknown:
             fail(f"{path}: unknown widgets {unknown}")

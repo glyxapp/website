@@ -3,25 +3,37 @@
     {
       "id": "developer",
       "name": "Developer desk",
-      "description": "Hacker News, release notes of your tools, AI quota, service checks and a to-do list on one page.",
-      "tags": ["dev", "ai"]
+      "description": "Hacker News, dev blogs, releases of your tools, Claude and ChatGPT quota and service checks; a second page for focus with a 50/10 timer, a scratchpad and your links.",
+      "tags": ["dev", "ai", "focus"]
     },
     {
       "id": "news",
       "name": "Morning news",
-      "description": "Vietnamese and world headlines next to the weather, this week and the dollar and gold rates.",
+      "description": "Vietnamese headlines from five papers, the world, weather, the lunar date, gold and the dollar, in the Paper skin; a second page has business, tech, sport and health.",
       "tags": ["news", "vietnam"]
     },
     {
       "id": "markets",
       "name": "Market watch",
-      "description": "Indices with monthly charts, crypto, market news and the clocks of the big exchanges.",
-      "tags": ["finance"]
+      "description": "VN-Index, VN30 and blue chips, gold and the dong with market news; a second page has world indices, crypto, commodities, big tech and the exchanges' clocks.",
+      "tags": ["finance", "vietnam"]
+    },
+    {
+      "id": "study",
+      "name": "Study desk",
+      "description": "Pomodoro with a daily goal, homework, an English word card, notes and the lunar calendar, in the soft Mochi skin.",
+      "tags": ["focus", "learning"]
+    },
+    {
+      "id": "homelab",
+      "name": "Home lab",
+      "description": "CPU, memory and network graphs, uptime checks and new releases of self-hosted apps, with a runbook, on the green Phosphor terminal skin.",
+      "tags": ["dev", "ops"]
     },
     {
       "id": "minimal",
       "name": "Minimal desk",
-      "description": "An analog clock, the weather and a to-do list pinned to the desktop. Nothing else.",
+      "description": "An analog clock, the weather, today's lunar date and a to-do list pinned to the desktop, without headers. Nothing else.",
       "tags": ["minimal"]
     }
   ],

@@ -1,33 +1,141 @@
 # Glyx template "Market watch" from glyx.org/templates
+# Vietnamese stocks (DNSE), gold and the dong on the first page; world indices, crypto,
+# commodities and the big exchanges on the second. No API key anywhere.
 theme: { preset: dark, accent: "#9ece6a" }
 label:
+  tray: glyx.gold
   pills: [glyx.markets]
 pages:
-  - name: Markets
-    columns:
-      - size: large
-        widgets:
-          - plugin: glyx.markets
-            title: Indices
-            variant: cards
-            config:
-              range: 1mo
-              symbols: [{ symbol: ^GSPC, name: S&P 500 }, { symbol: ^IXIC, name: Nasdaq }, { symbol: ^N225, name: Nikkei 225 }]
-          - plugin: glyx.markets
-            title: Crypto
-            config:
-              symbols: [{ symbol: BTC-USD, name: Bitcoin }, { symbol: ETH-USD, name: Ethereum }, { symbol: SOL-USD, name: Solana }]
-      - size: full
-        widgets:
-          - plugin: glyx.rss
-            title: Markets news
-            config:
-              limit: 14
-              feeds: [https://cafef.vn/thi-truong-chung-khoan.rss, https://vneconomy.vn/chung-khoan.rss, https://feeds.bbci.co.uk/news/business/rss.xml]
-      - size: small
-        widgets:
-          - plugin: glyx.clock
-            title: Exchanges
-            config:
-              zones: [{ label: New York, tz: America/New_York }, { label: London, tz: Europe/London }, { label: Tokyo, tz: Asia/Tokyo }]
-          - plugin: glyx.calendar
+  - name: Việt Nam
+    mode: fit
+    widgets:
+      - plugin: glyx.markets
+        title: Chỉ số
+        variant: cards
+        x: 0
+        y: 0
+        cols: 12
+        rows: 8
+        config:
+          range: 1mo
+          symbols:
+            - { symbol: VNINDEX, name: VN-Index, source: vn }
+            - { symbol: VN30, source: vn }
+            - { symbol: HNX, name: HNX-Index, source: vn }
+            - { symbol: UPCOM, name: UPCoM, source: vn }
+      - plugin: glyx.markets
+        title: Cổ phiếu
+        x: 0
+        y: 8
+        cols: 6
+        rows: 8
+        config:
+          symbols:
+            - { symbol: FPT, source: vn }
+            - { symbol: VCB, source: vn }
+            - { symbol: HPG, source: vn }
+            - { symbol: MWG, source: vn }
+            - { symbol: VNM, source: vn }
+            - { symbol: SSI, source: vn }
+      - plugin: glyx.gold
+        x: 6
+        y: 8
+        cols: 6
+        rows: 8
+        style: { accent: "#d4a017" }
+      - plugin: glyx.rss
+        title: Chứng khoán
+        variant: headlines
+        x: 12
+        y: 0
+        cols: 12
+        rows: 8
+        config: { source: topic, topic: chung-khoan, limit: 20 }
+      - plugin: glyx.rates
+        x: 12
+        y: 8
+        cols: 6
+        rows: 8
+        config: { from: USD, to: VND, others: [EUR, JPY, CNY, KRW, SGD, THB] }
+      - plugin: glyx.rss
+        title: Tài chính
+        variant: headlines
+        x: 18
+        y: 8
+        cols: 6
+        rows: 8
+        config: { source: topic, topic: tai-chinh, limit: 20 }
+
+  - name: Global
+    mode: fit
+    widgets:
+      - plugin: glyx.markets
+        title: Indices
+        variant: cards
+        x: 0
+        y: 0
+        cols: 12
+        rows: 8
+        config:
+          range: 1mo
+          symbols:
+            - { symbol: ^GSPC, name: S&P 500 }
+            - { symbol: ^IXIC, name: Nasdaq }
+            - { symbol: ^N225, name: Nikkei 225 }
+            - { symbol: ^HSI, name: Hang Seng }
+      - plugin: glyx.markets
+        title: Crypto
+        x: 0
+        y: 8
+        cols: 6
+        rows: 8
+        config:
+          symbols:
+            - { symbol: BTC-USD, name: Bitcoin }
+            - { symbol: ETH-USD, name: Ethereum }
+            - { symbol: SOL-USD, name: Solana }
+            - { symbol: BNB-USD, name: BNB }
+      - plugin: glyx.markets
+        title: Commodities & FX
+        x: 6
+        y: 8
+        cols: 6
+        rows: 8
+        config:
+          symbols:
+            - { symbol: GC=F, name: Gold }
+            - { symbol: CL=F, name: Crude oil }
+            - { symbol: DX-Y.NYB, name: Dollar index }
+            - { symbol: ^TNX, name: US 10Y yield }
+            - { symbol: EURUSD=X, name: EUR/USD }
+      - plugin: glyx.clock
+        title: Exchanges
+        x: 12
+        y: 0
+        cols: 6
+        rows: 8
+        config:
+          zones:
+            - { label: New York, tz: America/New_York }
+            - { label: London, tz: Europe/London }
+            - { label: Tokyo, tz: Asia/Tokyo }
+      - plugin: glyx.markets
+        title: Big tech
+        x: 12
+        y: 8
+        cols: 6
+        rows: 8
+        config:
+          symbols: [{ symbol: NVDA }, { symbol: AAPL }, { symbol: MSFT }, { symbol: GOOGL }, { symbol: AMZN }, { symbol: META }]
+      - plugin: glyx.rss
+        title: Business
+        variant: headlines
+        x: 18
+        y: 0
+        cols: 6
+        rows: 16
+        config:
+          limit: 25
+          feeds:
+            - https://feeds.bbci.co.uk/news/business/rss.xml
+            - https://www.cnbc.com/id/100003114/device/rss/rss.html

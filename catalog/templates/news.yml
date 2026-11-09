@@ -1,37 +1,104 @@
 # Glyx template "Morning news" from glyx.org/templates
-theme: { preset: system, accent: "#e0af68" }
+# Vietnamese papers through the RSS widget's own sources (no feed URLs to keep up to date), the
+# weather and the lunar date, gold and the dollar. The second page has one paper section per column.
+theme: { skin: paper, preset: system }
 label:
   tray: glyx.weather
 pages:
-  - name: News
-    columns:
-      - size: small
-        widgets:
-          - plugin: glyx.clock
-          - plugin: glyx.weather
-            config: { location: Hanoi }
-          - plugin: glyx.calendar
-            variant: week
-      - size: full
-        widgets:
-          - plugin: glyx.rss
-            title: Tin mới
-            variant: grid
-            config:
-              limit: 12
-              feeds:
-                - https://vnexpress.net/rss/tin-moi-nhat.rss
-                - https://tuoitre.vn/rss/tin-moi-nhat.rss
-                - https://thanhnien.vn/rss/home.rss
-      - size: medium
-        widgets:
-          - plugin: glyx.rss
-            title: World
-            variant: headlines
-            height: 360
-            config:
-              feeds: [https://feeds.bbci.co.uk/news/world/rss.xml, https://www.theverge.com/rss/index.xml]
-          - plugin: glyx.markets
-            title: Tỷ giá & vàng
-            config:
-              symbols: [{ symbol: USDVND=X, name: USD/VND }, { symbol: GC=F, name: Gold }]
+  - name: Tin chính
+    mode: fit
+    widgets:
+      - plugin: glyx.clock
+        x: 0
+        y: 0
+        cols: 6
+        rows: 4
+        config: { zones: [] }
+      - plugin: glyx.weather
+        x: 0
+        y: 4
+        cols: 6
+        rows: 8
+        config: { location: Hanoi }
+      - plugin: glyx.calendar
+        variant: day
+        x: 0
+        y: 12
+        cols: 6
+        rows: 4
+        config:
+          lunar: true
+          upcoming: 1
+          events:
+            - { date: "L 01-01", label: Tết Nguyên Đán }
+            - { date: "L 03-10", label: Giỗ Tổ Hùng Vương }
+            - { date: "04-30", label: Giải phóng miền Nam }
+            - { date: "09-02", label: Quốc khánh }
+      - plugin: glyx.rss
+        title: Tin mới
+        variant: grid
+        x: 6
+        y: 0
+        cols: 12
+        rows: 16
+        config:
+          source: category
+          category: thoi-su
+          papers: [vnexpress, tuoitre, thanhnien, dantri, vietnamnet]
+          limit: 30
+      - plugin: glyx.rss
+        title: Thế giới
+        variant: headlines
+        x: 18
+        y: 0
+        cols: 6
+        rows: 8
+        config: { source: category, category: the-gioi, limit: 20 }
+      - plugin: glyx.gold
+        x: 18
+        y: 8
+        cols: 6
+        rows: 4
+        style: { accent: "#d4a017" }
+      - plugin: glyx.rates
+        x: 18
+        y: 12
+        cols: 6
+        rows: 4
+        config: { from: USD, to: VND, others: [EUR, JPY, CNY, KRW] }
+
+  - name: Chuyên mục
+    mode: fit
+    widgets:
+      - plugin: glyx.rss
+        title: Kinh doanh
+        variant: headlines
+        x: 0
+        y: 0
+        cols: 6
+        rows: 16
+        config: { source: category, category: kinh-doanh, limit: 25 }
+      - plugin: glyx.rss
+        title: Công nghệ
+        variant: headlines
+        x: 6
+        y: 0
+        cols: 6
+        rows: 16
+        config: { source: category, category: cong-nghe, limit: 25 }
+      - plugin: glyx.rss
+        title: Thể thao
+        variant: headlines
+        x: 12
+        y: 0
+        cols: 6
+        rows: 16
+        config: { source: category, category: the-thao, limit: 25 }
+      - plugin: glyx.rss
+        title: Sức khỏe
+        variant: headlines
+        x: 18
+        y: 0
+        cols: 6
+        rows: 16
+        config: { source: category, category: suc-khoe, limit: 25 }

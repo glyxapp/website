@@ -1,0 +1,63 @@
+# Glyx template "Home lab" from glyx.org/templates
+# The machine, the network, uptime checks and new releases of popular self-hosted apps, on the
+# green Phosphor terminal skin. Add your own servers to Services: LAN addresses work too.
+theme: { skin: phosphor }
+label:
+  tray: glyx.monitor
+  pills: [glyx.system#cpu, glyx.network]
+pages:
+  - name: Ops
+    mode: fit
+    widgets:
+      - plugin: glyx.system
+        variant: graph
+        x: 0
+        y: 0
+        cols: 6
+        rows: 8
+      - plugin: glyx.network
+        x: 0
+        y: 8
+        cols: 6
+        rows: 8
+      - plugin: glyx.monitor
+        title: Services
+        x: 6
+        y: 0
+        cols: 12
+        rows: 8
+        config:
+          targets:
+            - { name: Cloudflare, url: "https://1.1.1.1" }
+            - { name: Google, url: "https://www.google.com" }
+            - { name: GitHub, url: "https://github.com" }
+            - { name: Docker Hub, url: "https://hub.docker.com" }
+            - { name: Tailscale, url: "https://login.tailscale.com" }
+      - plugin: glyx.releases
+        title: Self-hosted
+        x: 6
+        y: 8
+        cols: 12
+        rows: 8
+        config:
+          repos: [home-assistant/core, immich-app/immich, jellyfin/jellyfin, louislam/uptime-kuma, traefik/traefik, portainer/portainer]
+      - plugin: glyx.clock
+        x: 18
+        y: 0
+        cols: 6
+        rows: 4
+        config: { zones: [{ label: UTC, tz: Etc/UTC }] }
+      - plugin: glyx.todo
+        title: Maintenance
+        x: 18
+        y: 4
+        cols: 6
+        rows: 4
+        config: { list: maintenance }
+      - plugin: glyx.notes
+        title: Runbook
+        x: 18
+        y: 8
+        cols: 6
+        rows: 8
+        config: { name: runbook, mono: true }

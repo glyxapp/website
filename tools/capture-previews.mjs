@@ -37,10 +37,13 @@ function writeConfig(cfg) {
   const { label, ...rest } = cfg;
   rest.window = { ...rest.window, mode: "normal", opacity: 1, backdrop: "none" };
   // Previews are public: keep the local session folders of the AI usage widget out of them.
-  for (const w of (rest.pages || []).flatMap((p) => (p.columns || []).flatMap((c) => c.widgets || []))) {
+  const widgets = (p) => [...(p.widgets || []), ...(p.columns || []).flatMap((c) => c.widgets || [])];
+  for (const w of (rest.pages || []).flatMap(widgets)) {
     if (w.plugin === "glyx.ai-usage") w.config = { ...w.config, showSessions: false };
     // News photos belong to their publishers; the previews show headlines only.
     if (w.plugin === "glyx.rss") w.config = { ...w.config, showImages: false };
+    // What is playing on this PC is nobody's business: an empty card rather than your music.
+    if (w.plugin === "glyx.media") w.hidden = true;
   }
   fs.writeFileSync(configFile, JSON.stringify(rest, null, 2));
 }
@@ -99,7 +102,50 @@ async function show(cfg, settle) {
   await evaluate("document.querySelectorAll('.appset, .drawer, .modal, .scrim, .gal').forEach((e) => e.remove())");
   // And no hover state from wherever the real mouse is.
   await call("Input.dispatchMouseEvent", { type: "mouseMoved", x: 1279, y: 799 });
+  await scrub();
   return before;
+}
+
+// Previews are public: the Network widget shows this PC's IP address, so every address in its
+// frame becomes a stand-in, also when it redraws. Other widgets keep theirs (Monitor's 1.1.1.1).
+const SCRUB = `(() => {
+  const ip = /\\b(?:\\d{1,3}\\.){3}\\d{1,3}\\b|\\b(?:[0-9a-f]{1,4}:){2,7}:?[0-9a-f]{1,4}\\b/gi;
+  const run = () => {
+    const walk = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    for (let n; (n = walk.nextNode()); ) {
+      const text = n.data.replace(ip, "192.168.1.20");
+      if (text !== n.data) n.data = text;
+    }
+  };
+  run();
+  new MutationObserver(run).observe(document.body, { subtree: true, childList: true, characterData: true });
+  return true;
+})()`;
+const PRIVATE = ["glyx.network"];
+
+async function scrub() {
+  const frames = [];
+  const walk = (node) => {
+    if (PRIVATE.some((id) => node.frame.url.includes(id))) frames.push(node.frame.id);
+    (node.childFrames || []).forEach(walk);
+  };
+  walk((await call("Page.getFrameTree")).frameTree);
+  for (const frameId of frames) {
+    const world = await call("Page.createIsolatedWorld", { frameId, worldName: "preview-scrub" });
+    if (world?.executionContextId) await call("Runtime.evaluate", { expression: SCRUB, contextId: world.executionContextId });
+  }
+  // Out-of-process frames are targets of their own.
+  const targets = await (await fetch(`http://127.0.0.1:${PORT}/json`)).json();
+  for (const t of targets.filter((t) => t.type === "iframe" && PRIVATE.some((id) => t.url.includes(id)))) {
+    const sock = new WebSocket(t.webSocketDebuggerUrl);
+    await new Promise((r) => (sock.onopen = r));
+    await new Promise((r) => {
+      sock.onmessage = r;
+      sock.send(JSON.stringify({ id: 1, method: "Runtime.evaluate", params: { expression: SCRUB } }));
+    });
+    // Closing the socket would not undo the observer: it lives in the page.
+    sock.close();
+  }
 }
 
 async function shoot(file, clip) {
@@ -116,8 +162,9 @@ const want = (id) => !only.size || only.has(id);
 for (const t of src.templates.filter((t) => want(t.id))) {
   await show(yamlToJson(path.join(ROOT, "catalog/templates", `${t.id}.yml`)), 20000);
   // A narrow template is cropped to its widgets (keeping 16:10) instead of showing empty space.
-  const right = await evaluate("Math.max(...[...document.querySelectorAll('.widget')].map((w) => w.getBoundingClientRect().right))");
-  const width = right < 960 ? Math.max(640, Math.ceil(right) + 16) : 1280;
+  // Wide enough for its widgets and tall enough for all of them, whichever needs the larger crop.
+  const box = await evaluate("(() => { const r = [...document.querySelectorAll('.widget')].map((w) => w.getBoundingClientRect()); return { right: Math.max(...r.map((b) => b.right)), bottom: Math.max(...r.map((b) => b.bottom)) }; })()");
+  const width = box.right < 960 ? Math.min(1280, Math.max(640, Math.ceil(box.right) + 16, Math.ceil((box.bottom + 16) * 1.6))) : 1280;
   await shoot(`template-${t.id}.jpg`, width < 1280 ? { x: 0, y: 0, width, height: Math.round(width / 1.6) } : null);
 }
 
