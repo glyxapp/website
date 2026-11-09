@@ -1,6 +1,8 @@
 # Glyx template "Home lab" from glyx.org/templates
-# The machine, the network, uptime checks and new releases of popular self-hosted apps, on the
-# green Phosphor terminal skin. Add your own servers to Services: LAN addresses work too.
+# On the green Phosphor terminal skin, built around a centre column: your services above new
+# releases of popular self-hosted apps. The box itself on the left (the clock, the network, CPU
+# and disks), your maintenance list and a runbook on the right, cut at the same row. Add your own
+# servers to Services: LAN addresses work too.
 theme: { skin: phosphor }
 label:
   tray: glyx.monitor
@@ -9,13 +11,19 @@ pages:
   - name: Ops
     mode: fit
     widgets:
-      - plugin: glyx.system
-        variant: graph
+      - plugin: glyx.clock
         x: 0
         y: 0
         cols: 6
-        rows: 8
+        rows: 4
+        style: { header: false }
+        config: { zones: [{ label: UTC, tz: Etc/UTC }] }
       - plugin: glyx.network
+        x: 0
+        y: 4
+        cols: 6
+        rows: 4
+      - plugin: glyx.system
         x: 0
         y: 8
         cols: 6
@@ -41,18 +49,12 @@ pages:
         rows: 8
         config:
           repos: [home-assistant/core, immich-app/immich, jellyfin/jellyfin, louislam/uptime-kuma, traefik/traefik, portainer/portainer]
-      - plugin: glyx.clock
-        x: 18
-        y: 0
-        cols: 6
-        rows: 4
-        config: { zones: [{ label: UTC, tz: Etc/UTC }] }
       - plugin: glyx.todo
         title: Maintenance
         x: 18
-        y: 4
+        y: 0
         cols: 6
-        rows: 4
+        rows: 8
         config: { list: maintenance }
       - plugin: glyx.notes
         title: Runbook

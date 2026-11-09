@@ -1,6 +1,7 @@
 # Glyx template "Study desk" from glyx.org/templates
-# Pomodoro rounds with a daily goal, homework, an English word card with pictures and
-# Vietnamese meanings, notes, the lunar calendar and the weather, in the soft Mochi skin.
+# Built around a centre column: the word card above your notes. The pomodoro (tinted, the one
+# thing that asks for your eye) and your homework on the left; the time, the weather and the
+# lunar calendar on the right. All in the soft Mochi skin.
 theme: { skin: mochi, preset: system }
 label:
   pills: [glyx.timer]
@@ -14,8 +15,10 @@ pages:
         y: 0
         cols: 6
         rows: 8
+        style: { background: tinted }
         config: { focus: 25, shortBreak: 5, longBreak: 15, dailyGoal: 8 }
       - plugin: glyx.todo
+        title: Homework
         x: 0
         y: 8
         cols: 6
@@ -34,21 +37,23 @@ pages:
         cols: 12
         rows: 8
         config: { name: study }
-      - plugin: glyx.calendar
+      - plugin: glyx.clock
         x: 18
         y: 0
         cols: 6
-        rows: 8
-        config: { lunar: true }
-      - plugin: glyx.clock
-        x: 18
-        y: 8
-        cols: 6
         rows: 4
+        style: { header: false }
         config: { zones: [] }
       - plugin: glyx.weather
         x: 18
-        y: 12
+        y: 4
         cols: 6
         rows: 4
+        style: { header: false }
         config: { location: Hanoi }
+      - plugin: glyx.calendar
+        x: 18
+        y: 8
+        cols: 6
+        rows: 8
+        config: { lunar: true }

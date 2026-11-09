@@ -32,6 +32,28 @@ for (const id of fs.readdirSync(path.join(ROOT, "sources"))) {
 }
 const configFile = path.join(configDir, "glyx.json");
 
+// Sample tasks and notes, so a preview shows a list in use rather than "Nothing to do". Only the
+// previews have them: an imported template starts empty.
+{
+  const sample = JSON.parse(fs.readFileSync(path.join(ROOT, "tools/preview-data.json"), "utf8"));
+  const now = Date.now();
+  const files = {
+    "glyx.todo": Object.fromEntries(Object.entries(sample["glyx.todo"]).map(([key, items]) => [
+      key,
+      items.map((it, i) => ({
+        id: `sample${i}`,
+        text: it.text,
+        done: it.done,
+        at: now - it.ago * 60_000,
+        ...(it.done ? { doneAt: now - (it.ago - 20) * 60_000 } : {}),
+      })),
+    ])),
+    "glyx.notes": Object.fromEntries(Object.entries(sample["glyx.notes"]).map(([key, text]) => [key, { text, at: now - 3_600_000 }])),
+  };
+  fs.mkdirSync(path.join(configDir, "data"), { recursive: true });
+  for (const [plugin, doc] of Object.entries(files)) fs.writeFileSync(path.join(configDir, "data", `${plugin}.json`), JSON.stringify(doc));
+}
+
 /** Previews show the window itself: normal mode, opaque, no tray or overlay labels. */
 function writeConfig(cfg) {
   const { label, ...rest } = cfg;
@@ -99,11 +121,61 @@ async function show(cfg, settle) {
   }
   await sleep(settle);
   // Nothing but the dashboard: close Settings, drawers or dialogs if anything opened them.
-  await evaluate("document.querySelectorAll('.appset, .drawer, .modal, .scrim, .gal').forEach((e) => e.remove())");
-  // And no hover state from wherever the real mouse is.
+  await evaluate("document.querySelectorAll('.appset, .drawer, .modal, .scrim, .gal, .lab, #toast > *').forEach((e) => e.remove())");
+  // Nor the banner, which reports problems of this PC's Glyx (a plugin in the works that does not
+  // load), not of the template. A resize makes the page fit the room it gives back.
+  if (await evaluate("(() => { const b = document.getElementById('banner'); if (!b || b.hidden) return false; b.hidden = true; dispatchEvent(new Event('resize')); return true; })()")) await sleep(1500);
+  // And no hover state from wherever the real mouse is: the window ignores the pointer from now
+  // on (it may sit over the window while this runs), and the last one it saw is in a corner.
+  await evaluate("document.getElementById('no-pointer') || document.head.insertAdjacentHTML('beforeend', '<style id=\"no-pointer\">html, body, iframe { pointer-events: none !important }</style>')");
   await call("Input.dispatchMouseEvent", { type: "mouseMoved", x: 1279, y: 799 });
   await scrub();
+  // Pictures (release logos, weather icons) are still loading in some frames on a cold start.
+  // A picture that failed (github.com/<owner>.png can take 10 s or answer 504) is asked for again,
+  // up to three times; Releases hides a logo that failed, so it is shown again too.
+  const sum = (values) => values.reduce((a, b) => a + (b || 0), 0);
+  for (let round = 0; round < 4; round++) {
+    for (let i = 0; i < 40; i++) {
+      if (!sum(await inFrames("[...document.images].filter((i) => i.currentSrc && !i.complete).length"))) break;
+      await sleep(500);
+    }
+    if (round === 3) break;
+    const retried = sum(await inFrames(`[...document.images].filter((i) => i.currentSrc && i.complete && !i.naturalWidth).map((i) => {
+      const url = new URL(i.src);
+      url.searchParams.set("retry", "${round + 1}");
+      i.onload = () => (i.style.visibility = "");
+      i.src = url.href;
+    }).length`));
+    if (!retried) break;
+    await sleep(1000);
+  }
   return before;
+}
+
+/** Evaluates `expression` in every plugin frame, in or out of the window's process. */
+async function inFrames(expression) {
+  const values = [];
+  const frames = [];
+  const walk = (node) => {
+    if (node.frame.url.startsWith("http://plugin.localhost")) frames.push(node.frame.id);
+    (node.childFrames || []).forEach(walk);
+  };
+  walk((await call("Page.getFrameTree")).frameTree);
+  for (const frameId of frames) {
+    const world = await call("Page.createIsolatedWorld", { frameId, worldName: "preview-wait" });
+    if (world?.executionContextId) values.push((await call("Runtime.evaluate", { expression, contextId: world.executionContextId, returnByValue: true })).result?.value);
+  }
+  const targets = await (await fetch(`http://127.0.0.1:${PORT}/json`)).json();
+  for (const t of targets.filter((t) => t.type === "iframe" && t.url.startsWith("http://plugin.localhost"))) {
+    const sock = new WebSocket(t.webSocketDebuggerUrl);
+    await new Promise((r) => (sock.onopen = r));
+    values.push(await new Promise((r) => {
+      sock.onmessage = (m) => r(JSON.parse(m.data).result?.result?.value);
+      sock.send(JSON.stringify({ id: 1, method: "Runtime.evaluate", params: { expression, returnByValue: true } }));
+    }));
+    sock.close();
+  }
+  return values;
 }
 
 // Previews are public: the Network widget shows this PC's IP address, so every address in its

@@ -1,0 +1,82 @@
+# Glyx template "Morning overview" from glyx.org/templates
+# What the day holds, in one look over the first coffee, on the light Grove skin (young leaves and
+# morning sun). Built around a centre column: today's weather above the morning's news. The time,
+# the lunar date and your tasks on the left; the air, gold and the dollar on the right, cut at the
+# same rows.
+theme: { skin: nature, preset: light }
+label:
+  tray: glyx.weather
+pages:
+  - name: Buổi sáng
+    mode: fit
+    widgets:
+      # Left: 4 + 4 + 8 rows.
+      - plugin: glyx.clock
+        x: 0
+        y: 0
+        cols: 6
+        rows: 4
+        style: { header: false }
+        config: { zones: [] }
+      - plugin: glyx.calendar
+        variant: day
+        x: 0
+        y: 4
+        cols: 6
+        rows: 4
+        style: { header: false }
+        config:
+          lunar: true
+          upcoming: 1
+          events:
+            - { date: "L 01-01", label: Tết Nguyên Đán }
+            - { date: "L 03-10", label: Giỗ Tổ Hùng Vương }
+            - { date: "04-30", label: Giải phóng miền Nam }
+            - { date: "09-02", label: Quốc khánh }
+      - plugin: glyx.todo
+        title: Hôm nay
+        x: 0
+        y: 8
+        cols: 6
+        rows: 8
+        config: { list: today }
+      # Centre: the day's weather, then the news.
+      - plugin: glyx.weather
+        x: 6
+        y: 0
+        cols: 12
+        rows: 8
+        style: { header: false }
+        config: { location: Hanoi }
+      - plugin: glyx.rss
+        title: Tin sáng
+        variant: headlines
+        x: 6
+        y: 8
+        cols: 12
+        rows: 8
+        config:
+          source: category
+          category: thoi-su
+          papers: [vnexpress, tuoitre, thanhnien, dantri, vietnamnet]
+          limit: 20
+      # Right: the same 4 + 4 + 8.
+      - plugin: glyx.air
+        x: 18
+        y: 0
+        cols: 6
+        rows: 4
+        style: { header: false }
+        config: { location: Hanoi }
+      - plugin: glyx.gold
+        x: 18
+        y: 4
+        cols: 6
+        rows: 4
+        style: { accent: "#b8860b" }
+      - plugin: glyx.rates
+        x: 18
+        y: 8
+        cols: 6
+        rows: 8
+        config: { from: USD, to: VND, others: [EUR, JPY, CNY, KRW, SGD, THB] }

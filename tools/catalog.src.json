@@ -3,32 +3,44 @@
     {
       "id": "developer",
       "name": "Developer desk",
-      "description": "Hacker News, dev blogs, releases of your tools, Claude and ChatGPT quota and service checks; a second page for focus with a 50/10 timer, a scratchpad and your links.",
+      "description": "Hacker News down the middle; the time, Claude and ChatGPT quota and the machine on the left; service checks, the network and releases of your tools on the right. A second page for focus: a 50/10 timer, a scratchpad, links, tasks and the week.",
       "tags": ["dev", "ai", "focus"]
     },
     {
       "id": "news",
       "name": "Morning news",
-      "description": "Vietnamese headlines from five papers, the world, weather, the lunar date, gold and the dollar, in the Paper skin; a second page has business, tech, sport and health.",
+      "description": "A front page on the light Paper skin: lead stories from five papers down the middle; the time, the weather and the lunar date on the left; gold, the world and the dollar on the right. A second page has business, tech and sport.",
       "tags": ["news", "vietnam"]
+    },
+    {
+      "id": "morning",
+      "name": "Morning overview",
+      "description": "What the day holds over the first coffee, on the light Grove skin: today's weather above the morning news, the time, the lunar date and today's tasks on one side, the air, gold and the dollar on the other.",
+      "tags": ["morning", "news", "vietnam"]
     },
     {
       "id": "markets",
       "name": "Market watch",
-      "description": "VN-Index, VN30 and blue chips, gold and the dong with market news; a second page has world indices, crypto, commodities, big tech and the exchanges' clocks.",
+      "description": "The four Vietnamese indices as one band of charts across the top, with blue chips, market news and gold under it. A second page has world indices, crypto, commodities, big tech and the exchanges' clocks.",
       "tags": ["finance", "vietnam"]
     },
     {
       "id": "study",
       "name": "Study desk",
-      "description": "Pomodoro with a daily goal, homework, an English word card, notes and the lunar calendar, in the soft Mochi skin.",
+      "description": "An English word card above your notes in the middle, a pomodoro with a daily goal and homework on the left, the time, the weather and the lunar calendar on the right, in the soft Mochi skin.",
       "tags": ["focus", "learning"]
     },
     {
       "id": "homelab",
       "name": "Home lab",
-      "description": "CPU, memory and network graphs, uptime checks and new releases of self-hosted apps, with a runbook, on the green Phosphor terminal skin.",
+      "description": "Uptime checks above new releases of self-hosted apps in the middle, the clock, the network, CPU and disks on the left, a maintenance list and a runbook on the right, on the green Phosphor terminal skin.",
       "tags": ["dev", "ops"]
+    },
+    {
+      "id": "night",
+      "name": "Night chill",
+      "description": "The end of the day on the Lo-fi Café skin, laid out as a mirror: a clock face above your journal, tomorrow's weather and list, a word to sleep on and the month. No news, no prices.",
+      "tags": ["night", "calm"]
     },
     {
       "id": "minimal",

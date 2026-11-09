@@ -1,6 +1,9 @@
 # Glyx template "Developer desk" from glyx.org/templates
-# Two pages, each exactly one screen on the 24-cell grid: what is new in your tools, then a page
-# for focused work. Put your own repos, services and links in each widget's settings.
+# Two pages, each one screen on the 24-cell grid, built around a centre column with two sides of
+# the same rhythm. Code: Hacker News down the middle; the time, your AI quota and the machine on
+# the left; services, the network and new releases of your tools on the right. Focus: a scratchpad
+# in the middle with your links and the week, the timer and typing on the left, tasks and music on
+# the right. Put your own repos, services and links in each widget's settings.
 theme: { preset: dark, accent: "#7aa2f7" }
 label:
   tray: glyx.claude-usage
@@ -9,60 +12,41 @@ pages:
   - name: Code
     mode: fit
     widgets:
-      # Left: the time, your AI quota and the machine.
+      # Left: 4 + 4 + 8 rows.
       - plugin: glyx.clock
         x: 0
         y: 0
         cols: 6
         rows: 4
+        style: { header: false }
         config: { zones: [{ label: UTC, tz: Etc/UTC }, { label: San Francisco, tz: America/Los_Angeles }] }
       - plugin: glyx.claude-usage
         x: 0
         y: 4
-        cols: 6
+        cols: 3
         rows: 4
       - plugin: glyx.chatgpt-usage
-        x: 0
-        y: 8
-        cols: 6
+        x: 3
+        y: 4
+        cols: 3
         rows: 4
       - plugin: glyx.system
         x: 0
-        y: 12
+        y: 8
         cols: 6
-        rows: 4
-      # Middle: what to read.
+        rows: 8
+      # Centre: the whole height of the screen to read.
       - plugin: glyx.hackernews
         x: 6
         y: 0
         cols: 12
-        rows: 8
-        config: { limit: 20 }
-      - plugin: glyx.rss
-        title: Developer blogs
-        variant: headlines
-        x: 6
-        y: 8
-        cols: 12
-        rows: 8
-        config:
-          limit: 20
-          feeds:
-            - https://github.blog/feed/
-            - https://blog.rust-lang.org/feed.xml
-            - https://devblogs.microsoft.com/typescript/feed/
-            - https://simonwillison.net/atom/everything/
-      # Right: your tools and the services they depend on.
-      - plugin: glyx.releases
-        x: 18
-        y: 0
-        cols: 6
-        rows: 8
-        config: { repos: [anthropics/claude-code, microsoft/vscode, nodejs/node, tauri-apps/tauri, rust-lang/rust] }
+        rows: 16
+        config: { limit: 30 }
+      # Right: the same 4 + 4 + 8.
       - plugin: glyx.monitor
         title: Services
         x: 18
-        y: 8
+        y: 0
         cols: 6
         rows: 4
         config:
@@ -70,21 +54,29 @@ pages:
             - { name: GitHub, url: "https://github.com" }
             - { name: npm, url: "https://registry.npmjs.org" }
             - { name: Cloudflare, url: "https://www.cloudflare.com" }
-      - plugin: glyx.todo
+      - plugin: glyx.network
         x: 18
-        y: 12
+        y: 4
         cols: 6
         rows: 4
+      - plugin: glyx.releases
+        x: 18
+        y: 8
+        cols: 6
+        rows: 8
+        config: { repos: [anthropics/claude-code, microsoft/vscode, nodejs/node, tauri-apps/tauri, rust-lang/rust] }
 
   - name: Focus
     mode: fit
     widgets:
+      # Left: the timer is the one tinted card, the thing to look at.
       - plugin: glyx.timer
         variant: pomodoro
         x: 0
         y: 0
         cols: 6
         rows: 8
+        style: { background: tinted }
         config: { focus: 50, shortBreak: 10, longBreak: 20, longEvery: 3, dailyGoal: 5 }
       - plugin: glyx.keys
         variant: week
@@ -93,6 +85,7 @@ pages:
         cols: 6
         rows: 8
         config: { metric: both }
+      # Centre: the scratchpad, your links in three short columns, the week.
       - plugin: glyx.notes
         title: Scratchpad
         x: 6
@@ -101,11 +94,11 @@ pages:
         rows: 8
         config: { name: scratch, mono: true }
       - plugin: glyx.bookmarks
-        variant: grid
         x: 6
         y: 8
         cols: 12
-        rows: 8
+        rows: 4
+        style: { header: false }
         config:
           links:
             - { title: GitHub, url: "https://github.com", group: Code }
@@ -117,18 +110,21 @@ pages:
             - { title: crontab.guru, url: "https://crontab.guru", group: Tools }
             - { title: Excalidraw, url: "https://excalidraw.com", group: Tools }
       - plugin: glyx.calendar
+        variant: week
+        x: 6
+        y: 12
+        cols: 12
+        rows: 4
+        style: { header: false }
+      # Right: tasks, and what is playing.
+      - plugin: glyx.todo
         x: 18
         y: 0
         cols: 6
         rows: 8
-        config: { weekNumbers: true }
-      - plugin: glyx.network
+        config: { list: dev }
+      - plugin: glyx.media
         x: 18
         y: 8
         cols: 6
-        rows: 4
-      - plugin: glyx.media
-        x: 18
-        y: 12
-        cols: 6
-        rows: 4
+        rows: 8

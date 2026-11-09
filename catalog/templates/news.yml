@@ -1,24 +1,30 @@
 # Glyx template "Morning news" from glyx.org/templates
-# Vietnamese papers through the RSS widget's own sources (no feed URLs to keep up to date), the
-# weather and the lunar date, gold and the dollar. The second page has one paper section per column.
-theme: { skin: paper, preset: system }
+# A front page on the light Paper skin, built around the centre: the lead stories down the middle,
+# the time, the weather and the lunar date on the left, gold, the world and the dollar on the
+# right, the two sides cut at the same rows. Vietnamese papers come through the RSS widget's own
+# sources, so there are no feed URLs to keep up to date. The second page is one section in the
+# middle with a narrower one on each side.
+theme: { skin: paper, preset: light }
 label:
   tray: glyx.weather
 pages:
   - name: Tin chính
     mode: fit
     widgets:
+      # Left: 4 + 8 + 4 rows.
       - plugin: glyx.clock
         x: 0
         y: 0
         cols: 6
         rows: 4
+        style: { header: false }
         config: { zones: [] }
       - plugin: glyx.weather
         x: 0
         y: 4
         cols: 6
         rows: 8
+        style: { header: false }
         config: { location: Hanoi }
       - plugin: glyx.calendar
         variant: day
@@ -26,6 +32,7 @@ pages:
         y: 12
         cols: 6
         rows: 4
+        style: { header: false }
         config:
           lunar: true
           upcoming: 1
@@ -34,6 +41,7 @@ pages:
             - { date: "L 03-10", label: Giỗ Tổ Hùng Vương }
             - { date: "04-30", label: Giải phóng miền Nam }
             - { date: "09-02", label: Quốc khánh }
+      # Centre: the lead stories from five papers.
       - plugin: glyx.rss
         title: Tin mới
         variant: grid
@@ -46,20 +54,21 @@ pages:
           category: thoi-su
           papers: [vnexpress, tuoitre, thanhnien, dantri, vietnamnet]
           limit: 30
+      # Right: the same 4 + 8 + 4.
+      - plugin: glyx.gold
+        x: 18
+        y: 0
+        cols: 6
+        rows: 4
+        style: { accent: "#b8860b" }
       - plugin: glyx.rss
         title: Thế giới
         variant: headlines
         x: 18
-        y: 0
+        y: 4
         cols: 6
         rows: 8
         config: { source: category, category: the-gioi, limit: 20 }
-      - plugin: glyx.gold
-        x: 18
-        y: 8
-        cols: 6
-        rows: 4
-        style: { accent: "#d4a017" }
       - plugin: glyx.rates
         x: 18
         y: 12
@@ -80,25 +89,17 @@ pages:
         config: { source: category, category: kinh-doanh, limit: 25 }
       - plugin: glyx.rss
         title: Công nghệ
-        variant: headlines
+        variant: grid
         x: 6
         y: 0
-        cols: 6
+        cols: 12
         rows: 16
         config: { source: category, category: cong-nghe, limit: 25 }
       - plugin: glyx.rss
         title: Thể thao
         variant: headlines
-        x: 12
-        y: 0
-        cols: 6
-        rows: 16
-        config: { source: category, category: the-thao, limit: 25 }
-      - plugin: glyx.rss
-        title: Sức khỏe
-        variant: headlines
         x: 18
         y: 0
         cols: 6
         rows: 16
-        config: { source: category, category: suc-khoe, limit: 25 }
+        config: { source: category, category: the-thao, limit: 25 }

@@ -1,6 +1,6 @@
 # Glyx template "Minimal desk" from glyx.org/templates
-# Four quiet cards pinned to the desktop, under your other windows. No headers: the time, the
-# weather and the date speak for themselves.
+# Four quiet cards pinned to the desktop, under your other windows. No titles anywhere: the clock
+# face, the weather, the date and your list speak for themselves.
 theme: { preset: system }
 window: { mode: widget }
 pages:
@@ -34,3 +34,4 @@ pages:
         y: 8
         cols: 12
         rows: 4
+        style: { header: false }

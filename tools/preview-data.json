@@ -1,0 +1,148 @@
+{
+  "_": "Sample tasks and notes for the template previews only (capture-previews.mjs writes them to the capture's data folder). Imported templates start empty.",
+  "glyx.todo": {
+    "todo:dev": [
+      {
+        "text": "Review PR #482: retry on 429",
+        "done": false,
+        "ago": 50
+      },
+      {
+        "text": "Bump tauri to 2.12",
+        "done": false,
+        "ago": 40
+      },
+      {
+        "text": "Write the release notes for 1.4",
+        "done": false,
+        "ago": 30
+      },
+      {
+        "text": "Fix the flaky e2e test on Windows",
+        "done": true,
+        "ago": 120
+      },
+      {
+        "text": "Answer issue #317",
+        "done": true,
+        "ago": 90
+      }
+    ],
+    "todo:study": [
+      {
+        "text": "Maths: exercises 4.1 to 4.6",
+        "done": false,
+        "ago": 50
+      },
+      {
+        "text": "Essay outline: cities of the future",
+        "done": false,
+        "ago": 40
+      },
+      {
+        "text": "Review 20 A2 words",
+        "done": false,
+        "ago": 30
+      },
+      {
+        "text": "Listening practice, 15 min",
+        "done": true,
+        "ago": 120
+      },
+      {
+        "text": "Irregular verbs flashcards",
+        "done": true,
+        "ago": 90
+      }
+    ],
+    "todo:maintenance": [
+      {
+        "text": "Update Immich to v3.3",
+        "done": false,
+        "ago": 50
+      },
+      {
+        "text": "Rotate the Tailscale auth key",
+        "done": false,
+        "ago": 40
+      },
+      {
+        "text": "Test restoring last night's backup",
+        "done": false,
+        "ago": 30
+      },
+      {
+        "text": "Renew the TLS certificate",
+        "done": true,
+        "ago": 120
+      }
+    ],
+    "todo:default": [
+      {
+        "text": "Call the bank about the card",
+        "done": false,
+        "ago": 50
+      },
+      {
+        "text": "Pick up the dry cleaning",
+        "done": false,
+        "ago": 40
+      },
+      {
+        "text": "Book the dentist",
+        "done": true,
+        "ago": 120
+      }
+    ],
+    "todo:today": [
+      {
+        "text": "Họp nhóm 9:30",
+        "done": false,
+        "ago": 50
+      },
+      {
+        "text": "Gửi báo cáo tháng cho chị Lan",
+        "done": false,
+        "ago": 40
+      },
+      {
+        "text": "Đóng tiền điện",
+        "done": false,
+        "ago": 30
+      },
+      {
+        "text": "Tập thể dục 20 phút",
+        "done": true,
+        "ago": 120
+      }
+    ],
+    "todo:tomorrow": [
+      {
+        "text": "Call Mum at lunch",
+        "done": false,
+        "ago": 50
+      },
+      {
+        "text": "Bring the laptop charger",
+        "done": false,
+        "ago": 40
+      },
+      {
+        "text": "Water the plants",
+        "done": false,
+        "ago": 30
+      },
+      {
+        "text": "Finish the book, chapter 12",
+        "done": true,
+        "ago": 120
+      }
+    ]
+  },
+  "glyx.notes": {
+    "note:scratch": "# release 1.4\ngit tag v1.4.0 && git push --tags\nnpm run build:release\ngh release create v1.4.0 --generate-notes\n\n# idea\ncache parsed feeds per ETag, skip\nthe parse when the server says 304",
+    "note:study": "Present perfect or past simple?\n• I have lived here for three years. (still true)\n• I lived in Hue in 2019. (a finished time)\n\nPhrasal verbs this week\nlook up · give up · run out of · get along with",
+    "note:runbook": "# update the stack\nssh nas\ncd /srv/compose\ndocker compose pull\ndocker compose up -d\n\n# immich is slow\ndocker logs immich_server --tail 50",
+    "note:journal": "Monday, a slow one.\n\nThe rain kept on all afternoon; finished the draft anyway.\nLunch with Minh, who is moving to Đà Nẵng in spring.\n\nGrateful for: hot tea, a quiet evening, the playlist Linh sent."
+  }
+}
