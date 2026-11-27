@@ -1,0 +1,52 @@
+# Glyx template "Engineering lead" from glyx.org/templates
+# For a day of reviews and meetings, on the PROJECT skin. Your meetings down the left with a Join
+# button when one starts; pull requests waiting for your review and your own with their checks;
+# your Linear issues by state. Under them notes for your one-on-ones, whether the services you
+# ship on are up, and the follow-ups you promised. Needs a GitHub token, a Linear API key and your
+# calendar's secret iCal link (Google Calendar or Outlook), each in its widget's settings.
+theme: { skin: project }
+label:
+  tray: glyx.agenda
+  pills: [glyx.agenda, glyx.github]
+pages:
+  - name: Lead
+    mode: fit
+    widgets:
+      - plugin: glyx.agenda
+        title: Meetings
+        x: 0
+        y: 0
+        cols: 6
+        rows: 16
+        config: { days: 7, remind: 5 }
+      - plugin: glyx.github
+        x: 6
+        y: 0
+        cols: 12
+        rows: 8
+        config: { sections: [review, mine, assigned] }
+      - plugin: glyx.linear
+        x: 18
+        y: 0
+        cols: 6
+        rows: 8
+      - plugin: glyx.notes
+        title: One-on-ones
+        x: 6
+        y: 8
+        cols: 6
+        rows: 8
+        config: { name: one-on-ones }
+      - plugin: glyx.status
+        x: 12
+        y: 8
+        cols: 6
+        rows: 8
+        config: { services: [github, linear, vercel, cloudflare] }
+      - plugin: glyx.todo
+        title: Follow-ups
+        x: 18
+        y: 8
+        cols: 6
+        rows: 8
+        config: { list: follow-ups }

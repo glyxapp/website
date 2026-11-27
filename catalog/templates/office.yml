@@ -1,0 +1,51 @@
+# Glyx template "Văn phòng" from glyx.org/templates
+# A working day at the office, on the light Glyx skin. The day's meetings down the left, with a
+# Join button for Teams, Meet or Zoom when one starts; your Jira issues by status; the time where
+# your partners are. Under them the minutes of your meetings and what is left to do today. Needs
+# your Jira site, email and API token, and your calendar's secret iCal link (Outlook or Google
+# Calendar), each in its widget's settings.
+theme: { skin: glyx, preset: light }
+label:
+  tray: glyx.agenda
+  pills: [glyx.agenda]
+pages:
+  - name: Hôm nay
+    mode: fit
+    widgets:
+      - plugin: glyx.agenda
+        title: Lịch họp
+        x: 0
+        y: 0
+        cols: 6
+        rows: 16
+        config: { days: 7, remind: 10 }
+      - plugin: glyx.jira
+        x: 6
+        y: 0
+        cols: 12
+        rows: 8
+      - plugin: glyx.clock
+        title: Đối tác
+        x: 18
+        y: 0
+        cols: 6
+        rows: 8
+        config:
+          zones:
+            - { label: Tokyo, tz: Asia/Tokyo }
+            - { label: Singapore, tz: Asia/Singapore }
+            - { label: London, tz: Europe/London }
+      - plugin: glyx.notes
+        title: Biên bản họp
+        x: 6
+        y: 8
+        cols: 12
+        rows: 8
+        config: { name: minutes }
+      - plugin: glyx.todo
+        title: Việc hôm nay
+        x: 18
+        y: 8
+        cols: 6
+        rows: 8
+        config: { list: office }

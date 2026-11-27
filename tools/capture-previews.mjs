@@ -10,6 +10,7 @@ import { spawn, execFileSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import { SECRET_ENV, fill as previewFill, routes, interceptor } from "./preview-net.mjs";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const PORT = 9334;
@@ -83,6 +84,8 @@ function writeConfig(cfg) {
     if (w.plugin === "glyx.rss") w.config = { ...w.config, showImages: false };
     // What is playing on this PC is nobody's business: an empty card rather than your music.
     if (w.plugin === "glyx.media") w.hidden = true;
+    // Widgets that need an account get a stand-in secret and sample answers (preview-net.mjs).
+    w.config = previewFill(w.plugin, w.config);
   }
   fs.writeFileSync(configFile, JSON.stringify(rest, null, 2));
 }
@@ -95,6 +98,9 @@ const app = spawn(exe, [], {
     ...process.env,
     GLYX_CONFIG_DIR: configDir,
     WEBVIEW2_USER_DATA_FOLDER: path.join(work, "webview"),
+    // The stand-in for the secrets of widgets that need an account; their requests never leave
+    // the page (preview-net.mjs), so it is never sent anywhere.
+    [SECRET_ENV]: "preview",
     WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS: `--remote-debugging-port=${PORT}`,
   },
   stdio: "ignore",
@@ -125,6 +131,7 @@ const call = (method, params = {}) => new Promise((res) => {
 });
 const evaluate = async (expression) => (await call("Runtime.evaluate", { expression, awaitPromise: true, returnByValue: true })).result?.value;
 await call("Emulation.setDeviceMetricsOverride", { width: 1280, height: 800, deviceScaleFactor: 1, mobile: false });
+if (!(await evaluate(interceptor(routes())))) throw new Error("could not answer the sample requests in the page");
 
 /** Writes the config, waits for Glyx to reload it and for the widgets to show data. */
 async function show(cfg, settle) {

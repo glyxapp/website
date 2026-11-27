@@ -43,6 +43,7 @@ BUILTIN = {
     "glyx.scene": "Weather scene", "glyx.habits": "Habits", "glyx.status": "Service status",
     "glyx.picture-of-the-day": "Picture of the day", "glyx.bank-rates": "Bank exchange rates",
     "glyx.on-this-day": "On this day", "glyx.breaks": "Breaks",
+    "glyx.agenda": "Agenda", "glyx.linear": "Linear", "glyx.jira": "Jira", "glyx.home-assistant": "Home Assistant",
 }
 # Templates use the page grid (docs/settings.md §3.6 in the Glyx repo): what one screen holds.
 GRID_COLS, SCREEN_ROWS = 24, 16

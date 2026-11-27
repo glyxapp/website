@@ -89,6 +89,24 @@
       "name": "Crypto",
       "description": "The four biggest coins as one band of charts on the Liquid skin, then your altcoins, news from CoinDesk and Cointelegraph, and gold, the dollar and stocks beside them. No API key, no exchange account.",
       "tags": ["finance", "crypto"]
+    },
+    {
+      "id": "lead",
+      "name": "Engineering lead",
+      "description": "For a day of reviews and meetings on the PROJECT skin: meetings down the left with a Join button, pull requests waiting for your review with their checks, your Linear issues, then one-on-one notes, service status and follow-ups. Needs a GitHub token, a Linear key and your calendar's iCal link.",
+      "tags": ["dev", "work"]
+    },
+    {
+      "id": "office",
+      "name": "Văn phòng",
+      "description": "A working day on the light Glyx skin: the day's meetings with a Join button for Teams, Meet or Zoom, your Jira issues by status, the time where your partners are, meeting minutes and today's list. Needs your Jira API token and your calendar's iCal link.",
+      "tags": ["work", "vietnam"]
+    },
+    {
+      "id": "smarthome",
+      "name": "Nhà thông minh",
+      "description": "Your home from the desk on the Hextech skin: the sky over your city beside Home Assistant's lights and switches (a tap turns them on or off), the sensors, the air outside, the network and the week's weather. Needs your Home Assistant address and token.",
+      "tags": ["home", "vietnam"]
     }
   ],
   "widgets": [

@@ -186,6 +186,50 @@
         "done": true,
         "ago": 90
       }
+    ],
+    "todo:follow-ups": [
+      {
+        "text": "Send Minh the promotion packet",
+        "done": false,
+        "ago": 50
+      },
+      {
+        "text": "Ask infra for the Postgres 17 window",
+        "done": false,
+        "ago": 40
+      },
+      {
+        "text": "Share the Q1 hiring plan",
+        "done": false,
+        "ago": 30
+      },
+      {
+        "text": "Reply to the security review",
+        "done": true,
+        "ago": 120
+      }
+    ],
+    "todo:office": [
+      {
+        "text": "Duyệt đề xuất mua máy chiếu",
+        "done": false,
+        "ago": 50
+      },
+      {
+        "text": "Gọi lại cho chị Hương bên kế toán",
+        "done": false,
+        "ago": 40
+      },
+      {
+        "text": "Chuẩn bị slide họp giao ban",
+        "done": false,
+        "ago": 30
+      },
+      {
+        "text": "Ký biên bản nghiệm thu",
+        "done": true,
+        "ago": 120
+      }
     ]
   },
   "glyx.notes": {
@@ -194,7 +238,9 @@
     "note:runbook": "# update the stack\nssh nas\ncd /srv/compose\ndocker compose pull\ndocker compose up -d\n\n# immich is slow\ndocker logs immich_server --tail 50",
     "note:journal": "Monday, a slow one.\n\nThe rain kept on all afternoon; finished the draft anyway.\nLunch with Minh, who is moving to Đà Nẵng in spring.\n\nGrateful for: hot tea, a quiet evening, the playlist Linh sent.",
     "note:prompts": "# review\nReview this diff for bugs only.\nRank by severity, cite file:line.\n\n# commit\nWrite the commit message from the\nstaged diff: what changed and why.\n\n# explain\nExplain this like I know the\nlanguage but not the codebase.",
-    "note:mamco": "Mâm cỗ chiều 30\n• Bánh chưng, giò lụa\n• Gà luộc lá chanh\n• Canh măng móng giò\n• Nem rán, xôi gấc\n• Dưa hành, chè kho\n\nMâm ngũ quả: phật thủ, bưởi, chuối,\nquýt, hồng xiêm"
+    "note:mamco": "Mâm cỗ chiều 30\n• Bánh chưng, giò lụa\n• Gà luộc lá chanh\n• Canh măng móng giò\n• Nem rán, xôi gấc\n• Dưa hành, chè kho\n\nMâm ngũ quả: phật thủ, bưởi, chuối,\nquýt, hồng xiêm",
+    "note:one-on-ones": "# Minh\n• wants to own the checkout rewrite\n• promotion packet: two more examples\n• next: pair on the webhook retries\n\n# Hoa\n• on-call was heavy, swap next week\n• interested in the platform team",
+    "note:minutes": "Họp giao ban sáng thứ Sáu\n\n1. Doanh số tháng 11 đạt 92% kế hoạch, thiếu ở\n   kênh online. Chị Lan đề xuất chạy khuyến mãi\n   cuối năm từ 15/12.\n2. Hợp đồng Sakura Retail: gửi báo giá trước 17h.\n3. Tiệc tất niên: chốt nhà hàng trước 10/12.\n\nViệc tiếp: Minh làm báo giá, Hoa chốt nhà hàng."
   },
   "glyx.habits": {
     "habits:study": [

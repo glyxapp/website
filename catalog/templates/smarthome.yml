@@ -1,0 +1,72 @@
+# Glyx template "Nhà thông minh" from glyx.org/templates
+# Your home from the desk, on the Hextech skin. The sky over your city beside the lights and
+# switches of Home Assistant, a tap to turn each on or off; under them the sensors (rooms, doors,
+# motion), the air outside, the home network and the week's weather. Needs your Home Assistant
+# address and a long-lived access token; put your own entity ids in each widget's settings
+# (Settings › Entities in Home Assistant lists them).
+theme: { skin: hextech }
+label:
+  tray: glyx.home-assistant
+pages:
+  - name: Nhà
+    mode: fit
+    widgets:
+      - plugin: glyx.scene
+        x: 0
+        y: 0
+        cols: 12
+        rows: 8
+        style: { header: false }
+        config: { location: Hanoi }
+      - plugin: glyx.home-assistant
+        title: Đèn & thiết bị
+        x: 12
+        y: 0
+        cols: 12
+        rows: 8
+        config:
+          url: http://homeassistant.local:8123
+          entities:
+            - light.phong_khach
+            - light.phong_ngu
+            - light.bep
+            - light.ban_cong
+            - switch.may_loc_khong_khi
+            - switch.binh_nong_lanh
+            - fan.quat_tran
+            - input_boolean.che_do_vang_nha
+      - plugin: glyx.home-assistant
+        title: Cảm biến
+        x: 0
+        y: 8
+        cols: 6
+        rows: 8
+        config:
+          url: http://homeassistant.local:8123
+          entities:
+            - sensor.nhiet_do_phong_khach
+            - sensor.do_am_phong_khach
+            - sensor.nhiet_do_phong_ngu
+            - binary_sensor.cua_chinh
+            - binary_sensor.chuyen_dong_hanh_lang
+            - sensor.dien_tieu_thu_hom_nay
+      - plugin: glyx.air
+        x: 6
+        y: 8
+        cols: 6
+        rows: 8
+        style: { header: false }
+        config: { location: Hanoi }
+      - plugin: glyx.network
+        x: 12
+        y: 8
+        cols: 6
+        rows: 8
+      - plugin: glyx.weather
+        variant: week
+        x: 18
+        y: 8
+        cols: 6
+        rows: 8
+        style: { header: false }
+        config: { location: Hanoi }
