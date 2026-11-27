@@ -816,12 +816,11 @@ host.onRefresh(<span class="k">async</span> () => {
     }
 
     // It turns about the logo's own up: the line through the top corner of the logo's hexagon.
-    // The ring is the equator round that line, and the moon goes round the same way the mark
-    // turns. It starts as the logo, and every time a turn brings it back there it slows, so the
+    // It starts as the logo, and every time a turn brings it back there it slows, so the
     // logo is a moment you can catch.
     const TOP = V.map((v) => apply(VIEW, v)).reduce((a, b) => (b[1] > a[1] ? b : a));
     const AXIS = unit(TOP[2] >= 0 ? TOP : TOP.map((x) => -x));
-    const SPIN = 0.32, ORBIT = 0.22; // radians per second, away from the logo; the moon a little slower
+    const SPIN = 0.32; // radians per second, away from the logo
     let M = VIEW, theta = 0, nudge = [0, 0, 0], drag = null;
 
     ico.addEventListener("pointerdown", (e) => { drag = { x: e.clientX, y: e.clientY }; ico.setPointerCapture(e.pointerId); });
@@ -830,7 +829,6 @@ host.onRefresh(<span class="k">async</span> () => {
     const pose = () => {
       const k = Math.hypot(...nudge), Rn = k > 1e-6 ? rotAbout(nudge, k) : I3;
       M = mul(Rn, mul(rotAbout(AXIS, -theta), VIEW));
-      axisNow = apply(Rn, AXIS);
     };
     ico.addEventListener("pointermove", (e) => {
       if (!drag) return;
@@ -855,38 +853,6 @@ host.onRefresh(<span class="k">async</span> () => {
       dark = cs.colorScheme !== "light";
       // Stars: the text colour at night; on the light page a soft periwinkle, not black specks.
       ink = dark ? cs.getPropertyValue("--text").trim() || "#fff" : "#7d8fd8";
-    }
-
-    // The ring is the equator round the mark's spin axis, worked out in 3D from where that axis
-    // points now (axisNow), so when the mark is dragged its ring and moon tip with it. The moon
-    // goes round the way the mark turns. Drawn in two halves: behind the mark, then in front.
-    let axisNow = AXIS;
-    function ring(t, front, cx, cy, R) {
-      const A = axisNow, r = R * 1.62;
-      let u = [A[1], -A[0], 0]; // A x (0,0,1): in the screen plane, square to the axis
-      const m = Math.hypot(u[0], u[1]);
-      u = m > 1e-6 ? [u[0] / m, u[1] / m, 0] : [1, 0, 0];
-      const v = [A[1] * u[2] - A[2] * u[1], A[2] * u[0] - A[0] * u[2], A[0] * u[1] - A[1] * u[0]];
-      const at = (a) => { const c = Math.cos(a), s = Math.sin(a); return [cx + (u[0] * c + v[0] * s) * r, cy - (u[1] * c + v[1] * s) * r, u[2] * c + v[2] * s]; };
-      const e0 = at(Math.PI), e1 = at(0);
-      g.save();
-      const gr = g.createLinearGradient(e0[0], e0[1], e1[0], e1[1]);
-      gr.addColorStop(0, "rgba(28,201,253,.0)"); gr.addColorStop(0.5, "rgba(154,84,254,.55)"); gr.addColorStop(1, "rgba(226,160,5,.0)");
-      g.strokeStyle = gr; g.lineWidth = 1.4;
-      g.beginPath();
-      let pen = false;
-      for (let i = 0; i <= 120; i++) {
-        const q = at((i / 120) * 2 * Math.PI);
-        if ((q[2] >= 0) === front) { if (pen) g.lineTo(q[0], q[1]); else g.moveTo(q[0], q[1]); pen = true; } else pen = false;
-      }
-      g.stroke();
-      const q = at(-t * ORBIT);
-      if ((q[2] >= 0) === front) {
-        const k = 0.85 + 0.15 * q[2];
-        g.fillStyle = "#1CC9FD"; g.shadowColor = "#1CC9FD"; g.shadowBlur = 12;
-        g.beginPath(); g.arc(q[0], q[1], 3.6 * k, 0, 7); g.fill();
-      }
-      g.restore();
     }
 
     // Light travels the mark's own edges. Each light picks its next edge at every vertex, and
@@ -941,7 +907,6 @@ host.onRefresh(<span class="k">async</span> () => {
       rim.addColorStop(0, "rgba(150,180,255,0)"); rim.addColorStop(0.18, `rgba(150,180,255,${peak})`);
       rim.addColorStop(0.5, `rgba(150,180,255,${peak * 0.4})`); rim.addColorStop(1, "rgba(150,180,255,0)");
       g.fillStyle = rim; g.beginPath(); g.arc(cx, cy, R * 1.4, 0, 6.283); g.fill();
-      ring(t, false, cx, cy, R);
 
       const D = 4;
       const rv = V.map((v) => [0, 1, 2].map((i) => M[i][0] * v[0] + M[i][1] * v[1] + M[i][2] * v[2]));
@@ -1057,7 +1022,6 @@ host.onRefresh(<span class="k">async</span> () => {
         }
         g.restore();
       }
-      ring(t, true, cx, cy, R);
     }
 
     // Stars come towards you, as if the mark were travelling through them.
