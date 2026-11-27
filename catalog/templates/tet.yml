@@ -1,0 +1,71 @@
+# Glyx template "Tết & gia đình" from glyx.org/templates
+# The family's year by the lunar calendar, on the red and gold Tết skin. The month with its lunar
+# dates, today's page with its good hours and the family's own days (giỗ, Vu Lan, birthdays)
+# counted down; this day in Vietnamese history; gold and the bank's rates for the lì xì. Under them the shopping list for
+# Tết, what goes on the tray, and the cold or the sun of the days ahead. Put your own family's
+# dates in the calendar's settings.
+theme: { skin: tet }
+label:
+  tray: glyx.calendar
+pages:
+  - name: Nhà mình
+    mode: fit
+    widgets:
+      - plugin: glyx.calendar
+        x: 0
+        y: 0
+        cols: 12
+        rows: 8
+        style: { header: false }
+        config:
+          lunar: true
+          upcoming: 3
+          events:
+            - { date: "L 01-01", label: Tết Nguyên Đán }
+            - { date: "L 01-15", label: Rằm tháng Giêng }
+            - { date: "L 03-10", label: Giỗ Tổ Hùng Vương }
+            - { date: "L 07-15", label: Vu Lan }
+            - { date: "L 08-15", label: Trung thu }
+            - { date: "L 12-23", label: Ông Công ông Táo }
+            - { date: "L 09-12", label: Giỗ ông nội }
+            - { date: "03-08", label: Sinh nhật mẹ }
+      - plugin: glyx.on-this-day
+        title: Năm xưa
+        x: 12
+        y: 0
+        cols: 6
+        rows: 8
+        config: { language: vi }
+      - plugin: glyx.gold
+        x: 18
+        y: 0
+        cols: 6
+        rows: 8
+      - plugin: glyx.todo
+        title: Sắm Tết
+        x: 0
+        y: 8
+        cols: 6
+        rows: 8
+        config: { list: tet }
+      - plugin: glyx.notes
+        title: Mâm cỗ
+        x: 6
+        y: 8
+        cols: 6
+        rows: 8
+        config: { name: mamco }
+      - plugin: glyx.bank-rates
+        title: Tỷ giá
+        x: 12
+        y: 8
+        cols: 6
+        rows: 8
+      - plugin: glyx.weather
+        variant: week
+        x: 18
+        y: 8
+        cols: 6
+        rows: 8
+        style: { header: false }
+        config: { location: Hanoi }

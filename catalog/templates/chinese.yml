@@ -1,0 +1,42 @@
+# Glyx template "Học tiếng Trung" from glyx.org/templates
+# HSK 1 words in simplified characters with pinyin, their Hán Việt reading and the meaning in
+# Vietnamese, on the Paper skin. The whole level stands down the left as a sheet of characters;
+# today's word is the big card on the right, with a quiz and your daily practice under it. Change
+# the level (HSK 2 to 7-9) or switch to traditional characters in the widget's settings.
+theme: { skin: paper, preset: light }
+label:
+  pills: [glyx.habits]
+pages:
+  - name: 中文
+    mode: fit
+    widgets:
+      - plugin: glyx.vocab
+        title: HSK 1
+        variant: grid
+        x: 0
+        y: 0
+        cols: 12
+        rows: 16
+        config: { language: zh, hsk: "1", meaning: vi, hanViet: true }
+      - plugin: glyx.vocab
+        variant: card
+        x: 12
+        y: 0
+        cols: 12
+        rows: 8
+        config: { language: zh, hsk: "1", meaning: vi, hanViet: true }
+      - plugin: glyx.vocab
+        title: Kiểm tra
+        variant: quiz
+        x: 12
+        y: 8
+        cols: 6
+        rows: 8
+        config: { language: zh, hsk: "1", meaning: vi, hanViet: true }
+      - plugin: glyx.habits
+        title: Mỗi ngày
+        x: 18
+        y: 8
+        cols: 6
+        rows: 8
+        config: { list: chinese }

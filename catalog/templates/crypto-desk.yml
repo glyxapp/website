@@ -1,0 +1,65 @@
+# Glyx template "Crypto" from glyx.org/templates
+# The market that never closes, on the Liquid skin. The four biggest coins as one band of charts
+# across the top; under it the altcoins you watch, the news from CoinDesk and Cointelegraph, and
+# gold against the dollar for the old kind of hedge. No API key, no exchange account.
+theme: { skin: liquid }
+label:
+  tray: glyx.markets
+  pills: [glyx.markets]
+pages:
+  - name: Crypto
+    mode: fit
+    widgets:
+      - plugin: glyx.markets
+        title: Top coins
+        variant: cards
+        x: 0
+        y: 0
+        cols: 24
+        rows: 8
+        config:
+          range: 1mo
+          symbols:
+            - { symbol: BTC-USD, name: Bitcoin }
+            - { symbol: ETH-USD, name: Ethereum }
+            - { symbol: SOL-USD, name: Solana }
+            - { symbol: BNB-USD, name: BNB }
+      - plugin: glyx.markets
+        title: Alts
+        x: 0
+        y: 8
+        cols: 6
+        rows: 8
+        config:
+          symbols:
+            - { symbol: XRP-USD, name: XRP }
+            - { symbol: DOGE-USD, name: Dogecoin }
+            - { symbol: ADA-USD, name: Cardano }
+            - { symbol: AVAX-USD, name: Avalanche }
+            - { symbol: LINK-USD, name: Chainlink }
+            - { symbol: TON11419-USD, name: Toncoin }
+      - plugin: glyx.rss
+        title: News
+        variant: headlines
+        x: 6
+        y: 8
+        cols: 12
+        rows: 8
+        config:
+          limit: 25
+          feeds:
+            - https://www.coindesk.com/arc/outboundfeeds/rss/
+            - https://cointelegraph.com/rss
+      - plugin: glyx.markets
+        title: Hedges
+        x: 18
+        y: 8
+        cols: 6
+        rows: 8
+        config:
+          symbols:
+            - { symbol: GC=F, name: Gold }
+            - { symbol: DX-Y.NYB, name: Dollar index }
+            - { symbol: ^GSPC, name: S&P 500 }
+            - { symbol: ^IXIC, name: Nasdaq }
+            - { symbol: USDVND=X, name: USD/VND }

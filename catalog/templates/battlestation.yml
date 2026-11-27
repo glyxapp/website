@@ -1,0 +1,60 @@
+# Glyx template "Battle station" from glyx.org/templates
+# For the gaming PC, on the Mecha skin. The machine's CPU, memory and disks as live graphs beside
+# a screen for music while you play; the network's speed as a trace under them, with whether
+# Discord, Reddit, Cloudflare and GitHub are up, and the latest gaming news. The time
+# runs along the bottom, so you know how late it got.
+theme: { skin: mecha }
+label:
+  pills: [glyx.system#cpu, glyx.network]
+pages:
+  - name: Rig
+    mode: fit
+    widgets:
+      - plugin: glyx.system
+        variant: graph
+        x: 0
+        y: 0
+        cols: 12
+        rows: 8
+      - plugin: glyx.tv
+        variant: modern
+        x: 12
+        y: 0
+        cols: 12
+        rows: 8
+        style: { header: false }
+        config:
+          channels:
+            - { title: Chillhop radio, url: "https://www.youtube.com/watch?v=5yx6BWlEVcY" }
+            - { title: Synthwave radio, url: "https://www.youtube.com/watch?v=4xDzrJKXOOY" }
+      - plugin: glyx.network
+        x: 0
+        y: 8
+        cols: 12
+        rows: 4
+      - plugin: glyx.clock
+        variant: compact
+        x: 0
+        y: 12
+        cols: 12
+        rows: 4
+        style: { header: false }
+        config: { zones: [] }
+      - plugin: glyx.status
+        x: 12
+        y: 8
+        cols: 6
+        rows: 8
+        config: { services: [discord, reddit, cloudflare, github] }
+      - plugin: glyx.rss
+        title: Gaming
+        variant: headlines
+        x: 18
+        y: 8
+        cols: 6
+        rows: 8
+        config:
+          limit: 25
+          feeds:
+            - https://www.pcgamer.com/rss/
+            - https://www.rockpapershotgun.com/feed
