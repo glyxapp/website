@@ -65,8 +65,23 @@ code,pre{font-family:var(--mono)}
 .gh:hover{background:var(--surface)}
 
 /* Hero */
-.hero{position:relative;padding:88px 0 40px;text-align:center}
-.hero::before{content:"";position:absolute;inset:-120px 0 auto;height:640px;background:radial-gradient(60% 55% at 50% 30%,var(--glow),transparent 70%);pointer-events:none;z-index:-1}
+.hero{position:relative;padding:48px 0 40px;text-align:center}
+.space{position:absolute;left:0;right:0;top:-60px;height:820px;width:100%;pointer-events:none;z-index:-1;-webkit-mask-image:linear-gradient(#000 75%,transparent);mask-image:linear-gradient(#000 75%,transparent)}
+.hero-top{display:grid;grid-template-columns:1.05fr 1fr;align-items:center;gap:8px;text-align:left;min-height:560px}
+.hero-top h1{margin:22px 0 20px;max-width:600px;font-size:clamp(46px,5.6vw,70px)}
+.hero-top .lead{margin:0;max-width:520px}
+.hero-top .cta{justify-content:flex-start}
+.ico{display:block;width:100%;max-width:600px;aspect-ratio:1;justify-self:center;margin-right:-40px;cursor:grab;touch-action:pan-y}
+.ico:active{cursor:grabbing}
+@media (max-width:900px){
+  .hero{padding-top:24px}
+  .hero-top{grid-template-columns:1fr;text-align:center;min-height:0}
+  .hero-top .ico{order:-1;width:min(420px,92vw);aspect-ratio:1/.82;margin:0 auto}
+  .hero-top h1{margin:14px auto 18px}
+  .hero-top .lead{margin:0 auto}
+  .hero-top .cta{justify-content:center}
+}
+.hero::before{content:"";position:absolute;inset:-120px 0 auto;height:640px;background:radial-gradient(50% 55% at 70% 32%,var(--glow),transparent 70%);pointer-events:none;z-index:-1}
 .pill{display:inline-flex;align-items:center;gap:8px;padding:5px 12px 5px 6px;border:1px solid var(--border);border-radius:99px;background:var(--surface);font-size:13px;color:var(--dim)}
 .pill b{padding:2px 8px;border-radius:99px;background:var(--accent-soft);color:var(--accent);font-weight:600;font-size:12px}
 h1{margin:22px auto 18px;max-width:820px;font-size:clamp(40px,7vw,72px);line-height:1.04;letter-spacing:-.035em;font-weight:750}
@@ -190,7 +205,7 @@ footer a:hover{color:var(--text)}
 }
 @media (max-width:600px){
   .wrap{padding:0 16px}
-  .hero{padding-top:56px}
+  .hero{padding-top:16px}
   section{padding:72px 0}
   .dash{grid-template-columns:1fr}
   .dash .col:first-child .w:nth-child(n+2){display:none}
@@ -231,15 +246,21 @@ footer a:hover{color:var(--text)}
 
 <main id="top">
   <div class="hero">
+    <canvas class="space" id="space" aria-hidden="true"></canvas>
     <div class="wrap">
-      <span class="pill"><b>v0.1</b> Early preview for Windows 10/11</span>
-      <h1>A dashboard that <em>lives on your desktop.</em></h1>
-      <p class="lead">News, weather, servers and your AI quota in one tiny app. Configure it with one YAML file, and run every widget as a sandboxed plugin.</p>
-      <div class="cta">
-        <span class="btn primary soon" aria-disabled="true"><svg class="i"><use href="#windows"/></svg>Coming soon for Windows</span>
-        <a class="btn ghost" href="https://github.com/glyxapp"><svg class="i"><use href="#github"/></svg>Follow on GitHub</a>
+      <div class="hero-top">
+        <div class="hero-copy">
+          <span class="pill"><b>v0.1</b> Early preview for Windows 10/11</span>
+          <h1>A dashboard that <em>lives on your desktop.</em></h1>
+          <p class="lead">News, weather, servers and your AI quota in one tiny app. Configure it with one YAML file, and run every widget as a sandboxed plugin.</p>
+          <div class="cta">
+            <span class="btn primary soon" aria-disabled="true"><svg class="i"><use href="#windows"/></svg>Coming soon for Windows</span>
+            <a class="btn ghost" href="https://github.com/glyxapp"><svg class="i"><use href="#github"/></svg>Follow on GitHub</a>
+          </div>
+          <div class="meta">Free and open source · MIT · No account, no telemetry</div>
+        </div>
+        <canvas class="ico" id="ico" role="img" aria-label="The Glyx mark as a spinning icosahedron, twenty tiles in the logo's colours"></canvas>
       </div>
-      <div class="meta">Free and open source · MIT · No account, no telemetry</div>
 
       <div class="shot" aria-hidden="true">
         <div class="win">
@@ -522,13 +543,217 @@ host.onRefresh(<span class="k">async</span> () => {
   tick();
   setInterval(tick, 10000);
 
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  space(still);
+  if (still) return;
   const cpu = document.getElementById("cpu");
   setInterval(() => {
     const v = Math.round(6 + Math.random() * 18);
     cpu.style.width = v + "%";
     set("cpuT", v + "%");
   }, 2400);
+
+  // Hero: the mark as an icosahedron tumbling through a field of stars.
+  function space(still) {
+    const ico = document.getElementById("ico"), sky = document.getElementById("space");
+    if (!ico || !sky || !ico.getContext) return;
+    const g = ico.getContext("2d"), s = sky.getContext("2d");
+    const PAL = ["#9A54FE", "#379DFE", "#B034C9", "#3957F4", "#1CC9FD", "#E43675", "#1C77F4", "#9A34CC", "#E27405", "#E2A005"];
+    const rgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+
+    // Geometry: 12 vertices, 20 faces found as the triples whose sides are all 2.
+    const P = (1 + Math.sqrt(5)) / 2, V = [];
+    for (const a of [-1, 1]) for (const b of [-P, P]) V.push([0, a, b], [a, b, 0], [b, 0, a]);
+    const n = Math.hypot(1, P);
+    V.forEach((v) => { v[0] /= n; v[1] /= n; v[2] /= n; });
+    const d2 = (a, b) => (a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2 + (a[2] - b[2]) ** 2;
+    const edge = d2([0, 1, P].map((x) => x / n), [1, P, 0].map((x) => x / n)) + 1e-6;
+    const F = [], E = [];
+    for (let i = 0; i < 12; i++) for (let j = i + 1; j < 12; j++) {
+      if (d2(V[i], V[j]) > edge) continue;
+      E.push([i, j]);
+      for (let k = j + 1; k < 12; k++) if (d2(V[i], V[k]) <= edge && d2(V[j], V[k]) <= edge) F.push({ v: [i, j, k] });
+    }
+    // Opposite faces share a colour, so the side facing you shows each of the ten once.
+    let c = 0;
+    const key = (f) => f.v.map((i) => V[i].join()).sort().join("|");
+    const neg = (f) => f.v.map((i) => V[i].map((x) => -x).join()).sort().join("|");
+    for (const f of F) {
+      if (f.col) continue;
+      f.col = rgb(PAL[c++ % 10]);
+      const o = F.find((h) => key(h) === neg(f));
+      if (o) o.col = f.col;
+    }
+
+    // Orientation as a matrix, turned a little each frame about a spin axis.
+    let M = [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
+    const turn = (ax, ay, az) => {
+      const a = Math.hypot(ax, ay, az);
+      if (a < 1e-9) return;
+      const [x, y, z] = [ax / a, ay / a, az / a], co = Math.cos(a), si = Math.sin(a), t = 1 - co;
+      const R = [[t * x * x + co, t * x * y - si * z, t * x * z + si * y], [t * x * y + si * z, t * y * y + co, t * y * z - si * x], [t * x * z - si * y, t * y * z + si * x, t * z * z + co]];
+      M = R.map((r) => [0, 1, 2].map((j) => r[0] * M[0][j] + r[1] * M[1][j] + r[2] * M[2][j]));
+    };
+    // The ring is drawn as an ellipse tipped by TILT and flattened to FLAT; it is the
+    // circle round the axis AXIS below, seen from in front. The mark spins about that same
+    // axis, with a vertex as its pole, and the same way the moon goes round: the near side
+    // of both moves to the left. So the ring reads as the mark's equator.
+    const TILT = -0.32, FLAT = 0.36;
+    const AXIS = [Math.sin(TILT) * Math.sqrt(1 - FLAT * FLAT), Math.cos(TILT) * Math.sqrt(1 - FLAT * FLAT), FLAT];
+    {
+      const p0 = V[1], c = [p0[1] * AXIS[2] - p0[2] * AXIS[1], p0[2] * AXIS[0] - p0[0] * AXIS[2], p0[0] * AXIS[1] - p0[1] * AXIS[0]];
+      const m = Math.hypot(...c), ang = Math.acos(Math.max(-1, Math.min(1, p0[0] * AXIS[0] + p0[1] * AXIS[1] + p0[2] * AXIS[2])));
+      if (m > 1e-9) turn(c[0] / m * ang, c[1] / m * ang, c[2] / m * ang);
+    }
+    const SPIN = 0.6, ORBIT = 0.4; // radians per second: the mark turns a little faster than its moon goes round
+    const BASE = AXIS.map((x) => -x * SPIN);
+    let w = BASE.slice(), drag = null;
+
+    ico.addEventListener("pointerdown", (e) => { drag = { x: e.clientX, y: e.clientY }; ico.setPointerCapture(e.pointerId); });
+    ico.addEventListener("pointermove", (e) => {
+      if (!drag) return;
+      const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+      drag = { x: e.clientX, y: e.clientY };
+      turn(dy * 0.01, dx * 0.01, 0);
+      w = [dy * 0.6, dx * 0.6, 0];
+      if (still) draw(0);
+    });
+    const up = () => { drag = null; };
+    ico.addEventListener("pointerup", up);
+    ico.addEventListener("pointercancel", up);
+
+    const L = (() => { const l = [-0.45, 0.6, 0.66], m = Math.hypot(...l); return l.map((x) => x / m); })();
+    const H = (() => { const h = [L[0], L[1], L[2] + 1], m = Math.hypot(...h); return h.map((x) => x / m); })();
+    let W = 0, Hh = 0, dpr = 1, SW = 0, SH = 0, SX = 0, SY = 0, ink = "#fff", dark = true;
+    function size() {
+      dpr = Math.min(devicePixelRatio || 1, 2);
+      const r = ico.getBoundingClientRect(), q = sky.getBoundingClientRect();
+      W = r.width; Hh = r.height; SW = q.width; SH = q.height;
+      ico.width = W * dpr; ico.height = Hh * dpr;
+      sky.width = SW * dpr; sky.height = SH * dpr;
+      SX = r.left - q.left + W / 2; SY = r.top - q.top + Hh / 2; // stars stream out from the mark
+      const cs = getComputedStyle(document.documentElement);
+      ink = cs.getPropertyValue("--text").trim() || "#fff";
+      dark = cs.colorScheme !== "light";
+    }
+
+    function ring(t, front, cx, cy, R) {
+      const rx = R * 1.62, ry = rx * FLAT, tilt = TILT;
+      g.save();
+      g.translate(cx, cy); g.rotate(tilt);
+      g.lineWidth = 1.4;
+      const gr = g.createLinearGradient(-rx, 0, rx, 0);
+      gr.addColorStop(0, "rgba(28,201,253,.0)"); gr.addColorStop(0.5, "rgba(154,84,254,.55)"); gr.addColorStop(1, "rgba(226,160,5,.0)");
+      g.strokeStyle = gr;
+      g.beginPath(); g.ellipse(0, 0, rx, ry, 0, front ? 0 : Math.PI, front ? Math.PI : 2 * Math.PI); g.stroke();
+      // A moon on the ring; it passes behind the mark on the far half.
+      const a = t * ORBIT, mx = Math.cos(a) * rx, my = Math.sin(a) * ry;
+      if ((my > 0) === front) {
+        const k = 0.7 + 0.3 * Math.sin(a);
+        g.fillStyle = "#1CC9FD"; g.shadowColor = "#1CC9FD"; g.shadowBlur = 12;
+        g.beginPath(); g.arc(mx, my, 3.6 * k, 0, 7); g.fill();
+      }
+      g.restore();
+    }
+
+    function tri(pts, shrink) {
+      const cx = (pts[0][0] + pts[1][0] + pts[2][0]) / 3, cy = (pts[0][1] + pts[1][1] + pts[2][1]) / 3;
+      g.beginPath();
+      pts.forEach((p, i) => { const x = cx + (p[0] - cx) * shrink, y = cy + (p[1] - cy) * shrink; i ? g.lineTo(x, y) : g.moveTo(x, y); });
+      g.closePath();
+    }
+
+    function draw(t) {
+      g.setTransform(dpr, 0, 0, dpr, 0, 0);
+      g.clearRect(0, 0, W, Hh);
+      const R = Math.min(W * 0.25, Hh * 0.36), cx = W / 2, cy = Hh / 2 + (still ? 0 : Math.sin(t * 0.9) * 6);
+      // Soft halo, like a planet's atmosphere.
+      const halo = g.createRadialGradient(cx, cy, R * 0.6, cx, cy, R * 1.7);
+      halo.addColorStop(0, "rgba(122,162,247,.28)"); halo.addColorStop(1, "rgba(122,162,247,0)");
+      g.fillStyle = halo; g.fillRect(0, 0, W, Hh);
+      ring(t, false, cx, cy, R);
+
+      const D = 4;
+      const rv = V.map((v) => [0, 1, 2].map((i) => M[i][0] * v[0] + M[i][1] * v[1] + M[i][2] * v[2]));
+      const pv = rv.map((v) => { const f = D / (D - v[2]); return [cx + v[0] * R * f, cy - v[1] * R * f, v[2]]; });
+      const faces = F.map((f) => {
+        const a = rv[f.v[0]], b = rv[f.v[1]], c2 = rv[f.v[2]];
+        let nx = (a[0] + b[0] + c2[0]) / 3, ny = (a[1] + b[1] + c2[1]) / 3, nz = (a[2] + b[2] + c2[2]) / 3;
+        const m = Math.hypot(nx, ny, nz); nx /= m; ny /= m; nz /= m;
+        return { f, z: nz, n: [nx, ny, nz], p: f.v.map((i) => pv[i]) };
+      }).sort((x, y) => x.z - y.z);
+
+      g.lineJoin = "round";
+      for (const o of faces) {
+        const [r0, g0, b0] = o.f.col;
+        if (o.z < 0) { // far side, seen through the glass
+          tri(o.p, 0.86);
+          g.fillStyle = `rgba(${r0},${g0},${b0},.16)`; g.fill();
+          continue;
+        }
+        const dif = Math.max(0, o.n[0] * L[0] + o.n[1] * L[1] + o.n[2] * L[2]);
+        const spec = Math.pow(Math.max(0, o.n[0] * H[0] + o.n[1] * H[1] + o.n[2] * H[2]), 24) * 0.45;
+        const k = 0.7 + 0.42 * dif;
+        const col = [r0, g0, b0].map((x) => Math.round(Math.min(255, x * k + (255 - x * k) * spec)));
+        tri(o.p, 0.9);
+        g.fillStyle = `rgb(${col})`;
+        g.strokeStyle = `rgb(${col})`; g.lineWidth = 3;
+        g.fill(); g.stroke();
+      }
+      // The globe's wire: edges and nodes on the near side.
+      g.lineWidth = 0.8;
+      for (const [i, j] of E) {
+        const z = (rv[i][2] + rv[j][2]) / 2;
+        if (z < -0.05) continue;
+        g.strokeStyle = `rgba(255,255,255,${0.12 + 0.25 * z})`;
+        g.beginPath(); g.moveTo(pv[i][0], pv[i][1]); g.lineTo(pv[j][0], pv[j][1]); g.stroke();
+      }
+      for (const p of pv) {
+        if (p[2] < 0) continue;
+        g.fillStyle = `rgba(255,255,255,${0.35 + 0.6 * p[2]})`;
+        g.beginPath(); g.arc(p[0], p[1], 1.2 + 1.4 * p[2], 0, 7); g.fill();
+      }
+      ring(t, true, cx, cy, R);
+    }
+
+    // Stars come towards you, as if the mark were travelling through them.
+    const STARS = Array.from({ length: 170 }, () => ({ x: Math.random() * 2 - 1, y: Math.random() * 2 - 1, z: Math.random() }));
+    function stars(dt) {
+      s.setTransform(dpr, 0, 0, dpr, 0, 0);
+      s.clearRect(0, 0, SW, SH);
+      const cx = SX, cy = SY, k = Math.max(SW, SH) * 0.5;
+      s.fillStyle = ink;
+      for (const st of STARS) {
+        st.z -= dt * 0.045;
+        if (st.z <= 0.02) { st.x = Math.random() * 2 - 1; st.y = Math.random() * 2 - 1; st.z = 1; }
+        const x = cx + (st.x / st.z) * k * 0.35, y = cy + (st.y / st.z) * k * 0.35;
+        if (x < 0 || x > SW || y < 0 || y > SH) continue;
+        s.globalAlpha = Math.min(1, (1 - st.z) * 1.3) * (dark ? 0.85 : 0.35);
+        s.beginPath(); s.arc(x, y, 0.4 + (1 - st.z) * 1.5, 0, 7); s.fill();
+      }
+      s.globalAlpha = 1;
+    }
+
+    size();
+    addEventListener("resize", size);
+    new MutationObserver(size).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    matchMedia("(prefers-color-scheme: light)").addEventListener?.("change", size);
+    if (still) { draw(0); stars(0); addEventListener("resize", () => { draw(0); stars(0); }); return; }
+
+    let on = true, last = performance.now();
+    new IntersectionObserver(([e]) => { on = e.isIntersecting; if (on) { last = performance.now(); requestAnimationFrame(frame); } }).observe(ico);
+    function frame(now) {
+      if (!on) return;
+      const dt = Math.min(0.05, (now - last) / 1000); last = now;
+      if (!drag) {
+        w = w.map((x, i) => x + (BASE[i] - x) * Math.min(1, dt * 1.2)); // spin settles back to its cruise
+        turn(w[0] * dt, w[1] * dt, w[2] * dt);
+      }
+      draw(now / 1000);
+      stars(dt);
+      requestAnimationFrame(frame);
+    }
+  }
 })();
 </script>
 </body>
