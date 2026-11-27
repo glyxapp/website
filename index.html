@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Glyx — A dashboard that lives on your desktop</title>
-<meta name="description" content="A tiny Windows dashboard configured with one YAML file, where every widget is a sandboxed plugin. 5 MB, no account, no cloud.">
+<meta name="description" content="A tiny Windows dashboard configured with one YAML file, where every widget is a sandboxed plugin. 5 MB, no account, no telemetry.">
 <meta property="og:title" content="Glyx — A dashboard that lives on your desktop">
 <meta property="og:description" content="A tiny Windows dashboard configured with one YAML file, where every widget is a sandboxed plugin.">
 <meta property="og:url" content="https://glyx.org/">
@@ -239,7 +239,7 @@ footer a:hover{color:var(--text)}
         <span class="btn primary soon" aria-disabled="true"><svg class="i"><use href="#windows"/></svg>Coming soon for Windows</span>
         <a class="btn ghost" href="https://github.com/glyxapp"><svg class="i"><use href="#github"/></svg>Follow on GitHub</a>
       </div>
-      <div class="meta">Free and open source · MIT · No account, no cloud</div>
+      <div class="meta">Free and open source · MIT · No account, no telemetry</div>
 
       <div class="shot" aria-hidden="true">
         <div class="win">
@@ -291,7 +291,7 @@ footer a:hover{color:var(--text)}
                   <svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="var(--surface-2)" stroke-width="4"/><circle cx="18" cy="18" r="15" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" stroke-dasharray="94.25" stroke-dashoffset="35"/></svg>
                   <div><div class="big">63%</div><div class="muted" style="font-size:12px">Claude · 5 h window</div></div>
                 </div>
-                <ul class="kv"><li>Resets in<b>1 h 52 m</b></li><li>Weekly<b>41%</b></li><li>Open sessions<b>3</b></li></ul>
+                <ul class="kv"><li>Resets in<b>1 h 52 m</b></li><li>Weekly<b>41%</b></li><li>Tokens today<b>1.2M</b></li></ul>
               </div>
               <div class="w">
                 <div class="wh"><span class="d"></span>Hacker News</div>
@@ -333,7 +333,7 @@ footer a:hover{color:var(--text)}
         <div class="card">
           <div class="ic"><svg class="i"><use href="#i-home"/></svg></div>
           <h3>Local-first</h3>
-          <p>No server, no telemetry, no sign-in. Your data, including your AI usage, never leaves your machine.</p>
+          <p>No Glyx server, no telemetry, no sign-in. Widgets only talk to the services they show data from, and <a href="https://github.com/glyxapp/glyx/blob/main/PRIVACY.md">the privacy page</a> lists every request.</p>
         </div>
       </div>
     </div>
@@ -358,7 +358,7 @@ footer a:hover{color:var(--text)}
   <span class="k">accent</span>: <span class="s">"#7aa2f7"</span>
 
 <span class="k">window</span>:
-  <span class="k">mode</span>: <span class="s">widget</span>       <span class="c"># normal | widget | tray</span>
+  <span class="k">mode</span>: <span class="s">widget</span>       <span class="c"># normal | top | widget | tray</span>
 
 <span class="k">pages</span>:
   - <span class="k">name</span>: <span class="s">Home</span>
@@ -426,7 +426,7 @@ host.onRefresh(<span class="k">async</span> () => {
         <div class="wg"><div class="ic"><svg class="i"><use href="#i-rss"/></svg></div><div><h4>RSS</h4><p>RSS, Atom and JSON feeds in one list</p><code>glyx.rss</code></div></div>
         <div class="wg"><div class="ic"><svg class="i"><use href="#i-hn"/></svg></div><div><h4>Hacker News</h4><p>Top, new, Ask and Show stories</p><code>glyx.hackernews</code></div></div>
         <div class="wg"><div class="ic"><svg class="i"><use href="#i-pulse"/></svg></div><div><h4>Monitor</h4><p>Uptime and latency, LAN included</p><code>glyx.monitor</code></div></div>
-        <div class="wg"><div class="ic"><svg class="i"><use href="#i-spark"/></svg></div><div><h4>AI usage</h4><p>Claude Code and Codex quota and sessions</p><code>glyx.ai-usage</code></div></div>
+        <div class="wg"><div class="ic"><svg class="i"><use href="#i-spark"/></svg></div><div><h4>AI usage</h4><p>Claude and ChatGPT quota, one widget each</p><code>glyx.claude-usage</code></div></div>
         <div class="wg"><div class="ic"><svg class="i"><use href="#i-cal"/></svg></div><div><h4>Calendar</h4><p>Month view and countdowns to your dates</p><code>glyx.calendar</code></div></div>
         <div class="wg"><div class="ic"><svg class="i"><use href="#i-chart"/></svg></div><div><h4>Markets</h4><p>Stocks, currencies and crypto with charts</p><code>glyx.markets</code></div></div>
         <div class="wg"><div class="ic"><svg class="i"><use href="#i-tag"/></svg></div><div><h4>Releases</h4><p>Latest GitHub releases, new ones marked</p><code>glyx.releases</code></div></div>
