@@ -137,13 +137,36 @@
         "done": true,
         "ago": 120
       }
+    ],
+    "todo:health": [
+      {
+        "text": "Book the yearly check-up",
+        "done": false,
+        "ago": 50
+      },
+      {
+        "text": "Pack the gym bag tonight",
+        "done": false,
+        "ago": 40
+      },
+      {
+        "text": "Buy fruit for the week",
+        "done": false,
+        "ago": 30
+      },
+      {
+        "text": "Swim, 30 min",
+        "done": true,
+        "ago": 120
+      }
     ]
   },
   "glyx.notes": {
     "note:scratch": "# release 1.4\ngit tag v1.4.0 && git push --tags\nnpm run build:release\ngh release create v1.4.0 --generate-notes\n\n# idea\ncache parsed feeds per ETag, skip\nthe parse when the server says 304",
     "note:study": "Present perfect or past simple?\n• I have lived here for three years. (still true)\n• I lived in Hue in 2019. (a finished time)\n\nPhrasal verbs this week\nlook up · give up · run out of · get along with",
     "note:runbook": "# update the stack\nssh nas\ncd /srv/compose\ndocker compose pull\ndocker compose up -d\n\n# immich is slow\ndocker logs immich_server --tail 50",
-    "note:journal": "Monday, a slow one.\n\nThe rain kept on all afternoon; finished the draft anyway.\nLunch with Minh, who is moving to Đà Nẵng in spring.\n\nGrateful for: hot tea, a quiet evening, the playlist Linh sent."
+    "note:journal": "Monday, a slow one.\n\nThe rain kept on all afternoon; finished the draft anyway.\nLunch with Minh, who is moving to Đà Nẵng in spring.\n\nGrateful for: hot tea, a quiet evening, the playlist Linh sent.",
+    "note:prompts": "# review\nReview this diff for bugs only.\nRank by severity, cite file:line.\n\n# commit\nWrite the commit message from the\nstaged diff: what changed and why.\n\n# explain\nExplain this like I know the\nlanguage but not the codebase."
   },
   "glyx.habits": {
     "habits:study": [
@@ -182,6 +205,30 @@
         "name": "Read",
         "done": [1, 3, 4, 6, 8, 9, 11, 13]
       }
+    ],
+    "habits:health": [
+      {
+        "name": "Walk 8k steps",
+        "done": [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 26, 27]
+      },
+      {
+        "name": "Water 2 L",
+        "done": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+      },
+      {
+        "name": "Workout",
+        "times": 3,
+        "done": [1, 3, 5, 8, 10, 12, 15, 17, 19, 22, 24, 26]
+      },
+      {
+        "name": "Sleep by 23:00",
+        "done": [1, 2, 4, 5, 6, 9, 10, 11, 13, 16, 17, 18, 20, 23, 24, 25]
+      }
     ]
+  },
+  "glyx.vocab": {
+    "voiceHint:ja": true,
+    "voiceHint:en": true,
+    "voiceHint:zh": true
   }
 }

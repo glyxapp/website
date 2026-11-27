@@ -41,6 +41,30 @@
       "name": "Minimal desk",
       "description": "A photo of the day, a clock face and the weather; your list and the lunar month under them. No titles, nothing that scrolls.",
       "tags": ["minimal", "calm"]
+    },
+    {
+      "id": "ai",
+      "name": "AI desk",
+      "description": "Four tall gauges on the Neon skin: Claude and ChatGPT quota left and when it resets, whether Claude, OpenAI and GitHub are up, and how hard the machine is working. AI news, new releases of your tools and your prompts under them.",
+      "tags": ["ai", "dev"]
+    },
+    {
+      "id": "japanese",
+      "name": "Học tiếng Nhật",
+      "description": "JLPT N5 words with their Hán Việt reading and Vietnamese meaning: a big word card, a quiz and a timer, and the whole level as a band of tiles under them. On the Aurora skin.",
+      "tags": ["learning", "vietnam"]
+    },
+    {
+      "id": "wellbeing",
+      "name": "Sống khoẻ",
+      "description": "For days at a desk: your habits with streaks and a heatmap, the air quality outside and the week's weather, a nudge to stand up after 50 minutes, this week's list and a calm photo of the day. On the Ocean skin.",
+      "tags": ["health", "calm"]
+    },
+    {
+      "id": "space",
+      "name": "Mission control",
+      "description": "A window on space on the NASA skin: a live view of Earth from orbit on a starship viewscreen, NASA's picture of the day, this day in history, mission time in three zones and the month.",
+      "tags": ["space", "calm"]
     }
   ],
   "widgets": [

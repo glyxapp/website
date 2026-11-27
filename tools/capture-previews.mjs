@@ -49,6 +49,9 @@ const configFile = path.join(configDir, "glyx.json");
       })),
     ])),
     "glyx.notes": Object.fromEntries(Object.entries(sample["glyx.notes"]).map(([key, text]) => [key, { text, at: now - 3_600_000 }])),
+    // States kept as they are: the missing-voice notice already dismissed, since whether this PC
+    // has a Japanese voice says nothing about the template.
+    "glyx.vocab": sample["glyx.vocab"],
     // Habits keep the days they were done as day numbers (days since 1970 of the local date);
     // the sample says how many days ago, so the streaks end today whenever this runs.
     "glyx.habits": Object.fromEntries(Object.entries(sample["glyx.habits"]).map(([key, items]) => {

@@ -1,0 +1,43 @@
+# Glyx template "Học tiếng Nhật" from glyx.org/templates
+# JLPT N5 words with their Hán Việt reading and the meaning in Vietnamese. Today's word is the big
+# card; beside it a quiz on the words you have seen and a 25-minute timer. Under them the whole
+# level as a band of tiles, to see how far you have come. On the Aurora skin. Change the level to
+# N4 to N1 in the widget's settings (they download once).
+theme: { skin: aurora }
+label:
+  pills: [glyx.timer]
+pages:
+  - name: 日本語
+    mode: fit
+    widgets:
+      - plugin: glyx.vocab
+        variant: card
+        x: 0
+        y: 0
+        cols: 12
+        rows: 8
+        config: { language: ja, jlpt: n5, meaning: vi, hanViet: true }
+      - plugin: glyx.vocab
+        title: Kiểm tra
+        variant: quiz
+        x: 12
+        y: 0
+        cols: 6
+        rows: 8
+        config: { language: ja, jlpt: n5, meaning: vi, hanViet: true }
+      - plugin: glyx.timer
+        variant: pomodoro
+        x: 18
+        y: 0
+        cols: 6
+        rows: 8
+        style: { background: tinted }
+        config: { focus: 25, shortBreak: 5, longBreak: 15, dailyGoal: 4 }
+      - plugin: glyx.vocab
+        title: N5
+        variant: grid
+        x: 0
+        y: 8
+        cols: 24
+        rows: 8
+        config: { language: ja, jlpt: n5, meaning: vi, hanViet: true }

@@ -1,0 +1,54 @@
+# Glyx template "Sống khoẻ" from glyx.org/templates
+# For the days spent at a desk. Your habits with their streaks and the heatmap of the last weeks
+# lead; beside them the air you breathe outside (AQI against the WHO guideline) and the week's
+# weather, to know when a walk is worth it. Under them a nudge to stand up after 50 minutes at
+# the keyboard, this week's list (the check-up, the gym bag) and a calm photo of the day. On the Ocean skin.
+theme: { skin: ocean }
+label:
+  tray: glyx.air
+  pills: [glyx.habits, glyx.breaks]
+pages:
+  - name: Hôm nay
+    mode: fit
+    widgets:
+      - plugin: glyx.habits
+        title: Thói quen
+        x: 0
+        y: 0
+        cols: 12
+        rows: 8
+        config: { list: health }
+      - plugin: glyx.air
+        x: 12
+        y: 0
+        cols: 6
+        rows: 8
+        style: { header: false }
+        config: { location: Hanoi }
+      - plugin: glyx.weather
+        variant: week
+        x: 18
+        y: 0
+        cols: 6
+        rows: 8
+        style: { header: false }
+        config: { location: Hanoi }
+      - plugin: glyx.breaks
+        x: 0
+        y: 8
+        cols: 6
+        rows: 8
+        config: { work: 50, eyes: true }
+      - plugin: glyx.todo
+        title: Tuần này
+        x: 6
+        y: 8
+        cols: 6
+        rows: 8
+        config: { list: health }
+      - plugin: glyx.picture-of-the-day
+        x: 12
+        y: 8
+        cols: 12
+        rows: 8
+        style: { header: false }

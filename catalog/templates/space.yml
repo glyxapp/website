@@ -1,0 +1,52 @@
+# Glyx template "Mission control" from glyx.org/templates
+# A window on space, on the NASA skin. The starship's viewscreen plays a live view of Earth from
+# orbit beside NASA's Astronomy Picture of the Day; under them what happened on this date, mission
+# time in Houston, Baikonur and UTC, and the month with its moon. Something for a second screen.
+theme: { skin: nasa }
+pages:
+  - name: Mission
+    mode: fit
+    widgets:
+      - plugin: glyx.tv
+        variant: space
+        x: 0
+        y: 0
+        cols: 12
+        rows: 8
+        style: { header: false }
+        config:
+          channels:
+            - { title: Earth from the ISS, url: "https://www.youtube.com/watch?v=fO9e9jnhYK8" }
+            - { title: Synthwave radio, url: "https://www.youtube.com/watch?v=4xDzrJKXOOY" }
+      - plugin: glyx.picture-of-the-day
+        x: 12
+        y: 0
+        cols: 12
+        rows: 8
+        style: { header: false }
+        config: { source: apod }
+      - plugin: glyx.on-this-day
+        x: 0
+        y: 8
+        cols: 12
+        rows: 8
+        config: { type: selected }
+      - plugin: glyx.clock
+        title: Mission time
+        x: 12
+        y: 8
+        cols: 6
+        rows: 8
+        config:
+          hour24: true
+          seconds: true
+          zones:
+            - { label: Houston, tz: America/Chicago }
+            - { label: Baikonur, tz: Asia/Almaty }
+            - { label: UTC, tz: Etc/UTC }
+      - plugin: glyx.calendar
+        x: 18
+        y: 8
+        cols: 6
+        rows: 8
+        style: { header: false }
