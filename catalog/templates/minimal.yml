@@ -1,37 +1,43 @@
 # Glyx template "Minimal desk" from glyx.org/templates
-# Four quiet cards pinned to the desktop, under your other windows. No titles anywhere: the clock
-# face, the weather, the date and your list speak for themselves.
+# One picture and four plain things, with no titles anywhere. A new photo every day (Bing's
+# picture of the day) across the top; under it a clock face, the weather, the month with its
+# lunar dates and your list, side by side. Nothing that scrolls, nothing that counts.
 theme: { preset: system }
-window: { mode: widget }
 pages:
   - name: Desk
+    mode: fit
     widgets:
+      - plugin: glyx.picture-of-the-day
+        x: 0
+        y: 0
+        cols: 24
+        rows: 8
+        style: { header: false }
       - plugin: glyx.clock
         variant: analog
         x: 0
-        y: 0
+        y: 8
         cols: 6
         rows: 8
         style: { header: false }
         config: { zones: [] }
       - plugin: glyx.weather
         x: 6
-        y: 0
+        y: 8
         cols: 6
-        rows: 4
+        rows: 8
         style: { header: false }
         config: { location: Hanoi }
       - plugin: glyx.calendar
-        variant: day
-        x: 6
-        y: 4
-        cols: 6
-        rows: 4
-        style: { header: false }
-        config: { lunar: true, upcoming: 1, events: [{ date: "L 01-01", label: Tết Nguyên Đán }] }
-      - plugin: glyx.todo
-        x: 0
+        x: 12
         y: 8
-        cols: 12
-        rows: 4
+        cols: 6
+        rows: 8
+        style: { header: false }
+        config: { lunar: true }
+      - plugin: glyx.todo
+        x: 18
+        y: 8
+        cols: 6
+        rows: 8
         style: { header: false }

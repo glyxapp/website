@@ -3,50 +3,44 @@
     {
       "id": "developer",
       "name": "Developer desk",
-      "description": "Hacker News down the middle; the time, Claude and ChatGPT quota and the machine on the left; service checks, the network and releases of your tools on the right. A second page for focus: a 50/10 timer, a scratchpad, links, tasks and the week.",
+      "description": "An instrument panel: Claude and ChatGPT quota, the status of the services you build on and the machine across the top; a scratchpad, today's tasks, new releases and a 50/10 timer under them. Hacker News, blogs and your links wait on a second page.",
       "tags": ["dev", "ai", "focus"]
     },
     {
-      "id": "news",
-      "name": "Morning news",
-      "description": "A front page on the light Paper skin: lead stories from five papers down the middle; the time, the weather and the lunar date on the left; gold, the world and the dollar on the right. A second page has business, tech and sport.",
-      "tags": ["news", "vietnam"]
-    },
-    {
       "id": "morning",
-      "name": "Morning overview",
-      "description": "What the day holds over the first coffee, on the light Grove skin: today's weather above the morning news, the time, the lunar date and today's tasks on one side, the air, gold and the dollar on the other.",
+      "name": "Buổi sáng",
+      "description": "A magazine spread for the first coffee: your sky painted as it is now, the lunar date and today's list on the left, a column of lead stories from five papers on the right. A second page has the world, business, gold, Vietcombank rates and this day in history.",
       "tags": ["morning", "news", "vietnam"]
     },
     {
       "id": "markets",
       "name": "Market watch",
-      "description": "The four Vietnamese indices as one band of charts across the top, with blue chips, market news and gold under it. A second page has world indices, crypto, commodities, big tech and the exchanges' clocks.",
+      "description": "The four Vietnamese indices as one band of charts, with blue chips, market news and gold under it. A second page has world indices and crypto as charts, then commodities, big tech and business news.",
       "tags": ["finance", "vietnam"]
     },
     {
       "id": "study",
       "name": "Study desk",
-      "description": "An English word card above your notes in the middle, a pomodoro with a daily goal and homework on the left, the time, the weather and the lunar calendar on the right, in the soft Mochi skin.",
+      "description": "Only what helps you learn: a big word card, a pomodoro and your study habits with their streaks, then notes, homework and a quiz on the words you have seen, in the soft Mochi skin.",
       "tags": ["focus", "learning"]
     },
     {
       "id": "homelab",
       "name": "Home lab",
-      "description": "Uptime checks above new releases of self-hosted apps in the middle, the clock, the network, CPU and disks on the left, a maintenance list and a runbook on the right, on the green Phosphor terminal skin.",
+      "description": "Uptime checks beside CPU and network traces, then releases of the apps you self-host, the status of the cloud you depend on and a runbook, on the green Phosphor terminal skin.",
       "tags": ["dev", "ops"]
     },
     {
       "id": "night",
       "name": "Night chill",
-      "description": "The end of the day on the Lo-fi Café skin, laid out as a mirror: a clock face above your journal, tomorrow's weather and list, a word to sleep on and the month. No news, no prices.",
+      "description": "Your sky after dark, painted, and a lo-fi stream on an old wooden TV; tonight's habits, tomorrow's list and a tall journal. No news, no prices.",
       "tags": ["night", "calm"]
     },
     {
       "id": "minimal",
       "name": "Minimal desk",
-      "description": "An analog clock, the weather, today's lunar date and a to-do list pinned to the desktop, without headers. Nothing else.",
-      "tags": ["minimal"]
+      "description": "A photo of the day, a clock face and the weather; your list and the lunar month under them. No titles, nothing that scrolls.",
+      "tags": ["minimal", "calm"]
     }
   ],
   "widgets": [

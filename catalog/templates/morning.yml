@@ -1,33 +1,33 @@
-# Glyx template "Morning overview" from glyx.org/templates
-# What the day holds, in one look over the first coffee, on the light Grove skin (young leaves and
-# morning sun). Built around a centre column: today's weather above the morning's news. The time,
-# the lunar date and your tasks on the left; the air, gold and the dollar on the right, cut at the
-# same rows.
+# Glyx template "Buổi sáng" from glyx.org/templates
+# One morning page laid out like a magazine spread, on the light Grove skin. The left page is your
+# day: the sky over your city painted as it is right now (sun, cloud, rain, the hours ahead),
+# today's lunar date with the next holidays, and your list. The right page is the news: a column
+# of lead stories from five papers. The second page is for later in the day: the world and
+# business, gold, the bank's exchange rates and what happened on this date.
 theme: { skin: nature, preset: light }
 label:
-  tray: glyx.weather
+  tray: glyx.scene
 pages:
-  - name: Buổi sáng
+  - name: Sáng nay
     mode: fit
     widgets:
-      # Left: 4 + 4 + 8 rows.
-      - plugin: glyx.clock
+      - plugin: glyx.scene
         x: 0
         y: 0
-        cols: 6
-        rows: 4
+        cols: 12
+        rows: 8
         style: { header: false }
-        config: { zones: [] }
+        config: { location: Hanoi }
       - plugin: glyx.calendar
         variant: day
         x: 0
-        y: 4
+        y: 8
         cols: 6
-        rows: 4
+        rows: 8
         style: { header: false }
         config:
           lunar: true
-          upcoming: 1
+          upcoming: 2
           events:
             - { date: "L 01-01", label: Tết Nguyên Đán }
             - { date: "L 03-10", label: Giỗ Tổ Hùng Vương }
@@ -35,48 +35,57 @@ pages:
             - { date: "09-02", label: Quốc khánh }
       - plugin: glyx.todo
         title: Hôm nay
-        x: 0
+        x: 6
         y: 8
         cols: 6
         rows: 8
         config: { list: today }
-      # Centre: the day's weather, then the news.
-      - plugin: glyx.weather
-        x: 6
+      - plugin: glyx.rss
+        title: Tin chính
+        variant: grid
+        x: 12
         y: 0
         cols: 12
-        rows: 8
-        style: { header: false }
-        config: { location: Hanoi }
-      - plugin: glyx.rss
-        title: Tin sáng
-        variant: headlines
-        x: 6
-        y: 8
-        cols: 12
-        rows: 8
+        rows: 16
         config:
           source: category
           category: thoi-su
           papers: [vnexpress, tuoitre, thanhnien, dantri, vietnamnet]
-          limit: 20
-      # Right: the same 4 + 4 + 8.
-      - plugin: glyx.air
-        x: 18
+          limit: 30
+
+  - name: Trong ngày
+    mode: fit
+    widgets:
+      - plugin: glyx.rss
+        title: Thế giới
+        variant: headlines
+        x: 0
         y: 0
-        cols: 6
-        rows: 4
-        style: { header: false }
-        config: { location: Hanoi }
+        cols: 12
+        rows: 8
+        config: { source: category, category: the-gioi, limit: 25 }
+      - plugin: glyx.rss
+        title: Kinh doanh
+        variant: headlines
+        x: 12
+        y: 0
+        cols: 12
+        rows: 8
+        config: { source: category, category: kinh-doanh, limit: 25 }
       - plugin: glyx.gold
-        x: 18
-        y: 4
-        cols: 6
-        rows: 4
-        style: { accent: "#b8860b" }
-      - plugin: glyx.rates
-        x: 18
+        x: 0
         y: 8
         cols: 6
         rows: 8
-        config: { from: USD, to: VND, others: [EUR, JPY, CNY, KRW, SGD, THB] }
+        style: { accent: "#b8860b" }
+      - plugin: glyx.bank-rates
+        x: 6
+        y: 8
+        cols: 6
+        rows: 8
+      - plugin: glyx.on-this-day
+        x: 12
+        y: 8
+        cols: 12
+        rows: 8
+        config: { language: vi }

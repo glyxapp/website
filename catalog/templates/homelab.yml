@@ -1,8 +1,8 @@
 # Glyx template "Home lab" from glyx.org/templates
-# On the green Phosphor terminal skin, built around a centre column: your services above new
-# releases of popular self-hosted apps. The box itself on the left (the clock, the network, CPU
-# and disks), your maintenance list and a runbook on the right, cut at the same row. Add your own
-# servers to Services: LAN addresses work too.
+# On the green Phosphor terminal skin. Your services and the box itself share the top: uptime
+# checks on the left, CPU and the network as two scope traces on the right. Below them, new
+# releases of the apps you self-host, the cloud you depend on (Cloudflare, GitHub, Docker Hub) and
+# a runbook. Put your own servers in Services: LAN addresses such as http://192.168.1.2:8123 work.
 theme: { skin: phosphor }
 label:
   tray: glyx.monitor
@@ -11,51 +11,46 @@ pages:
   - name: Ops
     mode: fit
     widgets:
-      - plugin: glyx.clock
-        x: 0
-        y: 0
-        cols: 6
-        rows: 4
-        style: { header: false }
-        config: { zones: [{ label: UTC, tz: Etc/UTC }] }
-      - plugin: glyx.network
-        x: 0
-        y: 4
-        cols: 6
-        rows: 4
-      - plugin: glyx.system
-        x: 0
-        y: 8
-        cols: 6
-        rows: 8
       - plugin: glyx.monitor
         title: Services
-        x: 6
+        x: 0
         y: 0
         cols: 12
         rows: 8
         config:
           targets:
-            - { name: Cloudflare, url: "https://1.1.1.1" }
-            - { name: Google, url: "https://www.google.com" }
-            - { name: GitHub, url: "https://github.com" }
+            - { name: Cloudflare DNS, url: "https://1.1.1.1" }
             - { name: Docker Hub, url: "https://hub.docker.com" }
             - { name: Tailscale, url: "https://login.tailscale.com" }
+            - { name: GitHub, url: "https://github.com" }
+      - plugin: glyx.system
+        variant: graph
+        x: 12
+        y: 0
+        cols: 12
+        rows: 4
+        style: { header: false }
+      - plugin: glyx.network
+        x: 12
+        y: 4
+        cols: 12
+        rows: 4
+        style: { header: false }
       - plugin: glyx.releases
         title: Self-hosted
-        x: 6
+        x: 0
         y: 8
         cols: 12
         rows: 8
         config:
           repos: [home-assistant/core, immich-app/immich, jellyfin/jellyfin, louislam/uptime-kuma, traefik/traefik, portainer/portainer]
-      - plugin: glyx.todo
-        title: Maintenance
-        x: 18
-        y: 0
+      - plugin: glyx.status
+        title: Upstream
+        x: 12
+        y: 8
         cols: 6
         rows: 8
-        config: { list: maintenance }
+        config: { services: [cloudflare, github, docker, digitalocean] }
       - plugin: glyx.notes
         title: Runbook
         x: 18

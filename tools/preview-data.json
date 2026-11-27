@@ -144,5 +144,44 @@
     "note:study": "Present perfect or past simple?\n• I have lived here for three years. (still true)\n• I lived in Hue in 2019. (a finished time)\n\nPhrasal verbs this week\nlook up · give up · run out of · get along with",
     "note:runbook": "# update the stack\nssh nas\ncd /srv/compose\ndocker compose pull\ndocker compose up -d\n\n# immich is slow\ndocker logs immich_server --tail 50",
     "note:journal": "Monday, a slow one.\n\nThe rain kept on all afternoon; finished the draft anyway.\nLunch with Minh, who is moving to Đà Nẵng in spring.\n\nGrateful for: hot tea, a quiet evening, the playlist Linh sent."
+  },
+  "glyx.habits": {
+    "habits:study": [
+      {
+        "name": "Words",
+        "done": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21]
+      },
+      {
+        "name": "Read",
+        "done": [0, 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 15, 16, 17, 19, 20]
+      },
+      {
+        "name": "Listen",
+        "done": [1, 2, 3, 5, 6, 9, 10, 12, 13, 16, 17, 20]
+      },
+      {
+        "name": "Mock test",
+        "times": 2,
+        "done": [2, 5, 9, 12, 16, 19]
+      }
+    ],
+    "habits:evening": [
+      {
+        "name": "No screens",
+        "done": [1, 2, 3, 5, 6, 7, 8, 10, 11, 12, 14, 15]
+      },
+      {
+        "name": "Stretch",
+        "done": [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 13, 14]
+      },
+      {
+        "name": "Journal",
+        "done": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+      },
+      {
+        "name": "Read",
+        "done": [1, 3, 4, 6, 8, 9, 11, 13]
+      }
+    ]
   }
 }

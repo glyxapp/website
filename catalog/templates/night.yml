@@ -1,53 +1,49 @@
 # Glyx template "Night chill" from glyx.org/templates
-# The end of the day on the Lo-fi Café skin (a rainy night at the café window), laid out as a
-# mirror: a clock face above your journal in the middle; tomorrow's weather and tomorrow's list
-# on the left; a word to sleep on and the month on the right. No news, no prices, nothing that
-# asks for an answer tonight.
+# The end of the day on the Lo-fi Café skin. Your sky after dark, painted as it is (the moon over
+# the lake, the rain if there is rain), and a lo-fi stream on an old wooden set under it. Tonight's
+# habits to tick off, tomorrow's list, and your journal down the right as one tall page. No news,
+# no prices, nothing that asks for an answer tonight.
 theme: { skin: lofi }
 pages:
   - name: Night
     mode: fit
     widgets:
-      - plugin: glyx.weather
-        variant: week
+      - plugin: glyx.scene
         x: 0
         y: 0
-        cols: 6
+        cols: 12
         rows: 8
         style: { header: false }
         config: { location: Hanoi }
+      - plugin: glyx.habits
+        title: Tonight
+        x: 12
+        y: 0
+        cols: 6
+        rows: 8
+        config: { list: evening }
+      - plugin: glyx.notes
+        title: Journal
+        x: 18
+        y: 0
+        cols: 6
+        rows: 16
+        config: { name: journal }
+      - plugin: glyx.tv
+        variant: wood
+        x: 0
+        y: 8
+        cols: 12
+        rows: 8
+        style: { header: false }
+        config:
+          channels:
+            - { title: Chillhop radio, url: "https://www.youtube.com/watch?v=5yx6BWlEVcY" }
+            - { title: Synthwave radio, url: "https://www.youtube.com/watch?v=4xDzrJKXOOY" }
       - plugin: glyx.todo
         title: Tomorrow
-        x: 0
+        x: 12
         y: 8
         cols: 6
         rows: 8
         config: { list: tomorrow }
-      - plugin: glyx.clock
-        variant: analog
-        x: 6
-        y: 0
-        cols: 12
-        rows: 8
-        style: { header: false, background: plain }
-        config: { zones: [] }
-      - plugin: glyx.notes
-        title: Journal
-        x: 6
-        y: 8
-        cols: 12
-        rows: 8
-        config: { name: journal }
-      - plugin: glyx.vocab
-        variant: daily
-        x: 18
-        y: 0
-        cols: 6
-        rows: 8
-        config: { language: en, cefr: b1 }
-      - plugin: glyx.calendar
-        x: 18
-        y: 8
-        cols: 6
-        rows: 8
-        style: { header: false }

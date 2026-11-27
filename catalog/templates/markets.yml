@@ -1,7 +1,8 @@
 # Glyx template "Market watch" from glyx.org/templates
 # Vietnamese stocks (DNSE) and gold on the first page: the four indices run across the top as one
 # band of charts; under it, blue chips and gold sit on either side of the market news. World
-# indices, crypto, commodities and the big exchanges on the second. No API key anywhere.
+# indices and crypto as two bands of charts on the second, then commodities, big tech and business
+# news. No API key anywhere.
 theme: { preset: dark, accent: "#9ece6a" }
 label:
   tray: glyx.gold
@@ -105,23 +106,12 @@ pages:
         rows: 8
         config:
           symbols: [{ symbol: NVDA }, { symbol: AAPL }, { symbol: MSFT }, { symbol: GOOGL }, { symbol: AMZN }, { symbol: META }]
-      - plugin: glyx.clock
-        title: Exchanges
-        x: 12
-        y: 8
-        cols: 6
-        rows: 8
-        config:
-          zones:
-            - { label: New York, tz: America/New_York }
-            - { label: London, tz: Europe/London }
-            - { label: Tokyo, tz: Asia/Tokyo }
       - plugin: glyx.rss
         title: Business
         variant: headlines
-        x: 18
+        x: 12
         y: 8
-        cols: 6
+        cols: 12
         rows: 8
         config:
           limit: 20

@@ -49,6 +49,20 @@ const configFile = path.join(configDir, "glyx.json");
       })),
     ])),
     "glyx.notes": Object.fromEntries(Object.entries(sample["glyx.notes"]).map(([key, text]) => [key, { text, at: now - 3_600_000 }])),
+    // Habits keep the days they were done as day numbers (days since 1970 of the local date);
+    // the sample says how many days ago, so the streaks end today whenever this runs.
+    "glyx.habits": Object.fromEntries(Object.entries(sample["glyx.habits"]).map(([key, items]) => {
+      const local = new Date(now);
+      const today = Date.UTC(local.getFullYear(), local.getMonth(), local.getDate()) / 86_400_000;
+      return [key, items.map((it, i) => ({
+        id: `sample${i}`,
+        name: it.name,
+        ...(it.times ? { times: it.times } : {}),
+        days: it.done.map((ago) => today - ago),
+        from: today - 30,
+        at: now - 3_600_000,
+      }))];
+    })),
   };
   fs.mkdirSync(path.join(configDir, "data"), { recursive: true });
   for (const [plugin, doc] of Object.entries(files)) fs.writeFileSync(path.join(configDir, "data", `${plugin}.json`), JSON.stringify(doc));

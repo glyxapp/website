@@ -1,103 +1,105 @@
 # Glyx template "Developer desk" from glyx.org/templates
-# Two pages, each one screen on the 24-cell grid, built around a centre column with two sides of
-# the same rhythm. Code: Hacker News down the middle; the time, your AI quota and the machine on
-# the left; services, the network and new releases of your tools on the right. Focus: a scratchpad
-# in the middle with your links and the week, the timer and typing on the left, tasks and music on
-# the right. Put your own repos, services and links in each widget's settings.
+# The first page is an instrument panel, read top to bottom: four gauges across the top (Claude
+# and ChatGPT quota, whether the services you build on are up, the machine), then the work itself:
+# a scratchpad, today's tasks and new releases of your tools, and a 50/10 timer beside the week.
+# Reading waits on the second page: Hacker News and a few good blogs, with your links as tiles.
 theme: { preset: dark, accent: "#7aa2f7" }
 label:
   tray: glyx.claude-usage
-  pills: [glyx.claude-usage, glyx.system#cpu]
+  pills: [glyx.claude-usage, glyx.status]
 pages:
-  - name: Code
+  - name: Work
     mode: fit
     widgets:
-      # Left: 4 + 4 + 8 rows.
-      - plugin: glyx.clock
+      # The gauges: four of the same size, one glance.
+      - plugin: glyx.claude-usage
         x: 0
         y: 0
         cols: 6
         rows: 4
-        style: { header: false }
-        config: { zones: [{ label: UTC, tz: Etc/UTC }, { label: San Francisco, tz: America/Los_Angeles }] }
-      - plugin: glyx.claude-usage
-        x: 0
-        y: 4
-        cols: 3
-        rows: 4
       - plugin: glyx.chatgpt-usage
-        x: 3
-        y: 4
-        cols: 3
+        x: 6
+        y: 0
+        cols: 6
         rows: 4
+      - plugin: glyx.status
+        x: 12
+        y: 0
+        cols: 6
+        rows: 4
+        config: { services: [claude, openai, github, npm, cloudflare, vercel] }
       - plugin: glyx.system
+        variant: bars
+        x: 18
+        y: 0
+        cols: 6
+        rows: 4
+      # The work.
+      - plugin: glyx.notes
+        title: Scratchpad
         x: 0
-        y: 8
+        y: 4
+        cols: 12
+        rows: 8
+        config: { name: scratch, mono: true }
+      - plugin: glyx.todo
+        title: Today
+        x: 12
+        y: 4
         cols: 6
         rows: 8
-      # Centre: the whole height of the screen to read.
+        config: { list: dev }
+      - plugin: glyx.releases
+        x: 18
+        y: 4
+        cols: 6
+        rows: 8
+        config: { repos: [anthropics/claude-code, microsoft/vscode, nodejs/node, tauri-apps/tauri, rust-lang/rust] }
+      - plugin: glyx.timer
+        variant: pomodoro
+        x: 0
+        y: 12
+        cols: 12
+        rows: 4
+        style: { background: tinted }
+        config: { focus: 50, shortBreak: 10, longBreak: 20, longEvery: 3, dailyGoal: 5 }
+      - plugin: glyx.calendar
+        variant: week
+        x: 12
+        y: 12
+        cols: 12
+        rows: 4
+        style: { header: false }
+
+  - name: Read
+    mode: fit
+    widgets:
       - plugin: glyx.hackernews
-        x: 6
+        x: 0
         y: 0
         cols: 12
         rows: 16
         config: { limit: 30 }
-      # Right: the same 4 + 4 + 8.
-      - plugin: glyx.monitor
-        title: Services
-        x: 18
+      - plugin: glyx.rss
+        title: Blogs
+        variant: headlines
+        x: 12
         y: 0
-        cols: 6
-        rows: 4
+        cols: 12
+        rows: 8
         config:
-          targets:
-            - { name: GitHub, url: "https://github.com" }
-            - { name: npm, url: "https://registry.npmjs.org" }
-            - { name: Cloudflare, url: "https://www.cloudflare.com" }
-      - plugin: glyx.network
-        x: 18
-        y: 4
-        cols: 6
-        rows: 4
-      - plugin: glyx.releases
-        x: 18
-        y: 8
-        cols: 6
-        rows: 8
-        config: { repos: [anthropics/claude-code, microsoft/vscode, nodejs/node, tauri-apps/tauri, rust-lang/rust] }
-
-  - name: Focus
-    mode: fit
-    widgets:
-      # Left: the timer is the one tinted card, the thing to look at.
-      - plugin: glyx.timer
-        variant: pomodoro
-        x: 0
-        y: 0
-        cols: 6
-        rows: 8
-        style: { background: tinted }
-        config: { focus: 50, shortBreak: 10, longBreak: 20, longEvery: 3, dailyGoal: 5 }
-      - plugin: glyx.keys
-        variant: week
-        x: 0
-        y: 8
-        cols: 6
-        rows: 8
-        config: { metric: both }
-      # Centre: the scratchpad, your links in three short columns, the week.
-      - plugin: glyx.notes
-        title: Scratchpad
-        x: 6
-        y: 0
-        cols: 12
-        rows: 8
-        config: { name: scratch, mono: true }
+          limit: 25
+          feeds:
+            - https://simonwillison.net/atom/everything/
+            - https://github.blog/feed/
+            - https://lobste.rs/rss
+            - https://blog.rust-lang.org/feed.xml
       - plugin: glyx.bookmarks
-        x: 6
+        variant: grid
+        x: 12
         y: 8
         cols: 12
-        rows: 4
+        rows: 8
         style: { header: false }
         config:
           links:
@@ -109,22 +111,3 @@ pages:
             - { title: regex101, url: "https://regex101.com", group: Tools }
             - { title: crontab.guru, url: "https://crontab.guru", group: Tools }
             - { title: Excalidraw, url: "https://excalidraw.com", group: Tools }
-      - plugin: glyx.calendar
-        variant: week
-        x: 6
-        y: 12
-        cols: 12
-        rows: 4
-        style: { header: false }
-      # Right: tasks, and what is playing.
-      - plugin: glyx.todo
-        x: 18
-        y: 0
-        cols: 6
-        rows: 8
-        config: { list: dev }
-      - plugin: glyx.media
-        x: 18
-        y: 8
-        cols: 6
-        rows: 8

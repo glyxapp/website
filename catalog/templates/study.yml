@@ -1,59 +1,55 @@
 # Glyx template "Study desk" from glyx.org/templates
-# Built around a centre column: the word card above your notes. The pomodoro (tinted, the one
-# thing that asks for your eye) and your homework on the left; the time, the weather and the
-# lunar calendar on the right. All in the soft Mochi skin.
+# Everything on it is for learning, nothing for passing the time. Today's word is the large card
+# where the eye lands; beside it the pomodoro (tinted, the one thing that asks for attention) and
+# your study habits with their streaks. Under them your notes, your homework and a quiz on the
+# words you have seen. All in the soft Mochi skin.
 theme: { skin: mochi, preset: system }
 label:
-  pills: [glyx.timer]
+  pills: [glyx.timer, glyx.habits]
 pages:
   - name: Study
     mode: fit
     widgets:
+      - plugin: glyx.vocab
+        variant: card
+        x: 0
+        y: 0
+        cols: 12
+        rows: 8
+        config: { language: en, cefr: a2 }
       - plugin: glyx.timer
         variant: pomodoro
-        x: 0
+        x: 12
         y: 0
         cols: 6
         rows: 8
         style: { background: tinted }
         config: { focus: 25, shortBreak: 5, longBreak: 15, dailyGoal: 8 }
+      - plugin: glyx.habits
+        title: Every day
+        x: 18
+        y: 0
+        cols: 6
+        rows: 8
+        config: { list: study }
+      - plugin: glyx.notes
+        x: 0
+        y: 8
+        cols: 12
+        rows: 8
+        config: { name: study }
       - plugin: glyx.todo
         title: Homework
-        x: 0
+        x: 12
         y: 8
         cols: 6
         rows: 8
         config: { list: study }
       - plugin: glyx.vocab
-        variant: card
-        x: 6
-        y: 0
-        cols: 12
+        title: Quiz
+        variant: quiz
+        x: 18
+        y: 8
+        cols: 6
         rows: 8
         config: { language: en, cefr: a2 }
-      - plugin: glyx.notes
-        x: 6
-        y: 8
-        cols: 12
-        rows: 8
-        config: { name: study }
-      - plugin: glyx.clock
-        x: 18
-        y: 0
-        cols: 6
-        rows: 4
-        style: { header: false }
-        config: { zones: [] }
-      - plugin: glyx.weather
-        x: 18
-        y: 4
-        cols: 6
-        rows: 4
-        style: { header: false }
-        config: { location: Hanoi }
-      - plugin: glyx.calendar
-        x: 18
-        y: 8
-        cols: 6
-        rows: 8
-        config: { lunar: true }
