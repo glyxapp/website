@@ -11,6 +11,7 @@
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#0d1017">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<script>{ let t = "dark"; try { if (localStorage.getItem("glyx-theme") === "light") t = "light"; } catch {} document.documentElement.dataset.theme = t; }</script>
 <style>
 :root{
   --font:"Segoe UI Variable Display","Segoe UI",system-ui,-apple-system,"Helvetica Neue",sans-serif;
@@ -22,6 +23,8 @@
   --ok:#7fd18b; --warn:#e7c06a; --err:#f2777a;
   --code-key:#7dcfff; --code-str:#9ece6a; --code-com:#5d6680; --code-num:#ff9e64;
   --glow:rgba(122,162,247,.22);
+  --float-shadow:0 40px 100px -30px rgba(0,0,0,.55);
+  --skin-art:linear-gradient(135deg,#1c2238,#3a2a5c 55%,#5a3a3a); --skin-pane:rgba(255,255,255,.08); --skin-line:rgba(255,255,255,.18);
   color-scheme:dark;
 }
 @media (prefers-color-scheme: light){
@@ -32,6 +35,8 @@
     --ok:#2f9e55; --warn:#a97a06; --err:#d64545;
     --code-key:#1f7ab8; --code-str:#3d8a26; --code-com:#97a0b3; --code-num:#c2581d;
     --glow:rgba(61,111,224,.16);
+    --float-shadow:0 40px 90px -36px rgba(40,60,120,.32);
+    --skin-art:linear-gradient(135deg,#dfe7ff,#ecdfff 55%,#ffe4d8); --skin-pane:rgba(255,255,255,.7); --skin-line:rgba(255,255,255,.95);
     color-scheme:light;
   }
 }
@@ -42,6 +47,8 @@
   --ok:#2f9e55; --warn:#a97a06; --err:#d64545;
   --code-key:#1f7ab8; --code-str:#3d8a26; --code-com:#97a0b3; --code-num:#c2581d;
   --glow:rgba(61,111,224,.16);
+  --float-shadow:0 40px 90px -36px rgba(40,60,120,.32);
+  --skin-art:linear-gradient(135deg,#dfe7ff,#ecdfff 55%,#ffe4d8); --skin-pane:rgba(255,255,255,.7); --skin-line:rgba(255,255,255,.95);
   color-scheme:light;
 }
 
@@ -63,6 +70,10 @@ code,pre{font-family:var(--mono)}
 .nav-links a:hover{color:var(--text)}
 .gh{display:flex;align-items:center;gap:8px;padding:7px 14px;border:1px solid var(--border);border-radius:9px;font-size:14px;text-decoration:none;color:var(--text)}
 .gh:hover{background:var(--surface)}
+.theme{display:grid;place-items:center;width:36px;height:36px;margin-left:-16px;border:1px solid var(--border);border-radius:9px;background:none;color:var(--dim);cursor:pointer}
+.theme:hover{background:var(--surface);color:var(--text)}
+.theme .sun,:root[data-dark] .theme .moon{display:none}
+:root[data-dark] .theme .sun{display:block}
 
 /* Hero */
 .hero{position:relative;padding:48px 0 40px;text-align:center}
@@ -99,7 +110,7 @@ h1 em{font-style:normal;background:linear-gradient(100deg,var(--accent),var(--ac
 
 /* Dashboard replica */
 .shot{margin:56px auto 0;max-width:1040px;perspective:1600px}
-.win{border:1px solid var(--border);border-radius:14px;background:color-mix(in srgb,var(--bg-2) 92%,transparent);box-shadow:0 40px 100px -30px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.02) inset;overflow:hidden;text-align:left;font-size:13.5px;line-height:1.45;transform:rotateX(4deg);transform-origin:50% 0}
+.win{border:1px solid var(--border);border-radius:14px;background:color-mix(in srgb,var(--bg-2) 92%,transparent);box-shadow:var(--float-shadow),0 0 0 1px rgba(255,255,255,.02) inset;overflow:hidden;text-align:left;font-size:13.5px;line-height:1.45;transform:rotateX(4deg);transform-origin:50% 0}
 .titlebar{display:flex;align-items:center;gap:10px;height:42px;padding:0 14px;border-bottom:1px solid var(--border)}
 .titlebar .logo{font-size:14px;gap:8px}
 .titlebar .logo svg{width:18px;height:18px}
@@ -147,7 +158,7 @@ h2{margin:10px 0 14px;font-size:clamp(30px,4.4vw,44px);line-height:1.1;letter-sp
 
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:64px;border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--border)}
 .stat{background:var(--bg);padding:26px 24px}
-.stat .n{font-size:38px;font-weight:700;letter-spacing:-.03em;line-height:1.1}
+.stat .n{font-size:38px;font-weight:700;letter-spacing:-.03em;line-height:1.1;background:linear-gradient(100deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
 .stat .n small{font-size:18px;font-weight:600;color:var(--dim);margin-left:3px}
 .stat .l{color:var(--dim);font-size:14px;margin-top:4px}
 
@@ -175,8 +186,33 @@ h2{margin:10px 0 14px;font-size:clamp(30px,4.4vw,44px);line-height:1.1;letter-sp
 .wg p{margin:2px 0 0;font-size:14px;color:var(--dim)}
 .wg code{font-size:11.5px;color:var(--faint)}
 .wg.new{border-style:dashed;background:transparent}
+.wg[hidden]{display:none}
+.cats{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:36px}
+.cat{font:inherit;font-size:14px;padding:7px 14px;border-radius:99px;border:1px solid var(--border);background:var(--surface);color:var(--dim);cursor:pointer}
+.cat:hover{color:var(--text)}
+.cat.on{background:var(--accent-soft);border-color:transparent;color:var(--accent);font-weight:600}
+.cat small{margin-left:6px;color:var(--faint);font-weight:500}
+.cats + .widgets{margin-top:24px}
+.more{display:flex;justify-content:center;margin-top:28px}
+.more a{display:inline-flex;align-items:center;gap:8px;color:var(--accent);text-decoration:none;font-weight:600}
+.more a:hover{text-decoration:underline}
 
-.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+.yours{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.yours .card{display:flex;flex-direction:column}
+.yours .art{height:132px;margin:-26px -26px 20px;border-bottom:1px solid var(--border);border-radius:16px 16px 0 0;position:relative;overflow:hidden;background:linear-gradient(160deg,var(--bg-2),color-mix(in srgb,var(--accent) 9%,var(--bg-2)))}
+.yours .art span{position:absolute;border-radius:6px;border:1px solid var(--border);background:var(--surface)}
+.yours .art.skin{background:var(--skin-art)}
+.yours .art.skin span{background:var(--skin-pane);border-color:var(--skin-line)}
+.yours .card p{flex:1}
+.yours .card .go{margin-top:16px;color:var(--accent);font-weight:600;font-size:14.5px;text-decoration:none}
+.yours .card .go:hover{text-decoration:underline}
+
+.beyond{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:16px}
+.beyond .card{padding:22px}
+.beyond .card h3{font-size:16.5px}
+.beyond .card p{font-size:14.5px}
+
+.modes{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:44px}
 .mode{border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--surface)}
 .mode .pic{height:150px;background:linear-gradient(160deg,var(--bg-2),color-mix(in srgb,var(--accent) 10%,var(--bg-2)));position:relative;border-bottom:1px solid var(--border)}
 .mode .pic span{position:absolute;border:1px solid var(--border);border-radius:7px;background:var(--surface)}
@@ -198,7 +234,8 @@ footer a:hover{color:var(--text)}
   .dash{grid-template-columns:1fr 1.6fr}
   .dash .col:last-child{display:none}
   .stats{grid-template-columns:repeat(2,1fr)}
-  .features,.modes{grid-template-columns:1fr}
+  .features,.yours{grid-template-columns:1fr}
+  .modes,.beyond{grid-template-columns:repeat(2,1fr)}
   .split{grid-template-columns:1fr;gap:36px}
   .nav-links{display:none}
   .gh{margin-left:auto}
@@ -214,6 +251,7 @@ footer a:hover{color:var(--text)}
   .stat{padding:20px 18px}
   .stat .n{font-size:30px}
   .final{padding:52px 20px}
+  .modes,.beyond{grid-template-columns:1fr}
   footer .links{margin-left:0}
 }
 @media (prefers-reduced-motion:reduce){
@@ -241,6 +279,7 @@ footer a:hover{color:var(--text)}
       <a href="/widgets/">Widgets</a>
     </nav>
     <a class="gh" href="https://github.com/glyxapp"><svg class="i"><use href="#github"/></svg>GitHub</a>
+    <button class="theme" id="themeBtn" type="button" aria-label="Switch theme"><svg class="i sun"><use href="#i-sun"/></svg><svg class="i moon"><use href="#i-moon"/></svg></button>
   </div>
 </header>
 
@@ -252,7 +291,7 @@ footer a:hover{color:var(--text)}
         <div class="hero-copy">
           <span class="pill"><b>v0.1</b> Early preview for Windows 10/11</span>
           <h1>A dashboard that <em>lives on your desktop.</em></h1>
-          <p class="lead">News, weather, servers and your AI quota in one tiny app. Configure it with one YAML file, and run every widget as a sandboxed plugin.</p>
+          <p class="lead">News, weather, servers, your money and your AI quota in one tiny app. Start from a template, drag widgets where you want them, and every one runs as a sandboxed plugin.</p>
           <div class="cta">
             <span class="btn primary soon" aria-disabled="true"><svg class="i"><use href="#windows"/></svg>Coming soon for Windows</span>
             <a class="btn ghost" href="https://github.com/glyxapp"><svg class="i"><use href="#github"/></svg>Follow on GitHub</a>
@@ -343,8 +382,8 @@ footer a:hover{color:var(--text)}
       <div class="features">
         <div class="card">
           <div class="ic"><svg class="i"><use href="#i-file"/></svg></div>
-          <h3>One config file</h3>
-          <p>Your whole dashboard is <code>glyx.yml</code>. Save it and Glyx reloads only the widgets that changed. A typo never wipes your setup.</p>
+          <h3>Set up your way</h3>
+          <p>Drag and resize widgets in the app, or write <code>glyx.yml</code> by hand. Either way it is one plain file, and a typo never wipes your setup.</p>
         </div>
         <div class="card">
           <div class="ic"><svg class="i"><use href="#i-shield"/></svg></div>
@@ -370,6 +409,7 @@ footer a:hover{color:var(--text)}
           <li><svg class="i"><use href="#i-check"/></svg><span><b>Hot reload</b> in under a second, no restart</span></li>
           <li><svg class="i"><use href="#i-check"/></svg><span><b>Safe errors:</b> keeps the last good config and points to the line</span></li>
           <li><svg class="i"><use href="#i-check"/></svg><span><b>Themes</b> in dark, light or system, with your own accent</span></li>
+          <li><svg class="i"><use href="#i-check"/></svg><span><b>No file needed:</b> the layout editor and Settings write it for you</span></li>
         </ul>
       </div>
       <div class="code">
@@ -437,23 +477,96 @@ host.onRefresh(<span class="k">async</span> () => {
     <div class="wrap">
       <div class="center">
         <div class="eyebrow">Built in</div>
-        <h2>Useful from the first launch.</h2>
-        <p class="sub">Twelve widgets ship with Glyx. None of them need an API key.</p>
+        <h2>46 widgets, from the first launch.</h2>
+        <p class="sub">For the day, for work, for your money and for fun. Most need no account and no API key.</p>
       </div>
-      <div class="widgets">
-        <div class="wg"><div class="ic"><svg class="i"><use href="#i-clock"/></svg></div><div><h4>Clock</h4><p>Local time and other time zones</p><code>glyx.clock</code></div></div>
-        <div class="wg"><div class="ic"><svg class="i"><use href="#i-sun"/></svg></div><div><h4>Weather</h4><p>Now, the next hours and 7 days</p><code>glyx.weather</code></div></div>
-        <div class="wg"><div class="ic"><svg class="i"><use href="#i-cpu"/></svg></div><div><h4>System</h4><p>CPU, memory and disk, with history</p><code>glyx.system</code></div></div>
-        <div class="wg"><div class="ic"><svg class="i"><use href="#i-rss"/></svg></div><div><h4>RSS</h4><p>RSS, Atom and JSON feeds in one list</p><code>glyx.rss</code></div></div>
-        <div class="wg"><div class="ic"><svg class="i"><use href="#i-hn"/></svg></div><div><h4>Hacker News</h4><p>Top, new, Ask and Show stories</p><code>glyx.hackernews</code></div></div>
-        <div class="wg"><div class="ic"><svg class="i"><use href="#i-pulse"/></svg></div><div><h4>Monitor</h4><p>Uptime and latency, LAN included</p><code>glyx.monitor</code></div></div>
-        <div class="wg"><div class="ic"><svg class="i"><use href="#i-spark"/></svg></div><div><h4>AI usage</h4><p>Claude and ChatGPT quota, one widget each</p><code>glyx.claude-usage</code></div></div>
-        <div class="wg"><div class="ic"><svg class="i"><use href="#i-cal"/></svg></div><div><h4>Calendar</h4><p>Month view and countdowns to your dates</p><code>glyx.calendar</code></div></div>
-        <div class="wg"><div class="ic"><svg class="i"><use href="#i-chart"/></svg></div><div><h4>Markets</h4><p>Stocks, currencies and crypto with charts</p><code>glyx.markets</code></div></div>
-        <div class="wg"><div class="ic"><svg class="i"><use href="#i-tag"/></svg></div><div><h4>Releases</h4><p>Latest GitHub releases, new ones marked</p><code>glyx.releases</code></div></div>
-        <div class="wg"><div class="ic"><svg class="i"><use href="#i-bookmark"/></svg></div><div><h4>Bookmarks</h4><p>Your links as a list or a start page</p><code>glyx.bookmarks</code></div></div>
-        <div class="wg"><div class="ic"><svg class="i"><use href="#i-check"/></svg></div><div><h4>To-do</h4><p>A small checklist kept on your PC</p><code>glyx.todo</code></div></div>
-        <div class="wg new"><div class="ic"><svg class="i"><use href="#i-plus"/></svg></div><div><h4>Your plugin</h4><p>Build one and share it with everyone</p><code>you.anything</code></div></div>
+      <div class="cats" role="tablist" aria-label="Widget categories">
+        <button class="cat on" type="button" data-cat="all">All<small>46</small></button>
+        <button class="cat" type="button" data-cat="day">Everyday<small>14</small></button>
+        <button class="cat" type="button" data-cat="work">Work<small>15</small></button>
+        <button class="cat" type="button" data-cat="money">Money<small>6</small></button>
+        <button class="cat" type="button" data-cat="play">Learn & play<small>4</small></button>
+        <button class="cat" type="button" data-cat="pc">PC & home<small>7</small></button>
+      </div>
+      <div class="widgets" id="wgs">
+        <div class="wg" data-cat="day"><div class="ic"><svg class="i"><use href="#i-clock"/></svg></div><div><h4>Clock</h4><p>Local time and other time zones</p><code>glyx.clock</code></div></div>
+        <div class="wg" data-cat="day"><div class="ic"><svg class="i"><use href="#i-sun"/></svg></div><div><h4>Weather</h4><p>Now, the next hours and 7 days</p><code>glyx.weather</code></div></div>
+        <div class="wg" data-cat="day"><div class="ic"><svg class="i"><use href="#i-mountain"/></svg></div><div><h4>Scene</h4><p>The weather painted as a view, by the hour</p><code>glyx.scene</code></div></div>
+        <div class="wg" data-cat="day"><div class="ic"><svg class="i"><use href="#i-wind"/></svg></div><div><h4>Air quality</h4><p>AQI and pollutants against the WHO guide</p><code>glyx.air</code></div></div>
+        <div class="wg" data-cat="day"><div class="ic"><svg class="i"><use href="#i-cal"/></svg></div><div><h4>Calendar</h4><p>Month, week or tear-off day, with lunar dates</p><code>glyx.calendar</code></div></div>
+        <div class="wg" data-cat="day"><div class="ic"><svg class="i"><use href="#i-hourglass"/></svg></div><div><h4>Countdown</h4><p>Days to your dates, lunar ones too</p><code>glyx.countdown</code></div></div>
+        <div class="wg" data-cat="day"><div class="ic"><svg class="i"><use href="#i-video"/></svg></div><div><h4>Agenda</h4><p>Your meetings, with Join for Teams, Meet, Zoom</p><code>glyx.agenda</code></div></div>
+        <div class="wg" data-cat="day"><div class="ic"><svg class="i"><use href="#i-check"/></svg></div><div><h4>To-do</h4><p>A small checklist kept on your PC</p><code>glyx.todo</code></div></div>
+        <div class="wg" data-cat="day"><div class="ic"><svg class="i"><use href="#i-note"/></svg></div><div><h4>Notes</h4><p>Saved as you type, open in a window of their own</p><code>glyx.notes</code></div></div>
+        <div class="wg" data-cat="day"><div class="ic"><svg class="i"><use href="#i-flag"/></svg></div><div><h4>Habits</h4><p>Daily ticks, streaks and a heatmap</p><code>glyx.habits</code></div></div>
+        <div class="wg" data-cat="day"><div class="ic"><svg class="i"><use href="#i-timer"/></svg></div><div><h4>Timer</h4><p>Pomodoro, a quick timer and a stopwatch</p><code>glyx.timer</code></div></div>
+        <div class="wg" data-cat="day"><div class="ic"><svg class="i"><use href="#i-bookmark"/></svg></div><div><h4>Bookmarks</h4><p>Your links as a list or a grid of tiles</p><code>glyx.bookmarks</code></div></div>
+        <div class="wg" data-cat="day"><div class="ic"><svg class="i"><use href="#i-image"/></svg></div><div><h4>Picture of the day</h4><p>From Bing, NASA or Wikimedia</p><code>glyx.picture-of-the-day</code></div></div>
+        <div class="wg" data-cat="day"><div class="ic"><svg class="i"><use href="#i-book"/></svg></div><div><h4>On this day</h4><p>What happened today in history</p><code>glyx.on-this-day</code></div></div>
+        <div class="wg" data-cat="work"><div class="ic"><svg class="i"><use href="#i-git"/></svg></div><div><h4>GitHub</h4><p>Reviews waiting, your PRs and their checks</p><code>glyx.github</code></div></div>
+        <div class="wg" data-cat="work"><div class="ic"><svg class="i"><use href="#i-git"/></svg></div><div><h4>GitLab</h4><p>Merge requests and pipelines, your instance too</p><code>glyx.gitlab</code></div></div>
+        <div class="wg" data-cat="work"><div class="ic"><svg class="i"><use href="#i-brief"/></svg></div><div><h4>Jira</h4><p>Your issues, or any JQL search</p><code>glyx.jira</code></div></div>
+        <div class="wg" data-cat="work"><div class="ic"><svg class="i"><use href="#i-brief"/></svg></div><div><h4>Linear</h4><p>Issues assigned to you, most urgent first</p><code>glyx.linear</code></div></div>
+        <div class="wg" data-cat="work"><div class="ic"><svg class="i"><use href="#i-bug"/></svg></div><div><h4>Sentry</h4><p>Unresolved issues seen most</p><code>glyx.sentry</code></div></div>
+        <div class="wg" data-cat="work"><div class="ic"><svg class="i"><use href="#i-pulse"/></svg></div><div><h4>Monitor</h4><p>Uptime and latency, LAN included</p><code>glyx.monitor</code></div></div>
+        <div class="wg" data-cat="work"><div class="ic"><svg class="i"><use href="#i-cloud"/></svg></div><div><h4>Status</h4><p>Is Claude, GitHub or Cloudflare up?</p><code>glyx.status</code></div></div>
+        <div class="wg" data-cat="work"><div class="ic"><svg class="i"><use href="#i-lock"/></svg></div><div><h4>Certificates</h4><p>When certs and domains run out</p><code>glyx.certs</code></div></div>
+        <div class="wg" data-cat="work"><div class="ic"><svg class="i"><use href="#i-tag"/></svg></div><div><h4>Releases</h4><p>New GitHub releases, marked until opened</p><code>glyx.releases</code></div></div>
+        <div class="wg" data-cat="work"><div class="ic"><svg class="i"><use href="#i-spark"/></svg></div><div><h4>Claude usage</h4><p>Your Claude Code quota and tokens today</p><code>glyx.claude-usage</code></div></div>
+        <div class="wg" data-cat="work"><div class="ic"><svg class="i"><use href="#i-spark"/></svg></div><div><h4>ChatGPT usage</h4><p>Codex 5-hour and weekly quota</p><code>glyx.chatgpt-usage</code></div></div>
+        <div class="wg" data-cat="work"><div class="ic"><svg class="i"><use href="#i-coin"/></svg></div><div><h4>API cost</h4><p>Claude and OpenAI API spend against a budget</p><code>glyx.ai-cost</code></div></div>
+        <div class="wg" data-cat="work"><div class="ic"><svg class="i"><use href="#i-link"/></svg></div><div><h4>Data link</h4><p>A number, chart or list from any JSON or CSV</p><code>glyx.datalink</code></div></div>
+        <div class="wg" data-cat="work"><div class="ic"><svg class="i"><use href="#i-hn"/></svg></div><div><h4>Hacker News</h4><p>Top, new, Ask and Show stories</p><code>glyx.hackernews</code></div></div>
+        <div class="wg" data-cat="work"><div class="ic"><svg class="i"><use href="#i-rss"/></svg></div><div><h4>RSS</h4><p>RSS, Atom and JSON feeds in one list</p><code>glyx.rss</code></div></div>
+        <div class="wg" data-cat="money"><div class="ic"><svg class="i"><use href="#i-chart"/></svg></div><div><h4>Markets</h4><p>Stocks, currencies and crypto with charts</p><code>glyx.markets</code></div></div>
+        <div class="wg" data-cat="money"><div class="ic"><svg class="i"><use href="#i-pie"/></svg></div><div><h4>Portfolio</h4><p>What you hold, worth now, gain or loss</p><code>glyx.portfolio</code></div></div>
+        <div class="wg" data-cat="money"><div class="ic"><svg class="i"><use href="#i-coin"/></svg></div><div><h4>Gold</h4><p>SJC, DOJI, PNJ and world gold, 30 days</p><code>glyx.gold</code></div></div>
+        <div class="wg" data-cat="money"><div class="ic"><svg class="i"><use href="#i-swap"/></svg></div><div><h4>Rates</h4><p>One currency in others, every 6 hours</p><code>glyx.rates</code></div></div>
+        <div class="wg" data-cat="money"><div class="ic"><svg class="i"><use href="#i-bank"/></svg></div><div><h4>Bank rates</h4><p>Vietcombank buy and sell, with the change</p><code>glyx.bank-rates</code></div></div>
+        <div class="wg" data-cat="money"><div class="ic"><svg class="i"><use href="#i-wallet"/></svg></div><div><h4>Spending</h4><p>Type “35k phở” and it is logged</p><code>glyx.spending</code></div></div>
+        <div class="wg" data-cat="play"><div class="ic"><svg class="i"><use href="#i-book"/></svg></div><div><h4>Vocabulary</h4><p>English, Chinese or Japanese, with spaced review</p><code>glyx.vocab</code></div></div>
+        <div class="wg" data-cat="play"><div class="ic"><svg class="i"><use href="#i-tv"/></svg></div><div><h4>TV</h4><p>Your YouTube channels on a retro set</p><code>glyx.tv</code></div></div>
+        <div class="wg" data-cat="play"><div class="ic"><svg class="i"><use href="#i-ball"/></svg></div><div><h4>Football</h4><p>Your teams' next match and live scores</p><code>glyx.football</code></div></div>
+        <div class="wg" data-cat="play"><div class="ic"><svg class="i"><use href="#i-gift"/></svg></div><div><h4>Free games</h4><p>Games free to keep on Epic, Steam, GOG</p><code>glyx.free-games</code></div></div>
+        <div class="wg" data-cat="pc"><div class="ic"><svg class="i"><use href="#i-cpu"/></svg></div><div><h4>System</h4><p>CPU, memory and disk, with history</p><code>glyx.system</code></div></div>
+        <div class="wg" data-cat="pc"><div class="ic"><svg class="i"><use href="#i-wifi"/></svg></div><div><h4>Network</h4><p>Download and upload speed now</p><code>glyx.network</code></div></div>
+        <div class="wg" data-cat="pc"><div class="ic"><svg class="i"><use href="#i-battery"/></svg></div><div><h4>Battery</h4><p>Charge, time left, a warning when low</p><code>glyx.battery</code></div></div>
+        <div class="wg" data-cat="pc"><div class="ic"><svg class="i"><use href="#i-music"/></svg></div><div><h4>Media</h4><p>What is playing, with play and skip</p><code>glyx.media</code></div></div>
+        <div class="wg" data-cat="pc"><div class="ic"><svg class="i"><use href="#i-key"/></svg></div><div><h4>Keys</h4><p>Words per minute today; never which keys</p><code>glyx.keys</code></div></div>
+        <div class="wg" data-cat="pc"><div class="ic"><svg class="i"><use href="#i-coffee"/></svg></div><div><h4>Breaks</h4><p>A nudge to stand up and rest your eyes</p><code>glyx.breaks</code></div></div>
+        <div class="wg" data-cat="pc"><div class="ic"><svg class="i"><use href="#i-home"/></svg></div><div><h4>Home Assistant</h4><p>Your lights and switches, one tap</p><code>glyx.home-assistant</code></div></div>
+        <div class="wg new" data-cat="all"><div class="ic"><svg class="i"><use href="#i-plus"/></svg></div><div><h4>Your plugin</h4><p>Build one and share it with everyone</p><code>you.anything</code></div></div>
+      </div>
+      <div class="more"><a href="/widgets/">See every widget, with screenshots <span aria-hidden="true">&rarr;</span></a></div>
+    </div>
+  </section>
+
+  <section id="yours" style="padding-top:24px">
+    <div class="wrap">
+      <div class="center">
+        <div class="eyebrow">Make it yours</div>
+        <h2>Start from a template.<br>Then move things around.</h2>
+        <p class="sub">Pick a dashboard someone already arranged, give it a new look, and make it fit your day without opening a file.</p>
+      </div>
+      <div class="yours">
+        <div class="card">
+          <div class="art" aria-hidden="true"><span style="left:22px;top:20px;width:30%;height:40px"></span><span style="left:22px;top:68px;width:30%;height:44px"></span><span style="left:calc(30% + 30px);top:20px;right:22px;height:92px;background:var(--accent-soft);border-color:transparent"></span></div>
+          <h3>Templates</h3>
+          <p>Developer desk, Engineering lead, Market watch, Mission control, Tết &amp; gia đình and more, each built around one job. One click installs it with its widgets.</p>
+          <a class="go" href="/templates/">Browse templates &rarr;</a>
+        </div>
+        <div class="card">
+          <div class="art skin" aria-hidden="true"><span style="left:22px;top:22px;width:40%;height:88px"></span><span style="right:22px;top:22px;width:40%;height:40px"></span><span style="right:22px;top:70px;width:40%;height:40px"></span></div>
+          <h3>Skins</h3>
+          <p>Change the whole look at once: Aurora, Lo-fi Café, Paper, Neon, Phosphor and more restyle the colours, the cards and the details inside each widget.</p>
+          <a class="go" href="/templates/">See them on templates &rarr;</a>
+        </div>
+        <div class="card">
+          <div class="art" aria-hidden="true"><span style="left:22px;top:20px;width:28%;height:92px"></span><span style="left:calc(28% + 30px);top:20px;right:22px;height:40px;border-style:dashed;border-color:var(--accent)"></span><span style="left:calc(28% + 30px);top:68px;width:30%;height:44px"></span></div>
+          <h3>Layout editor</h3>
+          <p>Drag widgets on a 24-column grid, resize them and stack them in tabs. Each one lays itself out for the size you give it.</p>
+          <a class="go" href="#config">Or keep it in YAML &rarr;</a>
+        </div>
       </div>
     </div>
   </section>
@@ -471,12 +584,38 @@ host.onRefresh(<span class="k">async</span> () => {
           <div class="body"><h3>Window<code>normal</code></h3><p>A regular app window on your taskbar.</p></div>
         </div>
         <div class="mode">
+          <div class="pic"><span style="left:22px;top:30px;width:58%;height:84px;opacity:.55"></span><span style="right:24px;top:18px;width:46%;height:76px;box-shadow:0 10px 24px -10px rgba(0,0,0,.45);border-color:var(--accent)"></span></div>
+          <div class="body"><h3>On top<code>top</code></h3><p>A window that stays above your other apps.</p></div>
+        </div>
+        <div class="mode">
           <div class="pic"><span style="left:22px;top:22px;width:64px;height:46px;opacity:.85"></span><span style="left:22px;top:76px;width:64px;height:52px;opacity:.85"></span><span style="left:94px;top:22px;width:92px;height:106px;opacity:.85"></span></div>
           <div class="body"><h3>Desktop widget<code>widget</code></h3><p>Borderless and translucent, pinned below your windows like a live wallpaper.</p></div>
         </div>
         <div class="mode">
           <div class="pic"><span style="right:16px;bottom:30px;width:110px;height:92px"></span><span style="left:0;right:0;bottom:0;height:22px;border-radius:0;border-width:1px 0 0"></span><span style="right:22px;bottom:5px;width:12px;height:12px;border-radius:3px;background:var(--accent);border:0"></span></div>
           <div class="body"><h3>Tray popup<code>tray</code></h3><p>Lives in the tray. One click pops it up, and it hides when you click away.</p></div>
+        </div>
+      </div>
+      <div class="beyond">
+        <div class="card">
+          <div class="ic"><svg class="i"><use href="#i-pill"/></svg></div>
+          <h3>Pills over your apps</h3>
+          <p>Keep a number in sight while you work: the temperature, your Claude quota or a server's ping, floating small over any app.</p>
+        </div>
+        <div class="card">
+          <div class="ic"><svg class="i"><use href="#i-search"/></svg></div>
+          <h3>Command palette</h3>
+          <p><span class="kbd">Ctrl</span> <span class="kbd">K</span> in Glyx, or <span class="kbd">Ctrl</span> <span class="kbd">Shift</span> <span class="kbd">G</span> from any app, to search and act: add a note, log a spend, open a widget.</p>
+        </div>
+        <div class="card">
+          <div class="ic"><svg class="i"><use href="#i-window"/></svg></div>
+          <h3>Mini apps</h3>
+          <p>Notes, Vocabulary and the lunar calendar open full size, in a tab or in a window of their own.</p>
+        </div>
+        <div class="card">
+          <div class="ic"><svg class="i"><use href="#i-spark"/></svg></div>
+          <h3>An assistant</h3>
+          <p>A small helper in the corner that reminds you to take a break and, with your own key, answers about your dashboard.</p>
         </div>
       </div>
     </div>
@@ -514,6 +653,7 @@ host.onRefresh(<span class="k">async</span> () => {
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
   <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
   <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
   <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M10 10h4v4h-4zM9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></symbol>
   <symbol id="i-rss" viewBox="0 0 24 24"><path d="M5 11a8 8 0 0 1 8 8M5 5a14 14 0 0 1 14 14"/><circle cx="6" cy="18" r="1.2"/></symbol>
@@ -525,10 +665,57 @@ host.onRefresh(<span class="k">async</span> () => {
   <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12V4h8l9 9-8 8z"/><circle cx="7.5" cy="8.5" r="1.2"/></symbol>
   <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-mountain" viewBox="0 0 24 24"><path d="M3 19l6-9 4 6 2-3 6 6z"/><circle cx="17" cy="6" r="2"/></symbol>
+  <symbol id="i-wind" viewBox="0 0 24 24"><path d="M3 9h11a3 3 0 1 0-3-3M3 15h15a3 3 0 1 1-3 3"/></symbol>
+  <symbol id="i-hourglass" viewBox="0 0 24 24"><path d="M7 3h10M7 21h10M8 3c0 5 8 5 8 9s-8 4-8 9M16 3c0 5-8 5-8 9s8 4 8 9"/></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3"/></symbol>
+  <symbol id="i-note" viewBox="0 0 24 24"><path d="M5 4h14v11l-5 5H5z"/><path d="M14 20v-5h5M8 9h8M8 13h4"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></symbol>
+  <symbol id="i-timer" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21a2 2 0 0 1 2-2h13v2"/></symbol>
+  <symbol id="i-git" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="9" r="2"/><path d="M6 8v8M18 11c0 4-6 3-10 6"/></symbol>
+  <symbol id="i-brief" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3 13h18"/></symbol>
+  <symbol id="i-bug" viewBox="0 0 24 24"><rect x="7" y="8" width="10" height="12" rx="5"/><path d="M9 8V6a3 3 0 0 1 6 0v2M3 13h4M17 13h4M4 7l3 3M20 7l-3 3M4 19l3-2M20 19l-3-2"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18a4 4 0 0 1-.6-8A6 6 0 0 1 18 9.5 4 4 0 0 1 17.5 18z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .9-3 2s1.3 1.7 3 2 3 .9 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+  <symbol id="i-pie" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M15 3.5A9 9 0 0 1 20.5 9H15z"/></symbol>
+  <symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 8h14l-3-3M20 16H6l3 3"/></symbol>
+  <symbol id="i-bank" viewBox="0 0 24 24"><path d="M3 10l9-6 9 6M5 10v8M10 10v8M14 10v8M19 10v8M3 20h18"/></symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M4 7a2 2 0 0 1 2-2h11v4"/><rect x="4" y="9" width="16" height="11" rx="2"/><circle cx="16" cy="14.5" r="1.2"/></symbol>
+  <symbol id="i-tv" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 3l4 4 4-4"/></symbol>
+  <symbol id="i-ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7l4 3-1.5 4.5h-5L8 10zM12 7V3M16 10l4-1M14.5 14.5l2 4M9.5 14.5l-2 4M8 10L4 9"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="11" rx="1"/><path d="M3 9h18M12 9v11M12 9c-2-4-6-4-6-1.5S10 9 12 9c2 0 6 1 6-1.5S14 5 12 9"/></symbol>
+  <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19" r="1"/></symbol>
+  <symbol id="i-battery" viewBox="0 0 24 24"><rect x="3" y="7" width="16" height="10" rx="2"/><path d="M22 11v2M6 10v4M9.5 10v4"/></symbol>
+  <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h1M10 10h1M14 10h1M18 10h0M7 14h10"/></symbol>
+  <symbol id="i-coffee" viewBox="0 0 24 24"><path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5zM17 10h1.5a2.5 2.5 0 0 1 0 5H17M8 3v3M12 3v3"/></symbol>
+  <symbol id="i-pill" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="8" rx="4"/><circle cx="8" cy="12" r="1.5"/><path d="M12 12h5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+  <symbol id="i-window" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/></symbol>
 </svg>
 
 <script>
 (() => {
+  // Dark unless the visitor has chosen light with the button; the choice is kept.
+  // The button shows the theme it switches to.
+  const root = document.documentElement;
+  const isDark = () => root.dataset.theme !== "light";
+  const mark = () => {
+    root.toggleAttribute("data-dark", isDark());
+    const btn = document.getElementById("themeBtn");
+    if (btn) btn.setAttribute("aria-label", isDark() ? "Switch to light mode" : "Switch to dark mode");
+  };
+  mark();
+  document.getElementById("themeBtn")?.addEventListener("click", () => {
+    root.dataset.theme = isDark() ? "light" : "dark";
+    try { localStorage.setItem("glyx-theme", root.dataset.theme); } catch {}
+    mark();
+  });
+
   const two = (n) => String(n).padStart(2, "0");
   const fmt = (tz) => new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: tz }).format(new Date());
   const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
@@ -542,6 +729,14 @@ host.onRefresh(<span class="k">async</span> () => {
   }
   tick();
   setInterval(tick, 10000);
+
+  // Widget categories: show one group, or all of them.
+  const cats = document.querySelectorAll(".cat"), cards = document.querySelectorAll("#wgs .wg");
+  cats.forEach((b) => b.addEventListener("click", () => {
+    const k = b.dataset.cat;
+    cats.forEach((x) => { x.classList.toggle("on", x === b); x.setAttribute("aria-selected", x === b); });
+    cards.forEach((c) => { c.hidden = k !== "all" && c.dataset.cat !== k && c.dataset.cat !== "all"; });
+  }));
 
   const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
   space(still);
@@ -558,7 +753,6 @@ host.onRefresh(<span class="k">async</span> () => {
     const ico = document.getElementById("ico"), sky = document.getElementById("space");
     if (!ico || !sky || !ico.getContext) return;
     const g = ico.getContext("2d"), s = sky.getContext("2d");
-    const PAL = ["#9A54FE", "#379DFE", "#B034C9", "#3957F4", "#1CC9FD", "#E43675", "#1C77F4", "#9A34CC", "#E27405", "#E2A005"];
     const rgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
 
     // Geometry: 12 vertices, 20 faces found as the triples whose sides are all 2.
@@ -574,56 +768,81 @@ host.onRefresh(<span class="k">async</span> () => {
       E.push([i, j]);
       for (let k = j + 1; k < 12; k++) if (d2(V[i], V[k]) <= edge && d2(V[j], V[k]) <= edge) F.push({ v: [i, j, k] });
     }
-    // Opposite faces share a colour, so the side facing you shows each of the ten once.
-    let c = 0;
-    const key = (f) => f.v.map((i) => V[i].join()).sort().join("|");
-    const neg = (f) => f.v.map((i) => V[i].map((x) => -x).join()).sort().join("|");
-    for (const f of F) {
-      if (f.col) continue;
-      f.col = rgb(PAL[c++ % 10]);
-      const o = F.find((h) => key(h) === neg(f));
-      if (o) o.col = f.col;
+    // The logo's own rule (tools/brand/mark.py and hexball.py), so that the turning mark and
+    // the logo are one thing. The logo is this solid seen down a 3-fold axis, face 0 in front with
+    // its first corner up (VIEW). Each face takes its colour from the brand gradient by where it
+    // sits along the diagonal in that view (x - y, spread over the faces seen there), and is shaded
+    // as the logo shades it: towards navy as it turns from the light at the top left, a touch of
+    // white where it catches it, and lightened when it looks straight at you (the logo's FOCUS).
+    // Colours are worked out from each face's normal every frame, so whenever the mark comes back
+    // to VIEW its colours are the logo's, tile for tile.
+    const STOPS = [[0, "#00D4FF"], [0.24, "#2563FF"], [0.48, "#8B3DFF"], [0.7, "#FF2D9A"], [0.86, "#FF7A00"], [1, "#FFC400"]].map(([s, h]) => [s, rgb(h)]);
+    const grad = (x) => {
+      x = Math.min(1, Math.max(0, x));
+      for (let i = 1; i < STOPS.length; i++) if (x <= STOPS[i][0]) {
+        const [t0, c0] = STOPS[i - 1], [t1, c1] = STOPS[i], k = (x - t0) / (t1 - t0);
+        return c0.map((v, j) => v * (1 - k) + c1[j] * k);
+      }
+      return STOPS[STOPS.length - 1][1];
+    };
+    const unit = (v) => { const m = Math.hypot(...v); return v.map((x) => x / m); };
+    const apply = (A, q) => [0, 1, 2].map((i) => A[i][0] * q[0] + A[i][1] * q[1] + A[i][2] * q[2]);
+    const mul = (A, B) => A.map((row) => [0, 1, 2].map((j) => row[0] * B[0][j] + row[1] * B[1][j] + row[2] * B[2][j]));
+    const rotAbout = (axis, a) => {
+      const [x, y, z] = unit(axis), co = Math.cos(a), si = Math.sin(a), k = 1 - co;
+      return [[k * x * x + co, k * x * y - si * z, k * x * z + si * y], [k * x * y + si * z, k * y * y + co, k * y * z - si * x], [k * x * z - si * y, k * y * z + si * x, k * z * z + co]];
+    };
+    const VIEW = (() => {
+      const f = F[0].v, c = [0, 1, 2].map((k) => V[f[0]][k] + V[f[1]][k] + V[f[2]][k]), z = unit(c);
+      const up = V[f[0]].map((x, k) => x - c[k] / 3), d = up[0] * z[0] + up[1] * z[1] + up[2] * z[2];
+      const y = unit(up.map((x, k) => x - z[k] * d));
+      return [[y[1] * z[2] - y[2] * z[1], y[2] * z[0] - y[0] * z[2], y[0] * z[1] - y[1] * z[0]], y, z];
+    })();
+    {
+      const cents = F.map((f) => apply(VIEW, [0, 1, 2].map((k) => (V[f.v[0]][k] + V[f.v[1]][k] + V[f.v[2]][k]) / 3)));
+      const ds = cents.map((m) => m[0] - m[1]), seen = ds.filter((_, i) => cents[i][2] > 0.02);
+      const lo = Math.min(...seen), hi = Math.max(...seen);
+      F.forEach((f, i) => { f.col = grad(0.03 + 0.94 * (ds[i] - lo) / (hi - lo)); });
+    }
+    const NAVY = [11, 16, 38], SHADE = 0.12, FOCUS = 0.12, LOGO_LIGHT = unit([-0.45, 0.6, 0.66]);
+    // How much a face looks straight at you: 0 below 0.86, 1 from 0.96 (the logo's front face is 1).
+    const facing = (n) => Math.max(0, Math.min(1, (n[2] - 0.86) / 0.1));
+    function logoColour(base, n) {
+      const lam = Math.max(0, n[0] * LOGO_LIGHT[0] + n[1] * LOGO_LIGHT[1] + n[2] * LOGO_LIGHT[2]);
+      const sp = Math.max(lam - 0.8, 0) / 0.2;
+      const shaded = base.map((x, j) => { const y = x + (NAVY[j] - x) * (1 - lam) * SHADE; return y + (255 - y) * sp * 0.18; });
+      const front = base.map((x) => x + (255 - x) * FOCUS), f = facing(n);
+      return shaded.map((x, j) => Math.round(x + (front[j] - x) * f));
     }
 
-    // Orientation as a matrix, turned a little each frame about a spin axis.
-    let M = [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
-    const turn = (ax, ay, az) => {
-      const a = Math.hypot(ax, ay, az);
-      if (a < 1e-9) return;
-      const [x, y, z] = [ax / a, ay / a, az / a], co = Math.cos(a), si = Math.sin(a), t = 1 - co;
-      const R = [[t * x * x + co, t * x * y - si * z, t * x * z + si * y], [t * x * y + si * z, t * y * y + co, t * y * z - si * x], [t * x * z - si * y, t * y * z + si * x, t * z * z + co]];
-      M = R.map((r) => [0, 1, 2].map((j) => r[0] * M[0][j] + r[1] * M[1][j] + r[2] * M[2][j]));
-    };
-    // The ring is drawn as an ellipse tipped by TILT and flattened to FLAT; it is the
-    // circle round the axis AXIS below, seen from in front. The mark spins about that same
-    // axis, with a vertex as its pole, and the same way the moon goes round: the near side
-    // of both moves to the left. So the ring reads as the mark's equator.
-    const TILT = -0.32, FLAT = 0.36;
-    const AXIS = [Math.sin(TILT) * Math.sqrt(1 - FLAT * FLAT), Math.cos(TILT) * Math.sqrt(1 - FLAT * FLAT), FLAT];
-    {
-      const p0 = V[1], c = [p0[1] * AXIS[2] - p0[2] * AXIS[1], p0[2] * AXIS[0] - p0[0] * AXIS[2], p0[0] * AXIS[1] - p0[1] * AXIS[0]];
-      const m = Math.hypot(...c), ang = Math.acos(Math.max(-1, Math.min(1, p0[0] * AXIS[0] + p0[1] * AXIS[1] + p0[2] * AXIS[2])));
-      if (m > 1e-9) turn(c[0] / m * ang, c[1] / m * ang, c[2] / m * ang);
-    }
-    const SPIN = 0.32, ORBIT = 0.22; // radians per second: the mark turns a little faster than its moon goes round
-    const BASE = AXIS.map((x) => -x * SPIN);
-    let w = BASE.slice(), drag = null;
+    // It turns about the logo's own up: the line through the top corner of the logo's hexagon.
+    // The ring is the equator round that line, and the moon goes round the same way the mark
+    // turns. It starts as the logo, and every time a turn brings it back there it slows, so the
+    // logo is a moment you can catch.
+    const TOP = V.map((v) => apply(VIEW, v)).reduce((a, b) => (b[1] > a[1] ? b : a));
+    const AXIS = unit(TOP[2] >= 0 ? TOP : TOP.map((x) => -x));
+    const SPIN = 0.32, ORBIT = 0.22; // radians per second, away from the logo; the moon a little slower
+    let M = VIEW, theta = 0, nudge = [0, 0, 0], drag = null;
 
     ico.addEventListener("pointerdown", (e) => { drag = { x: e.clientX, y: e.clientY }; ico.setPointerCapture(e.pointerId); });
+    // A drag turns it off its path for a while; let go and it eases back.
+    const I3 = [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
+    const pose = () => {
+      const k = Math.hypot(...nudge), Rn = k > 1e-6 ? rotAbout(nudge, k) : I3;
+      M = mul(Rn, mul(rotAbout(AXIS, -theta), VIEW));
+      axisNow = apply(Rn, AXIS);
+    };
     ico.addEventListener("pointermove", (e) => {
       if (!drag) return;
       const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
       drag = { x: e.clientX, y: e.clientY };
-      turn(dy * 0.01, dx * 0.01, 0);
-      w = [dy * 0.6, dx * 0.6, 0];
-      if (still) draw(0);
+      nudge = [nudge[0] + dy * 0.01, nudge[1] + dx * 0.01, nudge[2]];
+      if (still) { pose(); draw(0); }
     });
     const up = () => { drag = null; };
     ico.addEventListener("pointerup", up);
     ico.addEventListener("pointercancel", up);
 
-    const L = (() => { const l = [-0.45, 0.6, 0.66], m = Math.hypot(...l); return l.map((x) => x / m); })();
-    const H = (() => { const h = [L[0], L[1], L[2] + 1], m = Math.hypot(...h); return h.map((x) => x / m); })();
     let W = 0, Hh = 0, dpr = 1, SW = 0, SH = 0, SX = 0, SY = 0, ink = "#fff", dark = true;
     function size() {
       dpr = Math.min(devicePixelRatio || 1, 2);
@@ -633,28 +852,73 @@ host.onRefresh(<span class="k">async</span> () => {
       sky.width = SW * dpr; sky.height = SH * dpr;
       SX = r.left - q.left + W / 2; SY = r.top - q.top + Hh / 2; // stars stream out from the mark
       const cs = getComputedStyle(document.documentElement);
-      ink = cs.getPropertyValue("--text").trim() || "#fff";
       dark = cs.colorScheme !== "light";
+      // Stars: the text colour at night; on the light page a soft periwinkle, not black specks.
+      ink = dark ? cs.getPropertyValue("--text").trim() || "#fff" : "#7d8fd8";
     }
 
+    // The ring is the equator round the mark's spin axis, worked out in 3D from where that axis
+    // points now (axisNow), so when the mark is dragged its ring and moon tip with it. The moon
+    // goes round the way the mark turns. Drawn in two halves: behind the mark, then in front.
+    let axisNow = AXIS;
     function ring(t, front, cx, cy, R) {
-      const rx = R * 1.62, ry = rx * FLAT, tilt = TILT;
+      const A = axisNow, r = R * 1.62;
+      let u = [A[1], -A[0], 0]; // A x (0,0,1): in the screen plane, square to the axis
+      const m = Math.hypot(u[0], u[1]);
+      u = m > 1e-6 ? [u[0] / m, u[1] / m, 0] : [1, 0, 0];
+      const v = [A[1] * u[2] - A[2] * u[1], A[2] * u[0] - A[0] * u[2], A[0] * u[1] - A[1] * u[0]];
+      const at = (a) => { const c = Math.cos(a), s = Math.sin(a); return [cx + (u[0] * c + v[0] * s) * r, cy - (u[1] * c + v[1] * s) * r, u[2] * c + v[2] * s]; };
+      const e0 = at(Math.PI), e1 = at(0);
       g.save();
-      g.translate(cx, cy); g.rotate(tilt);
-      g.lineWidth = 1.4;
-      const gr = g.createLinearGradient(-rx, 0, rx, 0);
+      const gr = g.createLinearGradient(e0[0], e0[1], e1[0], e1[1]);
       gr.addColorStop(0, "rgba(28,201,253,.0)"); gr.addColorStop(0.5, "rgba(154,84,254,.55)"); gr.addColorStop(1, "rgba(226,160,5,.0)");
-      g.strokeStyle = gr;
-      g.beginPath(); g.ellipse(0, 0, rx, ry, 0, front ? 0 : Math.PI, front ? Math.PI : 2 * Math.PI); g.stroke();
-      // A moon on the ring; it passes behind the mark on the far half.
-      const a = t * ORBIT, mx = Math.cos(a) * rx, my = Math.sin(a) * ry;
-      if ((my > 0) === front) {
-        const k = 0.7 + 0.3 * Math.sin(a);
+      g.strokeStyle = gr; g.lineWidth = 1.4;
+      g.beginPath();
+      let pen = false;
+      for (let i = 0; i <= 120; i++) {
+        const q = at((i / 120) * 2 * Math.PI);
+        if ((q[2] >= 0) === front) { if (pen) g.lineTo(q[0], q[1]); else g.moveTo(q[0], q[1]); pen = true; } else pen = false;
+      }
+      g.stroke();
+      const q = at(-t * ORBIT);
+      if ((q[2] >= 0) === front) {
+        const k = 0.85 + 0.15 * q[2];
         g.fillStyle = "#1CC9FD"; g.shadowColor = "#1CC9FD"; g.shadowBlur = 12;
-        g.beginPath(); g.arc(mx, my, 3.6 * k, 0, 7); g.fill();
+        g.beginPath(); g.arc(q[0], q[1], 3.6 * k, 0, 7); g.fill();
       }
       g.restore();
     }
+
+    // Light travels the mark's own edges. Each light picks its next edge at every vertex, and
+    // picks to keep the lights apart and in view: it will not take an edge another light is on
+    // or has just left, it prefers the turn that leads furthest from the other lights' heads,
+    // and it leans towards edges facing you. They start as far from each other as they can.
+    // The colours of the faces are left alone; this is light on top of them.
+    const NEXT = V.map((_, i) => E.filter((e) => e.includes(i)).map((e) => (e[0] === i ? e[1] : e[0])));
+    const LIGHTS = 3, TRAIL = 1.0, PACE = 0.45; // lights; trail in edges; edges a second
+    const starts = [0];
+    while (starts.length < LIGHTS) {
+      let best = -1, far = -1;
+      V.forEach((v, i) => { const d = Math.min(...starts.map((s) => d2(v, V[s]))); if (d > far) { far = d; best = i; } });
+      starts.push(best);
+    }
+    const RUN = starts.map((a, k) => ({ hist: [NEXT[a][(k + 2) % 5]], a, b: NEXT[a][k % 5], s: k / LIGHTS, speed: PACE * (0.9 + 0.2 * k / LIGHTS) }));
+    const sameEdge = (i, j, p, q) => (i === p && j === q) || (i === q && j === p);
+    function turnFrom(r0, rv) {
+      const others = RUN.filter((o) => o !== r0);
+      const options = NEXT[r0.b].filter((n) => n !== r0.a && !others.some((o) => sameEdge(r0.b, n, o.a, o.b) || sameEdge(r0.b, n, o.hist[o.hist.length - 1], o.a)));
+      const list = options.length ? options : NEXT[r0.b].filter((n) => n !== r0.a);
+      let best = list[0], top = -Infinity;
+      for (const n of list) {
+        const apart = Math.min(...others.map((o) => Math.min(d2(V[n], V[o.b]), d2(V[n], V[o.a]))));
+        const score = apart + 1.6 * rv[n][2] + Math.random() * 0.35;
+        if (score > top) { top = score; best = n; }
+      }
+      return best;
+    }
+    const flashes = []; // a ring where a light turns at a vertex
+    const GRID = 10; // grid lines across each face
+    let lastT = 0;
 
     function tri(pts, shrink) {
       const cx = (pts[0][0] + pts[1][0] + pts[2][0]) / 3, cy = (pts[0][1] + pts[1][1] + pts[2][1]) / 3;
@@ -671,6 +935,12 @@ host.onRefresh(<span class="k">async</span> () => {
       const halo = g.createRadialGradient(cx, cy, R * 0.6, cx, cy, R * 1.7);
       halo.addColorStop(0, "rgba(122,162,247,.28)"); halo.addColorStop(1, "rgba(122,162,247,0)");
       g.fillStyle = halo; g.fillRect(0, 0, W, Hh);
+      // A soft atmosphere just outside the mark: no edge to it, it only thins away.
+      const rim = g.createRadialGradient(cx, cy, R * 0.95, cx, cy, R * 1.4);
+      const peak = dark ? 0.14 : 0.16;
+      rim.addColorStop(0, "rgba(150,180,255,0)"); rim.addColorStop(0.18, `rgba(150,180,255,${peak})`);
+      rim.addColorStop(0.5, `rgba(150,180,255,${peak * 0.4})`); rim.addColorStop(1, "rgba(150,180,255,0)");
+      g.fillStyle = rim; g.beginPath(); g.arc(cx, cy, R * 1.4, 0, 6.283); g.fill();
       ring(t, false, cx, cy, R);
 
       const D = 4;
@@ -685,29 +955,34 @@ host.onRefresh(<span class="k">async</span> () => {
 
       g.lineJoin = "round";
       for (const o of faces) {
-        const [r0, g0, b0] = o.f.col;
         if (o.z < 0) { // far side, seen through the glass
           tri(o.p, 0.86);
-          g.fillStyle = `rgba(${r0},${g0},${b0},.16)`; g.fill();
+          g.fillStyle = `rgba(${o.f.col.map(Math.round)},.16)`; g.fill();
           continue;
         }
-        const dif = Math.max(0, o.n[0] * L[0] + o.n[1] * L[1] + o.n[2] * L[2]);
-        // Light only nudges each face, so every one stays the logo's colour.
-        const spec = Math.pow(Math.max(0, o.n[0] * H[0] + o.n[1] * H[1] + o.n[2] * H[2]), 24) * 0.18;
-        const k = 0.88 + 0.16 * dif;
-        // A sheen of light passes across the mark, corner to corner, every eight seconds.
-        const fx = (o.p[0][0] + o.p[1][0] + o.p[2][0]) / 3, fy = (o.p[0][1] + o.p[1][1] + o.p[2][1]) / 3;
-        const band = still ? 9 : ((t % 8) / 8) * 4.4 - 1.7, u = (fx - cx + fy - cy) / (R * Math.SQRT2);
-        const sheen = Math.pow(Math.max(0, 1 - Math.abs(u - band) / 0.5), 2) * 0.14;
-        const col = [r0, g0, b0].map((x) => { const y = x * k + (255 - x * k) * spec; return Math.min(255, y + (255 - y) * sheen); });
-        // Each face is cut like a gem: lighter towards the light, deeper away from it.
-        const lite = col.map((x) => Math.round(x + (255 - x) * 0.08)), deep = col.map((x) => Math.round(x * 0.93));
-        const ext = R * 0.32, gx = -L[0] * ext, gy = L[1] * ext;
-        const fill = g.createLinearGradient(fx - gx, fy - gy, fx + gx, fy + gy);
-        fill.addColorStop(0, `rgb(${lite})`); fill.addColorStop(1, `rgb(${deep})`);
-        tri(o.p, 0.9);
-        g.fillStyle = fill; g.strokeStyle = fill; g.lineWidth = 3;
+        const col = logoColour(o.f.col, o.n);
+        // The face looking at you is a little larger, as the logo's front tile is.
+        tri(o.p, 0.9 * (1 + 0.08 * facing(o.n)));
+        g.fillStyle = `rgb(${col})`; g.strokeStyle = g.fillStyle; g.lineWidth = 3;
         g.fill(); g.stroke();
+        // The surface: a fine triangular grid in a light tint of the face's own colour, lines
+        // parallel to the face's three sides; the colour beneath stays as it is. A slow, soft
+        // ring of light spreads through it now and then.
+        const [A, B, C] = o.p, tint = col.map((x) => Math.round(x + (255 - x) * 0.6));
+        const sx = cx + Math.cos(t * 0.45) * R * 0.7, sy = cy + Math.sin(t * 0.62) * R * 0.55;
+        const at = (a, b) => { a = (a - 1 / 3) * 0.86 + 1 / 3; b = (b - 1 / 3) * 0.86 + 1 / 3; const c = 1 - a - b; return [A[0] * a + B[0] * b + C[0] * c, A[1] * a + B[1] * b + C[1] * c]; };
+        g.strokeStyle = `rgb(${tint})`; g.lineWidth = 0.6 * (0.7 + 0.4 * o.z);
+        for (let k = 1; k < GRID; k++) {
+          const s = k / GRID;
+          // One line of each family: a = s, b = s, and c = s (that is, a + b = 1 - s).
+          for (const [p0, p1] of [[at(s, 1 - s), at(s, 0)], [at(1 - s, s), at(0, s)], [at(1 - s, 0), at(0, 1 - s)]]) {
+            const mx = (p0[0] + p1[0]) / 2, my = (p0[1] + p1[1]) / 2;
+            const ring = still ? 0.3 : Math.pow(0.5 + 0.5 * Math.cos(Math.hypot(mx - sx, my - sy) / R * 3.5 - t * 1.4), 4);
+            g.globalAlpha = (0.2 + 0.22 * ring) * (0.5 + 0.5 * o.z);
+            g.beginPath(); g.moveTo(p0[0], p0[1]); g.lineTo(p1[0], p1[1]); g.stroke();
+          }
+        }
+        g.globalAlpha = 1;
       }
       // The globe's wire: edges and nodes on the near side.
       g.lineWidth = 0.8;
@@ -721,6 +996,66 @@ host.onRefresh(<span class="k">async</span> () => {
         if (p[2] < 0) continue;
         g.fillStyle = `rgba(255,255,255,${0.35 + 0.6 * p[2]})`;
         g.beginPath(); g.arc(p[0], p[1], 1.2 + 1.4 * p[2], 0, 7); g.fill();
+      }
+      const dt = Math.min(0.05, Math.max(0, t - lastT)); lastT = t;
+      if (!still) {
+        const vis = (z) => Math.max(0, Math.min(1, (z + 0.12) / 0.22)); // fade out behind the mark
+        const at = (i, j, s) => [pv[i][0] + (pv[j][0] - pv[i][0]) * s, pv[i][1] + (pv[j][1] - pv[i][1]) * s, rv[i][2] + (rv[j][2] - rv[i][2]) * s];
+        const ease = (s) => s - Math.sin(2 * Math.PI * s) / (2 * Math.PI) * 0.55; // a little slower at the vertices
+        g.save();
+        if (dark) g.globalCompositeOperation = "lighter";
+        g.lineCap = "round";
+        const glowCol = dark ? "150,200,255" : "61,111,224";
+        for (const r0 of RUN) {
+          r0.s += r0.speed * dt;
+          while (r0.s >= 1) {
+            r0.s -= 1;
+            flashes.push({ v: r0.b, age: 0 });
+            const n = turnFrom(r0, rv);
+            r0.hist.push(r0.a); if (r0.hist.length > 4) r0.hist.shift();
+            r0.a = r0.b; r0.b = n;
+          }
+          // The trail: from the head back along the path it came, TRAIL edges long.
+          const u = ease(r0.s), pts = [[...at(r0.a, r0.b, u), 0]];
+          const first = Math.min(u, TRAIL);
+          pts.push([...at(r0.a, r0.b, u - first), first]);
+          let dist = first, to = r0.a;
+          for (let k = r0.hist.length - 1; k >= 0 && dist < TRAIL - 1e-6; k--) {
+            const p = r0.hist[k], take = Math.min(1, TRAIL - dist);
+            dist += take;
+            pts.push([...at(p, to, 1 - take), dist]);
+            to = p;
+          }
+          // pts: [x, y, z, distance from head]; draw from the tail to the head, brighter towards it.
+          for (let i = pts.length - 1; i > 0; i--) {
+            const [x0, y0, z0, d0] = pts[i], [x1, y1, z1, d1] = pts[i - 1];
+            const a0 = (1 - d0 / TRAIL) ** 2 * vis(z0), a1 = (1 - d1 / TRAIL) ** 2 * vis(z1);
+            if (a0 + a1 < 0.02) continue;
+            const gr = g.createLinearGradient(x0, y0, x1, y1);
+            gr.addColorStop(0, `rgba(${glowCol},${0.18 * a0})`); gr.addColorStop(1, `rgba(${glowCol},${0.18 * a1})`);
+            g.strokeStyle = gr; g.lineWidth = 4; g.beginPath(); g.moveTo(x0, y0); g.lineTo(x1, y1); g.stroke();
+            const core = g.createLinearGradient(x0, y0, x1, y1);
+            core.addColorStop(0, `rgba(255,255,255,${0.55 * a0})`); core.addColorStop(1, `rgba(255,255,255,${0.55 * a1})`);
+            g.strokeStyle = core; g.lineWidth = 1.1; g.stroke();
+          }
+          const [hx, hy, hz] = pts[0], hv = vis(hz);
+          if (hv > 0.02) {
+            const glow = g.createRadialGradient(hx, hy, 0, hx, hy, 8);
+            glow.addColorStop(0, `rgba(${glowCol},${0.3 * hv})`); glow.addColorStop(1, `rgba(${glowCol},0)`);
+            g.fillStyle = glow; g.beginPath(); g.arc(hx, hy, 8, 0, 6.283); g.fill();
+            g.fillStyle = `rgba(255,255,255,${0.75 * hv})`; g.beginPath(); g.arc(hx, hy, 1.5, 0, 6.283); g.fill();
+          }
+        }
+        // Where a light turns, a small ring spreads from the vertex and fades.
+        for (let i = flashes.length - 1; i >= 0; i--) {
+          const f = flashes[i]; f.age += dt;
+          if (f.age > 0.7) { flashes.splice(i, 1); continue; }
+          const k = f.age / 0.7, v = vis(rv[f.v][2]);
+          if (v < 0.02) continue;
+          g.strokeStyle = `rgba(${glowCol},${(1 - k) * 0.35 * v})`; g.lineWidth = 1;
+          g.beginPath(); g.arc(pv[f.v][0], pv[f.v][1], 2 + 10 * k, 0, 6.283); g.stroke();
+        }
+        g.restore();
       }
       ring(t, true, cx, cy, R);
     }
@@ -754,10 +1089,11 @@ host.onRefresh(<span class="k">async</span> () => {
     function frame(now) {
       if (!on) return;
       const dt = Math.min(0.05, (now - last) / 1000); last = now;
-      if (!drag) {
-        w = w.map((x, i) => x + (BASE[i] - x) * Math.min(1, dt * 1.2)); // spin settles back to its cruise
-        turn(w[0] * dt, w[1] * dt, w[2] * dt);
-      }
+      // Slow near the logo, at cruise away from it.
+      const away = Math.abs(Math.atan2(Math.sin(theta), Math.cos(theta))), e = Math.min(1, away / 0.8);
+      theta += dt * SPIN * (0.3 + 0.7 * e * e * (3 - 2 * e));
+      if (!drag) nudge = nudge.map((x) => x * Math.exp(-dt * 1.5));
+      pose();
       draw(now / 1000);
       stars(dt);
       requestAnimationFrame(frame);
