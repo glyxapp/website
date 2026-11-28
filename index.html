@@ -108,45 +108,57 @@ h1 em{font-style:normal;background:linear-gradient(100deg,var(--accent),var(--ac
 .btn.ghost:hover{background:var(--surface-2)}
 .meta{font-size:13.5px;color:var(--faint)}
 
-/* Dashboard replica */
-.shot{margin:56px auto 0;max-width:1040px;perspective:1600px}
-.win{border:1px solid var(--border);border-radius:14px;background:color-mix(in srgb,var(--bg-2) 92%,transparent);box-shadow:var(--float-shadow),0 0 0 1px rgba(255,255,255,.02) inset;overflow:hidden;text-align:left;font-size:13.5px;line-height:1.45;transform:rotateX(4deg);transform-origin:50% 0}
-.titlebar{display:flex;align-items:center;gap:10px;height:42px;padding:0 14px;border-bottom:1px solid var(--border)}
-.titlebar .logo{font-size:14px;gap:8px}
-.titlebar .logo svg{width:18px;height:18px}
-.tabs{display:flex;gap:2px;margin-left:8px}
-.tab{padding:4px 11px;border-radius:7px;color:var(--dim);font-size:12.5px}
-.tab.on{background:var(--accent-soft);color:var(--accent)}
-.sync{margin-left:auto;font-size:11.5px;color:var(--faint)}
-.dots{display:flex;gap:2px;margin-left:10px;color:var(--faint)}
-.dots span{width:28px;height:28px;display:grid;place-items:center}
-.dash{display:grid;grid-template-columns:1fr 1.7fr 1fr;gap:12px;padding:12px}
-.col{display:flex;flex-direction:column;gap:12px;min-width:0}
-.w{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px 14px;min-width:0}
-.wh{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:10.5px;font-weight:650;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
-.wh .d{width:6px;height:6px;border-radius:50%;background:var(--ok)}
-.clock{font-size:40px;font-weight:300;letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums}
-.muted{color:var(--dim)}
-.kv{list-style:none;margin:10px 0 0;padding:0}
-.kv li{display:flex;justify-content:space-between;padding:3px 0;color:var(--dim)}
-.kv b{color:var(--text);font-weight:500;font-variant-numeric:tabular-nums}
-.wx{display:flex;align-items:center;gap:12px}
-.wx .t{font-size:34px;font-weight:300;line-height:1}
-.bar{height:5px;border-radius:99px;background:var(--surface-2);overflow:hidden;margin:4px 0 9px}
-.bar i{display:block;height:100%;border-radius:inherit;background:var(--accent);transition:width .8s ease}
-.bar.ok i{background:var(--ok)}
-.bar.warn i{background:var(--warn)}
-.row{display:flex;justify-content:space-between;font-size:12.5px;color:var(--dim)}
-.row b{color:var(--text);font-weight:500;font-variant-numeric:tabular-nums}
-.news{list-style:none;margin:0;padding:0}
-.news li{display:flex;gap:12px;padding:9px 0;border-top:1px solid var(--border)}
-.news li:first-child{border-top:0;padding-top:2px}
-.news .th{width:56px;height:40px;border-radius:6px;flex:none;background:linear-gradient(135deg,var(--accent-soft),color-mix(in srgb,var(--accent-2) 22%,transparent))}
-.news .tt{font-weight:500;color:var(--text);display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
-.news .src{font-size:11.5px;color:var(--faint)}
-.ring{display:flex;align-items:center;gap:14px}
-.ring svg{width:64px;height:64px;transform:rotate(-90deg)}
-.ring .big{font-size:22px;font-weight:600;line-height:1}
+/* The showcase: the app itself, in screenshots from the gallery, playing a short tour. */
+.shot{position:relative;margin:56px auto 0;max-width:1040px}
+.screen{position:relative;aspect-ratio:16/10;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:#0b0e14;box-shadow:var(--float-shadow)}
+.cam{position:absolute;inset:0;transition:transform 1.3s cubic-bezier(.65,0,.35,1)}
+.cam img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s ease}
+.cam img.on{opacity:1}
+.cam img.drift{animation:drift 7s ease-out both}
+@keyframes drift{from{transform:scale(1.07)}to{transform:scale(1)}}
+.dim{position:absolute;inset:0;background:rgba(6,8,14,.5);opacity:0;transition:opacity .4s;pointer-events:none}
+.dim.on{opacity:1}
+.label{position:absolute;left:16px;bottom:16px;z-index:2;display:flex;flex-direction:column;gap:1px;max-width:70%;padding:10px 14px;border-radius:12px;background:rgba(10,13,22,.74);border:1px solid rgba(255,255,255,.14);color:#fff;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);opacity:0;transform:translateY(8px);transition:opacity .35s,transform .35s}
+.label.on{opacity:1;transform:none}
+.label b{font-size:15px;font-weight:650}
+.label span{font-size:12.5px;color:rgba(255,255,255,.72)}
+.pill-o{position:absolute;z-index:3;display:flex;align-items:center;gap:8px;padding:8px 16px 8px 12px;border-radius:99px;font-size:14px;font-weight:650;white-space:nowrap;font-variant-numeric:tabular-nums;
+  background:color-mix(in srgb,var(--surface) 86%,transparent);border:1px solid var(--border);color:var(--text);box-shadow:0 14px 34px -12px rgba(0,0,0,.5);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);opacity:0;transform:translateY(14px) scale(.85);transition:opacity .45s,transform .5s cubic-bezier(.2,.9,.3,1.35)}
+.pill-o.on{opacity:1;transform:none;animation:bob 3.2s ease-in-out .6s infinite}
+.pill-o .i{width:17px;height:17px}
+.pill-o small{font-weight:500;color:var(--dim);font-size:12.5px}
+@keyframes bob{50%{translate:0 -5px}}
+.pet{position:absolute;z-index:2;bottom:3px;left:-90px;width:69px;height:64px;opacity:0;pointer-events:none;transform-origin:bottom left}
+.pet.walk{opacity:1;background:url(assets/beagle-walk.webp) 0 0/897px 64px no-repeat;animation:walk .8125s steps(13) infinite}
+.pet.wag{opacity:1;width:70.5px;background:url(assets/beagle-wag.webp) 0 0/987px 64px no-repeat;animation:wag .875s steps(14) infinite}
+@keyframes walk{to{background-position:-897px 0}}
+@keyframes wag{to{background-position:-987px 0}}
+.pal{position:absolute;z-index:3;left:50%;top:18%;width:min(460px,84%);translate:-50% 0;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:#141924;color:#e6eaf3;
+  box-shadow:0 30px 70px -20px rgba(0,0,0,.7);opacity:0;transform:translateY(-8px) scale(.98);transition:opacity .3s,transform .3s;overflow:hidden;text-align:left}
+.pal.on{opacity:1;transform:none}
+.pal .q{display:flex;align-items:center;gap:10px;padding:13px 15px;border-bottom:1px solid rgba(255,255,255,.1);font-size:15.5px}
+.pal .q .i{color:#8f98ad}
+.pal .q .k{margin-left:auto;font:11px var(--mono);color:#6b7489;border:1px solid rgba(255,255,255,.14);border-radius:5px;padding:1px 6px}
+.pal .caret{display:inline-block;width:1.5px;height:18px;background:#7aa2f7;margin-left:1px;vertical-align:-3px;animation:caret 1s steps(1) infinite}
+@keyframes caret{50%{opacity:0}}
+.pal .opt{display:flex;align-items:center;gap:10px;padding:10px 15px;font-size:14px;color:#a3abbd}
+.pal .opt b{color:#fff;font-weight:600}
+.pal .opt.hot{background:rgba(122,162,247,.16);color:#fff}
+.pal .opt .tag{margin-left:auto;font-size:12px;color:#6b7489}
+.toast{position:absolute;right:16px;bottom:16px;z-index:3;display:flex;align-items:center;gap:9px;padding:11px 16px;border-radius:12px;background:#141924;color:#e6eaf3;border:1px solid rgba(255,255,255,.12);
+  font-size:14.5px;box-shadow:0 20px 50px -16px rgba(0,0,0,.7);opacity:0;transform:translateY(12px);transition:opacity .35s,transform .45s cubic-bezier(.2,.9,.3,1.3)}
+.toast.on{opacity:1;transform:none}
+.toast .i{color:#7fd18b}
+.tour{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:22px}
+.tour-cap{margin:0;min-height:1.6em;color:var(--text);font-weight:600;font-size:15.5px;text-align:center}
+.tour-cap span{color:var(--dim);font-weight:400}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.chip{position:relative;overflow:hidden;font:inherit;font-size:13.5px;padding:6px 14px;border-radius:99px;border:1px solid var(--border);background:var(--surface);color:var(--dim);cursor:pointer}
+.chip:hover{color:var(--text)}
+.chip.on{color:var(--accent);border-color:transparent;background:var(--accent-soft);font-weight:600}
+.chip .fill{position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--accent)}
 
 /* Sections */
 section{padding:96px 0}
@@ -231,8 +243,6 @@ footer a{color:var(--dim);text-decoration:none}
 footer a:hover{color:var(--text)}
 
 @media (max-width:900px){
-  .dash{grid-template-columns:1fr 1.6fr}
-  .dash .col:last-child{display:none}
   .stats{grid-template-columns:repeat(2,1fr)}
   .features,.yours{grid-template-columns:1fr}
   .modes,.beyond{grid-template-columns:repeat(2,1fr)}
@@ -244,10 +254,11 @@ footer a:hover{color:var(--text)}
   .wrap{padding:0 16px}
   .hero{padding-top:16px}
   section{padding:72px 0}
-  .dash{grid-template-columns:1fr}
-  .dash .col:first-child .w:nth-child(n+2){display:none}
-  .tabs .tab:not(.on),.sync{display:none}
-  .win{transform:none}
+  .pet{scale:.7}
+  .label{left:10px;bottom:10px;padding:7px 10px}
+  .label b{font-size:13px}.label span{font-size:11px}
+  .pill-o{font-size:12.5px;padding:6px 12px 6px 9px}
+  .toast{right:10px;bottom:10px;font-size:12.5px;padding:8px 12px}
   .stat{padding:20px 18px}
   .stat .n{font-size:30px}
   .final{padding:52px 20px}
@@ -255,6 +266,7 @@ footer a:hover{color:var(--text)}
   footer .links{margin-left:0}
 }
 @media (prefers-reduced-motion:reduce){
+  .pill-o.on,.pet.walk,.pet.wag,.pal .caret,.cam img.drift{animation:none}
   html{scroll-behavior:auto}
   .btn,.bar i{transition:none}
 }
@@ -301,65 +313,34 @@ footer a:hover{color:var(--text)}
         <canvas class="ico" id="ico" role="img" aria-label="The Glyx mark as a spinning icosahedron, twenty tiles in the logo's colours"></canvas>
       </div>
 
-      <div class="shot" aria-hidden="true">
-        <div class="win">
-          <div class="titlebar">
-            <span class="logo"><svg><use href="#logo"/></svg>Glyx</span>
-            <div class="tabs"><span class="tab on">Home</span><span class="tab">Work</span><span class="tab">Servers</span></div>
-            <span class="sync">Updated just now</span>
-            <div class="dots"><span>–</span><span>□</span><span>✕</span></div>
+      <div class="shot">
+        <div class="screen" aria-hidden="true">
+          <div class="cam" id="cam">
+            <img id="sh-space" class="on" src="catalog/previews/template-space.jpg" alt="" width="1280" height="800" decoding="async">
+            <img id="sh-tet" src="catalog/previews/template-tet.jpg" alt="" width="1280" height="800" loading="lazy" decoding="async">
+            <img id="sh-rig" src="catalog/previews/template-battlestation.jpg" alt="" width="1280" height="800" loading="lazy" decoding="async">
+            <img id="sh-night" src="catalog/previews/template-night.jpg" alt="" width="1280" height="800" loading="lazy" decoding="async">
+            <img id="sh-home" src="catalog/previews/template-smarthome.jpg" alt="" width="1280" height="800" loading="lazy" decoding="async">
+            <img id="sh-office" src="catalog/previews/template-office.jpg" alt="" width="1280" height="800" loading="lazy" decoding="async">
           </div>
-          <div class="dash">
-            <div class="col">
-              <div class="w">
-                <div class="wh"><span class="d"></span>Clock</div>
-                <div class="clock" id="clk">09:41</div>
-                <div class="muted" id="day">Wednesday, 28 October</div>
-                <ul class="kv"><li>Tokyo<b id="tz1">11:41</b></li><li>London<b id="tz2">02:41</b></li><li>New York<b id="tz3">21:41</b></li></ul>
-              </div>
-              <div class="w">
-                <div class="wh"><span class="d"></span>Weather · Hanoi</div>
-                <div class="wx"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--warn)" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><div><div class="t">27°</div><div class="muted" style="font-size:12.5px">Clear · 31° / 23°</div></div></div>
-              </div>
-              <div class="w">
-                <div class="wh"><span class="d"></span>System</div>
-                <div class="row">CPU<b id="cpuT">12%</b></div><div class="bar ok"><i id="cpu" style="width:12%"></i></div>
-                <div class="row">Memory<b>9.8 / 16 GB</b></div><div class="bar"><i style="width:61%"></i></div>
-                <div class="row">Disk C:<b>412 / 512 GB</b></div><div class="bar warn"><i style="width:80%"></i></div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="w">
-                <div class="wh"><span class="d"></span>Tech news</div>
-                <ul class="news">
-                  <li><span class="th"></span><div><div class="tt">Tauri 2.x ships smaller Windows binaries</div><div class="src">The Verge · 12 min</div></div></li>
-                  <li><span class="th"></span><div><div class="tt">Show HN: I replaced my browser start page with a desktop widget</div><div class="src">Hacker News · 34 min</div></div></li>
-                  <li><span class="th"></span><div><div class="tt">The quiet comeback of RSS readers</div><div class="src">Hacker News · 1 h</div></div></li>
-                  <li><span class="th"></span><div><div class="tt">WebView2 memory usage, measured</div><div class="src">Lobsters · 2 h</div></div></li>
-                  <li><span class="th"></span><div><div class="tt">Why local-first software keeps winning</div><div class="src">Hacker News · 3 h</div></div></li>
-                </ul>
-              </div>
-              <div class="w">
-                <div class="wh"><span class="d"></span>Monitor</div>
-                <ul class="kv" style="margin:0"><li>homelab.local<b style="color:var(--ok)">● 18 ms</b></li><li>api.example.com<b style="color:var(--ok)">● 96 ms</b></li><li>nas.local<b style="color:var(--err)">● down</b></li></ul>
-              </div>
-            </div>
-            <div class="col">
-              <div class="w">
-                <div class="wh"><span class="d"></span>AI usage</div>
-                <div class="ring">
-                  <svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="var(--surface-2)" stroke-width="4"/><circle cx="18" cy="18" r="15" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" stroke-dasharray="94.25" stroke-dashoffset="35"/></svg>
-                  <div><div class="big">63%</div><div class="muted" style="font-size:12px">Claude · 5 h window</div></div>
-                </div>
-                <ul class="kv"><li>Resets in<b>1 h 52 m</b></li><li>Weekly<b>41%</b></li><li>Tokens today<b>1.2M</b></li></ul>
-              </div>
-              <div class="w">
-                <div class="wh"><span class="d"></span>Hacker News</div>
-                <ul class="kv" style="margin:0"><li>Ask HN: What's on your desk?<b>412</b></li><li>A 5 MB desktop app<b>287</b></li><li>SQLite in production<b>198</b></li></ul>
-              </div>
-            </div>
+          <div class="dim" id="dim"></div>
+          <div class="label" id="label"><b></b><span></span></div>
+          <div class="pet" id="pet"></div>
+          <div class="pal" id="pal">
+            <div class="q"><svg class="i"><use href="#i-search"/></svg><span id="palq"></span><span class="caret"></span><span class="k">Ctrl K</span></div>
+            <div class="opt" id="palo1"><svg class="i"><use href="#i-wallet"/></svg><b>Spending</b> log 35,000 ₫ · phở<span class="tag">Food</span></div>
+            <div class="opt"><svg class="i"><use href="#i-note"/></svg><b>Notes</b> add to Inbox<span class="tag">note:</span></div>
+            <div class="opt"><svg class="i"><use href="#i-timer"/></svg><b>Timer</b> start a focus round<span class="tag">focus</span></div>
           </div>
+          <div class="toast" id="toast"><svg class="i"><use href="#i-check"/></svg>Logged 35,000 ₫ · Food</div>
         </div>
+        <span class="pill-o" id="pill1" aria-hidden="true" style="left:-14px;top:14%"><svg class="i" style="color:#f5a524"><use href="#i-cpu"/></svg>CPU <span id="pv1">21%</span></span>
+        <span class="pill-o" id="pill2" aria-hidden="true" style="right:-14px;top:42%"><svg class="i" style="color:#5ac8fa"><use href="#i-wifi"/></svg><span id="pv2">488</span> <small>Kbps</small></span>
+        <span class="pill-o" id="pill3" aria-hidden="true" style="left:34%;bottom:-20px"><svg class="i" style="color:#bb9af7"><use href="#i-spark"/></svg>Claude <span id="pv3">63%</span></span>
+      </div>
+      <div class="tour">
+        <p class="tour-cap" id="tourCap" aria-live="polite"></p>
+        <div class="chips" id="chips" role="tablist" aria-label="What Glyx can do"></div>
       </div>
     </div>
   </div>
@@ -716,19 +697,6 @@ host.onRefresh(<span class="k">async</span> () => {
     mark();
   });
 
-  const two = (n) => String(n).padStart(2, "0");
-  const fmt = (tz) => new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: tz }).format(new Date());
-  const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
-  function tick() {
-    const d = new Date();
-    set("clk", two(d.getHours()) + ":" + two(d.getMinutes()));
-    set("day", new Intl.DateTimeFormat("en-GB", { weekday: "long", day: "numeric", month: "long" }).format(d));
-    set("tz1", fmt("Asia/Tokyo"));
-    set("tz2", fmt("Europe/London"));
-    set("tz3", fmt("America/New_York"));
-  }
-  tick();
-  setInterval(tick, 10000);
 
   // Widget categories: show one group, or all of them.
   const cats = document.querySelectorAll(".cat"), cards = document.querySelectorAll("#wgs .wg");
@@ -739,14 +707,134 @@ host.onRefresh(<span class="k">async</span> () => {
   }));
 
   const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  tour(still);
   space(still);
   if (still) return;
-  const cpu = document.getElementById("cpu");
-  setInterval(() => {
-    const v = Math.round(6 + Math.random() * 18);
-    cpu.style.width = v + "%";
-    set("cpuT", v + "%");
-  }, 2400);
+
+  // The showcase plays a tour of the real app, in screenshots from the gallery: skins, widgets
+  // up close, pills, the pet and the command palette, each a scene with a caption and a chip
+  // to jump to it. It runs only while on screen; under reduced motion it waits for the chips.
+  function tour(still) {
+    const $ = (id) => document.getElementById(id);
+    const cam = $("cam"), cap = $("tourCap"), chipBox = $("chips"), label = $("label");
+    if (!cam || !cap || !chipBox) return;
+    const say = (title, more) => { cap.innerHTML = more ? `${title} <span>· ${more}</span>` : title; };
+    const on = (id, yes) => $(id).classList.toggle("on", yes);
+    function show(id) {
+      for (const img of cam.children) {
+        const it = img.id === "sh-" + id;
+        img.classList.toggle("on", it);
+        if (it && !still) { img.classList.remove("drift"); void img.offsetWidth; img.classList.add("drift"); }
+      }
+    }
+    function tag(title, more) {
+      if (!title) { label.classList.remove("on"); return; }
+      label.firstChild.textContent = title; label.lastChild.textContent = more;
+      label.classList.remove("on"); void label.offsetWidth; label.classList.add("on");
+    }
+    // Look closely at a part of the screenshot (its box in the 1280 x 800 image), or let go.
+    function zoom(box) {
+      if (!box) { cam.style.transform = ""; return; }
+      const [x0, y0, x1, y1] = box, cx = (x0 + x1) / 2 / 12.8, cy = (y0 + y1) / 2 / 8;
+      const s = Math.min(2.2, 86 / ((x1 - x0) / 12.8), 86 / ((y1 - y0) / 8));
+      const lim = (s - 1) * 50, tx = Math.max(-lim, Math.min(lim, -s * (cx - 50))), ty = Math.max(-lim, Math.min(lim, -s * (cy - 50)));
+      cam.style.transform = `translate(${tx}%, ${ty}%) scale(${s})`;
+    }
+    const pet = $("pet");
+    function petTo(x, secs) { pet.style.transition = `left ${secs}s linear`; pet.style.left = x; }
+    function reset() {
+      zoom(null); tag(null);
+      ["pill1", "pill2", "pill3", "pal", "dim", "toast"].forEach((id) => on(id, false));
+      pet.className = "pet"; pet.style.transition = "none"; pet.style.left = "-90px";
+      $("palq").textContent = ""; $("palo1").classList.remove("hot");
+    }
+
+    // The pills' numbers keep moving while they are out.
+    let ticking = false, lastTick = 0;
+    const pv = { cpu: 21, net: 488, ai: 63 };
+    function tickPills(at) {
+      if (!ticking || at - lastTick < 0.7) return;
+      lastTick = at;
+      pv.cpu = Math.max(6, Math.min(48, pv.cpu + Math.round((Math.random() - 0.5) * 9)));
+      pv.net = Math.max(120, Math.min(980, pv.net + Math.round((Math.random() - 0.45) * 160)));
+      if (Math.random() < 0.3) pv.ai = Math.min(99, pv.ai + 1);
+      $("pv1").textContent = pv.cpu + "%"; $("pv2").textContent = pv.net; $("pv3").textContent = pv.ai + "%";
+    }
+
+    const typed = "chi 35k phở";
+    const SCENES = [
+      { key: "skins", label: "Skins", len: 11, cues: [
+        [0, () => { show("space"); say("Fifteen skins, each a world of its own"); tag("NASA", "Mission control template"); }],
+        [2.2, () => { show("tet"); tag("Tết", "Tết & gia đình template"); }],
+        [4.4, () => { show("rig"); tag("Mecha", "Battle station template"); }],
+        [6.6, () => { show("night"); tag("Lo-fi Café", "Night chill template"); }],
+        [8.8, () => { show("home"); tag("Hextech", "Nhà thông minh template"); }],
+      ] },
+      { key: "widgets", label: "Widgets", len: 11.5, cues: [
+        [0, () => { show("tet"); say("46 widgets, each made for one job"); }],
+        [0.7, () => { zoom([16, 62, 632, 412]); tag("Lịch âm", "lunar dates, can chi and good hours"); }],
+        [2.8, () => { zoom([964, 62, 1264, 412]); tag("Gold prices", "SJC, DOJI and PNJ, with 30 days"); }],
+        [4.9, () => { zoom([648, 430, 948, 780]); tag("Exchange rates", "Vietcombank, cash and transfer"); }],
+        [7.0, () => { zoom([964, 430, 1264, 780]); tag("Weather", "now and the week ahead"); }],
+        [9.1, () => { zoom([334, 430, 632, 780]); tag("Notes", "saved as you type"); }],
+        [11, () => { zoom(null); tag(null); }],
+      ] },
+      { key: "pills", label: "Pills", len: 7, cues: [
+        [0, () => { show("rig"); say("Pills keep a number in sight", "floating over any app"); ticking = true; }],
+        [0.4, () => on("pill1", true)], [0.9, () => on("pill2", true)], [1.4, () => on("pill3", true)],
+        [6.6, () => { ticking = false; }],
+      ] },
+      { key: "pet", label: "Pet", len: 7.5, cues: [
+        [0, () => { show("night"); say("Beagle, a pet that lives on your dashboard"); }],
+        [0.3, () => { pet.className = "pet walk"; petTo("58%", 3.6); }],
+        [3.9, () => { pet.className = "pet wag"; }],
+      ] },
+      { key: "palette", label: "Ctrl K", len: 7.5, cues: [
+        [0, () => { show("office"); say("Ctrl K from any app", "type it the way you say it"); }],
+        [0.3, () => { on("dim", true); on("pal", true); }],
+        ...[...typed].map((_, i) => [0.8 + i * 0.12, () => { $("palq").textContent = typed.slice(0, i + 1); }]),
+        [2.4, () => $("palo1").classList.add("hot")],
+        [3.2, () => { on("pal", false); on("dim", false); on("toast", true); say("Ctrl K from any app", "logged to Spending"); }],
+        [6.4, () => on("toast", false)],
+      ] },
+    ];
+
+    let scene = 0, at = 0, done = 0, visible = false, last = 0;
+    const chips = SCENES.map((s, i) => {
+      const b = document.createElement("button");
+      b.className = "chip"; b.type = "button"; b.setAttribute("role", "tab");
+      b.innerHTML = `${s.label}<span class="fill"></span>`;
+      b.addEventListener("click", () => go(i));
+      chipBox.appendChild(b);
+      return b;
+    });
+    function go(i) {
+      reset();
+      scene = i; at = 0; done = 0; ticking = false;
+      chips.forEach((c, k) => { c.classList.toggle("on", k === i); c.setAttribute("aria-selected", k === i); c.lastChild.style.width = "0"; });
+      if (still) SCENES[i].cues.slice(0, i === 1 ? 2 : undefined).forEach(([, f]) => f()); // the scene as it ends, no motion
+      else step(0);
+    }
+    function step(dt) {
+      const s = SCENES[scene];
+      at += dt;
+      while (done < s.cues.length && s.cues[done][0] <= at) s.cues[done++][1]();
+      tickPills(at);
+      chips[scene].lastChild.style.width = Math.min(100, (at / s.len) * 100) + "%";
+      if (at >= s.len) go((scene + 1) % SCENES.length);
+    }
+    function frame(now) {
+      if (!visible) return;
+      step(Math.min(0.1, (now - last) / 1000)); last = now;
+      requestAnimationFrame(frame);
+    }
+    go(0);
+    if (still) return;
+    new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting;
+      if (visible) { last = performance.now(); requestAnimationFrame(frame); }
+    }, { threshold: 0.25 }).observe(cam);
+  }
 
   // Hero: the mark as an icosahedron tumbling through a field of stars.
   function space(still) {
